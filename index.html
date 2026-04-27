@@ -3,222 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Travel Guide Pro - Master</title>
+<title>Japan Ultimate Travel Guide</title>
 
 <style>
-  /* Base Styles */
-  body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #333; }
-  
-  /* Header */
-  header { background: url('https://images.unsplash.com/photo-1498654896293-37aacf113fd9') no-repeat center/cover; height: 350px; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
-  header h1 { font-size: 45px; margin: 0 0 10px 0; }
-  header p { font-size: 20px; margin: 0; }
-  
-  /* Navigation */
-  nav { background: #111; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; }
-  nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-  nav a:hover { color: #ff4757; }
-  
-  /* Layout */
-  .container { padding: 20px; max-width: 1000px; margin: auto; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-  
-  /* Cards */
-  .card { background: white; margin: 20px 0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.2s; }
-  .card:hover { transform: translateY(-2px); }
-  .card h2 { margin-top: 0; border-bottom: 2px solid #f0f2f5; padding-bottom: 10px; }
-  .card img { width: 100%; height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
-  
-  /* UI Elements */
-  .badge { background: #ff4757; color: white; padding: 5px 10px; border-radius: 5px; font-size: 12px; vertical-align: middle; margin-left: 10px; }
-  input { padding: 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%; box-sizing: border-box; font-size: 16px; }
-  button { padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
-  button:hover { background: #0056b3; }
-  ul { line-height: 1.8; }
-  
-  /* Search Box Special Styling */
-  .search-box { text-align: center; background: transparent; box-shadow: none; padding: 0; margin-bottom: 30px; }
-  .search-box input { max-width: 600px; border: 2px solid #ddd; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+body { margin:0; font-family:Arial; background:#f4f4f4; }
 
-  /* Footer */
-  footer { background: #111; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+header {
+  background:url('https://source.unsplash.com/1600x900/?tokyo,night') no-repeat center/cover;
+  height:350px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-shadow:2px 2px 6px black;
+}
+
+nav {
+  background:#111;
+  padding:10px;
+  text-align:center;
+}
+nav a {
+  color:white;
+  margin:10px;
+  text-decoration:none;
+}
+
+.search {
+  text-align:center;
+  margin:20px;
+}
+.search input {
+  padding:10px;
+  width:80%;
+  max-width:400px;
+}
+
+.container { padding:20px; }
+
+.card {
+  background:white;
+  margin:20px auto;
+  padding:20px;
+  border-radius:10px;
+  max-width:900px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width:100%;
+  border-radius:10px;
+}
+
+h2 { color:#e84118; }
+
+footer {
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+
 </style>
 
 <script>
-  // 🔍 SEARCH FUNCTIONALITY
-  function searchCity() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let cards = document.getElementsByClassName("searchable");
+function searchSite(){
+ let input=document.getElementById("search").value.toLowerCase();
+ let cards=document.getElementsByClassName("card");
 
-    for (let i = 0; i < cards.length; i++) {
-      let text = cards[i].innerText.toLowerCase();
-      cards[i].style.display = text.includes(input) ? "block" : "none";
-    }
-  }
-
-  // 💰 UPGRADED BUDGET CALCULATOR (With Flight Base Cost)
-  function calculateBudget() {
-    let days = document.getElementById("days").value;
-    if (!days || days <= 0) {
-      document.getElementById("result").innerHTML = "<span style='color:red;'>Please enter valid days.</span>";
-      return;
-    }
-    let budget = (days * 5000) + 40000; // Formula: days * 5000 + 40k flight
-    document.getElementById("result").innerHTML = "Estimated Budget: <strong>₹" + budget.toLocaleString("en-IN") + "</strong> <br><small>(Includes ₹40,000 flight estimate)</small>";
-  }
-
-  // 🔐 BACKEND LOGIN INTEGRATION
-  async function login() {
-    let user = document.getElementById("user").value;
-    let statusText = document.getElementById("loginStatus");
-
-    if (!user) {
-      statusText.innerHTML = "<span style='color:red;'>Enter a username first!</span>";
-      return;
-    }
-
-    try {
-      statusText.innerHTML = "Connecting to server...";
-      let res = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: user })
-      });
-
-      let data = await res.json();
-      statusText.innerHTML = "🎉 <span style='color:green; font-weight:bold;'>" + data.message + "</span>";
-    } catch (error) {
-      statusText.innerHTML = "⚠️ <span style='color:red;'>Backend not running! Start Node server.</span>";
-    }
-  }
+ for(let i=0;i<cards.length;i++){
+  let text=cards[i].innerText.toLowerCase();
+  cards[i].style.display = text.includes(input) ? "block" : "none";
+ }
+}
 </script>
 
 </head>
+
 <body>
 
 <header>
-  <h1>🇯🇵 Japan Travel Guide Pro</h1>
-  <p>Plan Smart • Travel Cheap • Explore More</p>
+<h1>🇯🇵 JAPAN TRAVEL MASTER GUIDE</h1>
+<p>Pro Level • Budget • Planning • Full System</p>
 </header>
 
 <nav>
-  <a href="#">Home</a>
-  <a href="#tools">Tools</a>
-  <a href="#cities">Cities</a>
-  <a href="#tips">Tips</a>
+<a href="#">Home</a>
+<a href="#guide">Guide</a>
+<a href="#plan">Plan</a>
 </nav>
+
+<div class="search">
+<input type="text" id="search" onkeyup="searchSite()" placeholder="Search anything (Tokyo, budget, tips...)">
+</div>
 
 <div class="container">
 
-  <div class="card search-box">
-    <input type="text" id="search" onkeyup="searchCity()" placeholder="🔍 Search cities, budget, or tips...">
-  </div>
+<div class="card">
+<h2>✈️ Arrival & Airports</h2>
+<img src="https://source.unsplash.com/800x400/?airport,japan">
+<p>Haneda, Narita, Kansai main airports. Use Visit Japan Web for fast immigration.</p>
+</div>
 
-  <div class="grid-2" id="tools">
-    
-    <div class="card">
-      <h2>🔐 Traveller Login</h2>
-      <p style="font-size: 14px; color: #666;">Connects to localhost:3000</p>
-      <input type="text" id="user" placeholder="Enter your name">
-      <button onclick="login()">Login</button>
-      <p id="loginStatus" style="margin-top: 15px; text-align: center;"></p>
-    </div>
+<div class="card">
+<h2>💴 Budget System</h2>
+<p>Budget ₹4k–6k/day | Mid ₹8k–15k | Luxury ₹20k+</p>
+<p>Use 7-Eleven ATMs. Cash still important.</p>
+</div>
 
-    <div class="card">
-      <h2>💰 Smart Budget Calculator</h2>
-      <p style="font-size: 14px; color: #666;">Calculates Daily Expenses + Base Flight</p>
-      <input id="days" type="number" placeholder="Enter number of days">
-      <button onclick="calculateBudget()">Calculate Total</button>
-      <p id="result" style="margin-top: 15px; text-align: center; color: #28a745; line-height: 1.5;"></p>
-    </div>
+<div class="card">
+<h2>🚆 Transport</h2>
+<img src="https://source.unsplash.com/800x400/?shinkansen">
+<p>Use Suica / Pasmo. Shinkansen fastest. JR Pass not always worth.</p>
+</div>
 
-  </div>
+<div class="card">
+<h2>🏨 Stay</h2>
+<p>Capsule, business hotel, ryokan. Always stay near station.</p>
+</div>
 
-  <div id="cities">
-    <div class="card searchable">
-      <h2>Tokyo 🏙️ <span class="badge">Popular</span></h2>
-      <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f" alt="Tokyo City">
-      <p>Modern Japan ka heart – shopping, anime, technology.</p>
-      <ul>
-        <li><strong>Best Time:</strong> March–May 🌸</li>
-        <li><strong>Budget:</strong> ₹6000–₹15000/day</li>
-        <li><strong>Top Places:</strong> Shibuya Crossing, Akihabara, Tokyo Tower</li>
-      </ul>
-    </div>
+<div class="card">
+<h2>🍜 Food Guide</h2>
+<img src="https://source.unsplash.com/800x400/?ramen,japan">
+<p>Sushi, ramen, takoyaki. Convenience store food = cheap & good.</p>
+</div>
 
-    <div class="card searchable">
-      <h2>Kyoto ⛩️</h2>
-      <img src="https://images.unsplash.com/photo-1526481280690-9063b3a0c0ab" alt="Kyoto Temples">
-      <p>Traditional Japan – temples aur rich culture.</p>
-      <ul>
-        <li><strong>Best Time:</strong> October–November 🍁</li>
-        <li><strong>Budget:</strong> ₹5000–₹12000/day</li>
-        <li><strong>Top Places:</strong> Fushimi Inari Shrine, Gion District</li>
-      </ul>
-    </div>
+<div class="card">
+<h2>🏙️ Cities</h2>
+<img src="https://source.unsplash.com/800x400/?tokyo,city">
+<ul>
+<li>Tokyo – modern life</li>
+<li>Kyoto – temples</li>
+<li>Osaka – food</li>
+<li>Nara – deer park</li>
+<li>Hokkaido – snow</li>
+</ul>
+</div>
 
-    <div class="card searchable">
-      <h2>Osaka 🍜</h2>
-      <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549" alt="Osaka Streets">
-      <p>Food lover's paradise – amazing street food & nightlife.</p>
-      <ul>
-        <li><strong>Best Time:</strong> March–May</li>
-        <li><strong>Budget:</strong> ₹5000–₹13000/day</li>
-        <li><strong>Top Places:</strong> Dotonbori, Osaka Castle</li>
-      </ul>
-    </div>
+<div class="card">
+<h2>💡 Pro Tips</h2>
+<ul>
+<li>No tipping ❌</li>
+<li>Silence in trains</li>
+<li>Carry cash</li>
+<li>Use Google Maps</li>
+</ul>
+</div>
 
-    <div class="card searchable">
-      <h2>Hokkaido ❄️</h2>
-      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba" alt="Hokkaido Snow">
-      <p>Snow & nature lovers ke liye perfect destination.</p>
-      <ul>
-        <li><strong>Best Time:</strong> December–February (Snow)</li>
-        <li><strong>Budget:</strong> ₹6000–₹14000/day</li>
-        <li><strong>Top Places:</strong> Sapporo, Niseko Ski Resorts</li>
-      </ul>
-    </div>
-    
-    <div class="card searchable">
-      <h2>Hiroshima 🌸</h2>
-      <img src="https://images.unsplash.com/photo-1554797589-7241bb691973" alt="Hiroshima">
-      <p>Peace memorial, history, and beautiful coastal views.</p>
-      <ul>
-        <li><strong>Budget:</strong> ₹5000–₹11000/day</li>
-        <li><strong>Top Places:</strong> Peace Memorial Park, Miyajima Shrine</li>
-      </ul>
-    </div>
-  </div>
+<div class="card">
+<h2>🔥 10 Day Travel Plan</h2>
+<img src="https://source.unsplash.com/800x400/?japan,travel">
+<ul>
+<li>Day 1–3: Tokyo</li>
+<li>Day 4: Fuji</li>
+<li>Day 5–6: Kyoto</li>
+<li>Day 7: Nara</li>
+<li>Day 8–9: Osaka</li>
+<li>Day 10: Return</li>
+</ul>
+</div>
 
-  <div class="grid-2" id="tips">
-    <div class="card searchable">
-      <h2>💡 Pro Travel Tips</h2>
-      <ul>
-        <li><strong>JR Pass:</strong> Buy before you travel to save on bullet trains 🚄</li>
-        <li><strong>Cash is King:</strong> Humesha cash carry karo, many places don't take cards 💴</li>
-        <li><strong>Navigation:</strong> Google Maps is your best friend for train schedules.</li>
-        <li><strong>Manners:</strong> Always respect local culture and keep quiet on trains 🙏</li>
-      </ul>
-    </div>
+<div class="card">
+<h2>🎥 Creator Tips</h2>
+<p>Rain shots = best 🌧️ | Night neon = viral | Early morning = cinematic</p>
+</div>
 
-    <div class="card searchable">
-      <h2>💸 Cheap Travel Tricks</h2>
-      <ul>
-        <li><strong>Food:</strong> Convenience store (7-Eleven/Lawson) bento boxes bahut saste aur tasty hote hain 🍱</li>
-        <li><strong>Transport:</strong> Long distance ke liye Night Bus use karo, hotel cost bachegi 🚌</li>
-        <li><strong>Stay:</strong> Hostels ya capsule hotels use karo instead of luxury hotels 🛏️</li>
-        <li><strong>Timing:</strong> Off-season travel karo for cheaper flights ✈️</li>
-      </ul>
-    </div>
-  </div>
+<div class="card">
+<h2>⚠️ Mistakes</h2>
+<ul>
+<li>Missing last train</li>
+<li>Overplanning</li>
+<li>Ignoring walking fatigue</li>
+</ul>
+</div>
 
 </div>
 
 <footer>
-  <p>© 2026 Japan Travel Guide Pro | Built with Express.js & Fetch API</p>
+<p>© 2026 Japan Travel Master Guide</p>
 </footer>
 
 </body>
 </html>
-
