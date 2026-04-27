@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream World Japan | Official Travel Guide</title>
+    <title>Dream World Japan | Official Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -11,6 +11,7 @@
             --dark-bg: #0d0d0d;
             --card-bg: #1a1a1a;
             --text-gray: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -31,47 +32,48 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; }
+        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--japan-red); }
 
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
         nav a:hover { color: var(--japan-red); }
 
         .nav-right { display: flex; align-items: center; gap: 20px; }
-        .user-name { font-size: 0.8rem; letter-spacing: 2px; color: var(--text-gray); text-transform: uppercase; }
+        .user-tag { font-size: 0.75rem; letter-spacing: 2px; color: var(--text-gray); text-transform: uppercase; border: 1px solid var(--text-gray); padding: 2px 8px; border-radius: 4px; }
 
         .btn-cta {
             background: var(--japan-red);
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
+            padding: 10px 22px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(188, 0, 45, 0.3);
         }
 
-        /* --- FLOATING SOCIAL SIDEBAR (IG, YT, FB) --- */
+        /* --- FLOATING SOCIAL SIDEBAR --- */
         .sidebar-socials {
             position: fixed;
-            right: 25px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             z-index: 999;
         }
 
         .social-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.05);
+            width: 48px;
+            height: 48px;
+            background: var(--glass);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
+            border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-decoration: none;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(255,255,255,0.1);
@@ -79,8 +81,8 @@
 
         .social-icon:hover {
             background: var(--japan-red);
-            transform: scale(1.2) rotate(-5deg);
-            box-shadow: 0 10px 20px rgba(188, 0, 45, 0.4);
+            transform: scale(1.15);
+            box-shadow: 0 0 20px var(--japan-red);
         }
 
         /* --- HERO SECTION --- */
@@ -98,47 +100,47 @@
             padding: 0 20px;
         }
 
-        .hero h2 { font-size: 1.2rem; letter-spacing: 5px; color: var(--japan-red); margin-bottom: 10px; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
+        .hero h2 { font-size: 1.1rem; letter-spacing: 6px; color: var(--japan-red); margin-bottom: 15px; font-weight: 400; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+        .hero p { max-width: 600px; color: #ddd; font-size: 1.1rem; }
 
         /* --- GUIDE SECTION --- */
         #the-guide { padding: 100px 8%; max-width: 1400px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 3rem; margin-bottom: 10px; }
+        .section-header h2 { font-size: 2.8rem; margin-bottom: 15px; }
         .section-header p { color: var(--text-gray); font-size: 1.1rem; }
 
         .guide-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
 
         .guide-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
             transition: 0.4s;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
         .guide-card:hover { transform: translateY(-10px); border-color: var(--japan-red); }
-        .guide-card img { width: 100%; height: 240px; object-fit: cover; transition: 0.5s; }
-        .guide-card:hover img { transform: scale(1.1); }
+        .guide-card img { width: 100%; height: 220px; object-fit: cover; }
 
         .card-body { padding: 25px; }
-        .card-body h3 { font-size: 1.4rem; margin-bottom: 15px; color: white; }
+        .card-body h3 { font-size: 1.3rem; margin-bottom: 12px; color: white; display: flex; align-items: center; gap: 10px; }
         .card-body p { color: var(--text-gray); font-size: 0.95rem; }
 
         /* --- FOOTER --- */
-        footer { padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: #050505; }
-        footer p { color: var(--text-gray); font-size: 0.9rem; }
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: #080808; }
+        footer p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 10px; }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE VIEW --- */
         @media (max-width: 768px) {
             header nav { display: none; }
-            .sidebar-socials { right: 15px; }
-            .social-icon { width: 45px; height: 45px; font-size: 1.2rem; }
-            .hero h1 { font-size: 3.2rem; }
+            .sidebar-socials { right: 10px; }
+            .social-icon { width: 42px; height: 42px; font-size: 1.1rem; }
+            .hero h1 { font-size: 3rem; }
         }
     </style>
 </head>
@@ -149,64 +151,68 @@
         <nav>
             <a href="#">Home</a>
             <a href="#the-guide">The Guide</a>
-            <a href="#the-guide" class="btn-cta">Get Free Guide</a>
+            <a href="#the-guide" class="btn-cta">GET FREE GUIDE</a>
         </nav>
-        <div class="user-name">Mahesh</div>
+        <div class="user-tag">Mahesh</div>
     </header>
 
     <div class="sidebar-socials">
-        <a href="https://www.instagram.com/dream_world_japan?igsh=MXJxMjE1YmdlM20xMA==" target="_blank" class="social-icon" title="Instagram">
+        <a href="https://www.instagram.com/dream_world_japan?igsh=MXJxMjE1YmdlM20xMA==" target="_blank" class="social-icon">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="social-icon" title="YouTube">
+        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="social-icon">
             <i class="fab fa-youtube"></i>
         </a>
-        <a href="https://www.facebook.com/profile.php?id=61550754726657" target="_blank" class="social-icon" title="Facebook">
+        <a href="https://www.facebook.com/profile.php?id=61550754726657" target="_blank" class="social-icon">
             <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" target="_blank" class="social-icon">
+            <i class="fab fa-tiktok"></i>
         </a>
     </div>
 
     <section class="hero">
-        <h2>ULTIMATE TRAVEL HUB</h2>
-        <h1>DISCOVER JAPAN</h1>
-        <p>Expert Planning • Local Tips • Unforgettable Experiences</p>
+        <h2>EXPLORE THE LAND OF RISING SUN</h2>
+        <h1>JAPAN TRAVEL TOOLKIT</h1>
+        <p>Your all-in-one resource for planning the ultimate Japanese adventure. From SIM cards to hidden gems, we've got you covered.</p>
     </section>
 
     <section id="the-guide">
         <div class="section-header">
-            <h2>Travel Toolkit</h2>
-            <p>Essential resources for your upcoming Japan adventure</p>
+            <h2>The Master Guide</h2>
+            <p>Essential tips for your first or next trip to Japan</p>
         </div>
 
         <div class="guide-grid">
             <div class="guide-card">
                 <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?auto=format&fit=crop&q=80&w=800" alt="SIM Card">
                 <div class="card-body">
-                    <h3>Connectivity Guide</h3>
-                    <p>Stay connected with the best eSIMs and Pocket WiFi options. We recommend Sakura Mobile for the best coverage.</p>
+                    <h3><i class="fas fa-sim-card" style="color:var(--japan-red)"></i> Connectivity</h3>
+                    <p>Stay online 24/7. Learn about the best eSIM providers like Ubigi or Airalo and where to pick up Pocket WiFi at the airport.</p>
                 </div>
             </div>
 
             <div class="guide-card">
                 <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80&w=800" alt="Transport">
                 <div class="card-body">
-                    <h3>Efficient Transport</h3>
-                    <p>Navigate the complex Shinkansen and Tokyo Metro system like a pro. Get your JR Pass and Suica card details here.</p>
+                    <h3><i class="fas fa-train" style="color:var(--japan-red)"></i> Transportation</h3>
+                    <p>Navigate like a local. How to use the JR Pass, Suica cards on iPhone, and mastering the Tokyo subway system.</p>
                 </div>
             </div>
 
             <div class="guide-card">
-                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=800" alt="Arrival">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=800" alt="Budget">
                 <div class="card-body">
-                    <h3>First Steps in Japan</h3>
-                    <p>Landing at Narita or Haneda? Follow our arrival guide to clear immigration and reach your hotel without stress.</p>
+                    <h3><i class="fas fa-wallet" style="color:var(--japan-red)"></i> Budget Tips</h3>
+                    <p>Japan doesn't have to be expensive. Find out how to eat at high-quality Konbinis and save money on local attractions.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Dream World Japan | Created by Mahesh</p>
+        <p>&copy; 2026 Dream World Japan | Managed by Mahesh</p>
+        <p style="font-size: 0.7rem; color: #555;">Adventure Awaits in Every Corner of Japan</p>
     </footer>
 
 </body>
