@@ -221,3 +221,193 @@
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan Ultimate Travel Guide</title>
+
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background:#f3f6f9;
+}
+
+header {
+  background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
+  url('https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=1600&q=80');
+  height:380px;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+header h1 {
+  font-size:48px;
+}
+
+nav {
+  background:#111;
+  padding:12px;
+  text-align:center;
+}
+
+nav a {
+  color:white;
+  margin:15px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.search-box {
+  text-align:center;
+  margin:20px;
+}
+
+.search-box input {
+  padding:12px;
+  width:80%;
+  max-width:450px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+.container {
+  padding:20px;
+}
+
+.card {
+  background:white;
+  margin:25px auto;
+  padding:20px;
+  border-radius:14px;
+  max-width:900px;
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:scale(1.02);
+}
+
+.card img {
+  width:100%;
+  border-radius:12px;
+}
+
+h2 {
+  color:#e84118;
+}
+
+footer {
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+</style>
+
+<script>
+function searchSite(){
+ let input=document.getElementById("search").value.toLowerCase();
+ let cards=document.getElementsByClassName("card");
+
+ for(let i=0;i<cards.length;i++){
+  let text=cards[i].innerText.toLowerCase();
+  cards[i].style.display = text.includes(input) ? "block" : "none";
+ }
+}
+</script>
+
+</head>
+
+<body>
+
+<header>
+<h1>🇯🇵 Japan Travel Master Guide</h1>
+<p>Ultra HD • Pro Planning • Smart Travel</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#guide">Guide</a>
+<a href="#plan">Plan</a>
+</nav>
+
+<div class="search-box">
+<input type="text" id="search" onkeyup="searchSite()" placeholder="🔍 Search cities, tips, budget...">
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>🏙️ Tokyo</h2>
+<img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f?auto=format&fit=crop&w=1400&q=80">
+<p>Modern Japan – neon lights, shopping, anime culture.</p>
+</div>
+
+<div class="card">
+<h2>⛩️ Kyoto</h2>
+<img src="https://images.unsplash.com/photo-1526481280690-9063b3a0c0ab?auto=format&fit=crop&w=1400&q=80">
+<p>Traditional temples, bamboo forest, culture.</p>
+</div>
+
+<div class="card">
+<h2>🍜 Osaka</h2>
+<img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=1400&q=80">
+<p>Food capital – street food & nightlife.</p>
+</div>
+
+<div class="card">
+<h2>❄️ Hokkaido</h2>
+<img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1400&q=80">
+<p>Snow, mountains, nature.</p>
+</div>
+
+<div class="card">
+<h2>🚆 Transport</h2>
+<img src="https://images.unsplash.com/photo-1517720359744-6d12f8a8c0b5?auto=format&fit=crop&w=1400&q=80">
+<p>Use Suica / Pasmo cards. Shinkansen for fast travel.</p>
+</div>
+
+<div class="card">
+<h2>💴 Budget</h2>
+<p>₹4000–₹15000/day depending on travel style.</p>
+</div>
+
+<div class="card">
+<h2>📅 10 Day Plan</h2>
+<ul>
+<li>Day 1–3: Tokyo</li>
+<li>Day 4: Fuji</li>
+<li>Day 5–6: Kyoto</li>
+<li>Day 7: Nara</li>
+<li>Day 8–9: Osaka</li>
+<li>Day 10: Return</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>💡 Pro Tips</h2>
+<ul>
+<li>Cash carry karo</li>
+<li>No tipping</li>
+<li>Google Maps best</li>
+<li>Respect culture</li>
+</ul>
+</div>
+
+</div>
+
+<footer>
+<p>© 2026 Japan Travel Pro Guide</p>
+</footer>
+
+</body>
+</html>
