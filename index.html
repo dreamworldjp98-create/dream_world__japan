@@ -3,179 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Travel Guide</title>
+<title>Japan Travel Pro</title>
 
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f5f5f5;
-}
+body { margin:0; font-family:Arial; background:#eef2f7; }
 
 header {
-  background:url('https://images.unsplash.com/photo-1549692520-acc6669e2f0c') no-repeat center/cover;
-  height:300px;
+  background:#111;
   color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-shadow:2px 2px 5px black;
-}
-
-header h1 {
-  font-size:40px;
-}
-
-nav {
-  background:#222;
-  padding:10px;
+  padding:15px;
   text-align:center;
+  font-size:22px;
 }
 
-nav a {
-  color:white;
-  margin:10px;
-  text-decoration:none;
-}
-
-.container {
-  padding:20px;
-}
+.container { padding:15px; }
 
 .card {
   background:white;
-  margin:20px 0;
   padding:15px;
-  border-radius:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  margin:15px 0;
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-.card img {
+input, button {
+  padding:10px;
+  margin:5px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button {
+  background:#007bff;
+  color:white;
+  border:none;
+}
+
+img {
   width:100%;
   border-radius:10px;
 }
 
+.search { text-align:center; }
+
 footer {
-  background:#222;
+  background:#111;
   color:white;
   text-align:center;
   padding:10px;
 }
 </style>
 
+<script>
+// 🔍 SEARCH
+function searchCity() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.getElementsByClassName("city");
+
+  for (let i = 0; i < cards.length; i++) {
+    let text = cards[i].innerText.toLowerCase();
+    cards[i].style.display = text.includes(input) ? "block" : "none";
+  }
+}
+
+// 💰 BUDGET CALCULATOR
+function calculateBudget() {
+  let days = document.getElementById("days").value;
+  let budget = days * 5000;
+  document.getElementById("result").innerText = "Estimated Budget: ₹" + budget;
+}
+
+// 🔐 LOGIN (Demo)
+function login() {
+  let user = document.getElementById("user").value;
+  if(user){
+    document.getElementById("loginStatus").innerText = "Welcome " + user + " 🎉";
+  }
+}
+</script>
+
 </head>
 
 <body>
 
-<header>
-  <h1>🇯🇵 Japan Travel Guide</h1>
-  <p>Plan your dream trip easily</p>
-</header>
-
-<nav>
-  <a href="#">Home</a>
-  <a href="#cities">Cities</a>
-  <a href="#tips">Tips</a>
-</nav>
+<header>🇯🇵 Japan Travel Pro App</header>
 
 <div class="container">
 
+<!-- LOGIN -->
+<div class="card">
+  <h2>🔐 Login</h2>
+  <input id="user" placeholder="Enter name">
+  <button onclick="login()">Login</button>
+  <p id="loginStatus"></p>
+</div>
+
+<!-- SEARCH -->
+<div class="card search">
+  <h2>🔍 Search</h2>
+  <input id="search" onkeyup="searchCity()" placeholder="Search city, tips...">
+</div>
+
 <!-- TOKYO -->
-<div class="card" id="cities">
+<div class="card city">
   <h2>Tokyo 🏙️</h2>
   <img src="https://images.unsplash.com/photo-1505069446780-4ef442b5207f">
-  <p>Japan ki capital city – modern life, shopping, technology.</p>
-  <ul>
-    <li>Best Time: March–May 🌸</li>
-    <li>Budget: ₹6000–₹15000/day</li>
-    <li>Top Places: Shibuya Crossing, Tokyo Tower</li>
-  </ul>
+  <p>Modern Japan, shopping & tech.</p>
+  <p>Budget: ₹6000–₹15000/day</p>
 </div>
 
 <!-- KYOTO -->
-<div class="card">
+<div class="card city">
   <h2>Kyoto ⛩️</h2>
   <img src="https://images.unsplash.com/photo-1526481280690-9063b3a0c0ab">
-  <p>Traditional Japan – temples aur culture.</p>
-  <ul>
-    <li>Best Time: Oct–Nov 🍁</li>
-    <li>Budget: ₹5000–₹12000/day</li>
-    <li>Top Places: Fushimi Inari Shrine, Gion</li>
-  </ul>
+  <p>Temples & culture.</p>
+  <p>Budget: ₹5000–₹12000/day</p>
 </div>
 
 <!-- OSAKA -->
-<div class="card">
+<div class="card city">
   <h2>Osaka 🍜</h2>
   <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549">
-  <p>Food capital of Japan – street food & nightlife.</p>
-  <ul>
-    <li>Best Time: March–May</li>
-    <li>Budget: ₹5000–₹13000/day</li>
-    <li>Top Places: Dotonbori, Osaka Castle</li>
-  </ul>
+  <p>Food & nightlife.</p>
 </div>
 
-<!-- HOKKAIDO -->
-<div class="card">
-  <h2>Hokkaido ❄️</h2>
-  <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
-  <p>Snow, mountains & nature lovers ke liye perfect.</p>
-  <ul>
-    <li>Best Time: Dec–Feb (Snow)</li>
-    <li>Budget: ₹6000–₹14000/day</li>
-    <li>Top Places: Sapporo, Niseko</li>
-  </ul>
+<!-- HIROSHIMA -->
+<div class="card city">
+  <h2>Hiroshima 🌸</h2>
+  <img src="https://images.unsplash.com/photo-1554797589-7241bb691973">
+  <p>Peace memorial & history.</p>
 </div>
 
-<!-- TRAVEL PLAN -->
+<!-- BUDGET TOOL -->
 <div class="card">
-  <h2>📅 5-Day Travel Plan</h2>
-  <ul>
-    <li>Day 1: Tokyo explore</li>
-    <li>Day 2: Tokyo shopping</li>
-    <li>Day 3: Kyoto temples</li>
-    <li>Day 4: Osaka food tour</li>
-    <li>Day 5: Return / relax</li>
-  </ul>
-</div>
-
-<!-- ACCOMMODATION -->
-<div class="card">
-  <h2>🏨 Accommodation</h2>
-  <ul>
-    <li>Budget: Hostels, Airbnb</li>
-    <li>Luxury: Hotels (Booking.com)</li>
-  </ul>
+  <h2>💰 Budget Calculator</h2>
+  <input id="days" type="number" placeholder="Days">
+  <button onclick="calculateBudget()">Calculate</button>
+  <p id="result"></p>
 </div>
 
 <!-- TIPS -->
-<div class="card" id="tips">
+<div class="card">
   <h2>💡 Travel Tips</h2>
   <ul>
-    <li>JR Pass lo (transport cheap)</li>
-    <li>Cash carry karo</li>
+    <li>JR Pass lo 🚄</li>
+    <li>Cash carry karo 💴</li>
     <li>Google Maps use karo</li>
     <li>Respect culture 🙏</li>
   </ul>
 </div>
 
-<!-- CHEAP TRAVEL -->
+<!-- CHEAP -->
 <div class="card">
   <h2>💸 Cheap Travel Tricks</h2>
   <ul>
-    <li>Convenience store food sasta hota hai</li>
-    <li>Night bus use karo</li>
-    <li>Off-season travel karo</li>
+    <li>Convenience store food cheap</li>
+    <li>Hostel stay karo</li>
+    <li>Off-season travel</li>
   </ul>
 </div>
 
 </div>
 
-<footer>
-  <p>© 2026 Japan Travel Guide</p>
-</footer>
+<footer>© 2026 Japan Travel Pro</footer>
 
 </body>
 </html>
