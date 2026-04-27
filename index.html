@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream World Japan | Official Guide</title>
+    <title>Dream World Japan | Official Travel Guide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -15,7 +15,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         
-        body { background-color: var(--dark-bg); color: white; line-height: 1.6; }
+        body { background-color: var(--dark-bg); color: white; line-height: 1.6; overflow-x: hidden; }
 
         /* --- NAVIGATION --- */
         header {
@@ -50,7 +50,7 @@
             transition: 0.3s;
         }
 
-        /* --- FLOATING SOCIAL SIDEBAR --- */
+        /* --- FLOATING SOCIAL SIDEBAR (IG, YT, FB) --- */
         .sidebar-socials {
             position: fixed;
             right: 25px;
@@ -58,7 +58,7 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             z-index: 999;
         }
 
@@ -83,10 +83,10 @@
             box-shadow: 0 10px 20px rgba(188, 0, 45, 0.4);
         }
 
-        /* --- HERO --- */
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.2), var(--dark-bg)), 
+            background: linear-gradient(rgba(0,0,0,0.4), var(--dark-bg)), 
                         url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=2000');
             background-size: cover;
             background-position: center;
@@ -99,13 +99,13 @@
         }
 
         .hero h2 { font-size: 1.2rem; letter-spacing: 5px; color: var(--japan-red); margin-bottom: 10px; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; margin-bottom: 20px; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
 
         /* --- GUIDE SECTION --- */
-        #the-guide { padding: 100px 8%; }
+        #the-guide { padding: 100px 8%; max-width: 1400px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-size: 3rem; margin-bottom: 10px; }
-        .section-header p { color: var(--text-gray); }
+        .section-header p { color: var(--text-gray); font-size: 1.1rem; }
 
         .guide-grid {
             display: grid;
@@ -122,21 +122,23 @@
         }
 
         .guide-card:hover { transform: translateY(-10px); border-color: var(--japan-red); }
-        .guide-card img { width: 100%; height: 240px; object-fit: cover; }
+        .guide-card img { width: 100%; height: 240px; object-fit: cover; transition: 0.5s; }
+        .guide-card:hover img { transform: scale(1.1); }
 
         .card-body { padding: 25px; }
         .card-body h3 { font-size: 1.4rem; margin-bottom: 15px; color: white; }
         .card-body p { color: var(--text-gray); font-size: 0.95rem; }
 
         /* --- FOOTER --- */
-        footer { padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer { padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: #050505; }
+        footer p { color: var(--text-gray); font-size: 0.9rem; }
 
         /* --- MOBILE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             header nav { display: none; }
             .sidebar-socials { right: 15px; }
-            .social-icon { width: 40px; height: 40px; font-size: 1.2rem; }
-            .hero h1 { font-size: 3.5rem; }
+            .social-icon { width: 45px; height: 45px; font-size: 1.2rem; }
+            .hero h1 { font-size: 3.2rem; }
         }
     </style>
 </head>
@@ -153,13 +155,15 @@
     </header>
 
     <div class="sidebar-socials">
-        <a href="https://www.instagram.com/dream_world_japan?igsh=MXJxMjE1YmdlM20xMA==" target="_blank" class="social-icon">
+        <a href="https://www.instagram.com/dream_world_japan?igsh=MXJxMjE1YmdlM20xMA==" target="_blank" class="social-icon" title="Instagram">
             <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="social-icon">
+        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="social-icon" title="YouTube">
             <i class="fab fa-youtube"></i>
         </a>
-        <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=61550754726657" target="_blank" class="social-icon" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
     </div>
 
     <section class="hero">
@@ -170,32 +174,32 @@
 
     <section id="the-guide">
         <div class="section-header">
-            <h2>The Guide</h2>
-            <p>Everything you need for your perfect Japan trip</p>
+            <h2>Travel Toolkit</h2>
+            <p>Essential resources for your upcoming Japan adventure</p>
         </div>
 
         <div class="guide-grid">
             <div class="guide-card">
                 <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?auto=format&fit=crop&q=80&w=800" alt="SIM Card">
                 <div class="card-body">
-                    <h3>Travel SIM & Connectivity</h3>
-                    <p>Stay connected with high-speed eSIMs or Pocket WiFi. Pre-order is recommended for smooth arrival at Narita or Haneda.</p>
+                    <h3>Connectivity Guide</h3>
+                    <p>Stay connected with the best eSIMs and Pocket WiFi options. We recommend Sakura Mobile for the best coverage.</p>
                 </div>
             </div>
 
             <div class="guide-card">
                 <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&q=80&w=800" alt="Transport">
                 <div class="card-body">
-                    <h3>Smart Transportation</h3>
-                    <p>Master the Shinkansen and local metros. Use Suica or IC cards for seamless travel across Tokyo and beyond.</p>
+                    <h3>Efficient Transport</h3>
+                    <p>Navigate the complex Shinkansen and Tokyo Metro system like a pro. Get your JR Pass and Suica card details here.</p>
                 </div>
             </div>
 
             <div class="guide-card">
                 <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=800" alt="Arrival">
                 <div class="card-body">
-                    <h3>Smooth Arrival Guide</h3>
-                    <p>Learn how to navigate immigration quickly with the Visit Japan Web and find the best airport transfer options.</p>
+                    <h3>First Steps in Japan</h3>
+                    <p>Landing at Narita or Haneda? Follow our arrival guide to clear immigration and reach your hotel without stress.</p>
                 </div>
             </div>
         </div>
