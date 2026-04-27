@@ -1,188 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Ultimate Travel Guide</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream World Japan | Mahesh</title>
+    <style>
+        :root {
+            --primary-red: #bc002d;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1e1e1e;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
 
-<style>
-body { margin:0; font-family:Arial; background:#f4f4f4; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif, 'Arial';
+            scroll-behavior: smooth;
+        }
 
-header {
-  background:url('https://source.unsplash.com/1600x900/?tokyo,night') no-repeat center/cover;
-  height:350px;
-  color:white;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-shadow:2px 2px 6px black;
-}
+        body {
+            background: var(--dark-bg);
+            color: white;
+            line-height: 1.6;
+        }
 
-nav {
-  background:#111;
-  padding:10px;
-  text-align:center;
-}
-nav a {
-  color:white;
-  margin:10px;
-  text-decoration:none;
-}
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=80&w=2070') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-.search {
-  text-align:center;
-  margin:20px;
-}
-.search input {
-  padding:10px;
-  width:80%;
-  max-width:400px;
-}
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-.container { padding:20px; }
+        .guide-badge {
+            background: var(--primary-red);
+            padding: 8px 25px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
 
-.card {
-  background:white;
-  margin:20px auto;
-  padding:20px;
-  border-radius:10px;
-  max-width:900px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
+        .author { font-size: 1.2rem; opacity: 0.8; }
 
-.card img {
-  width:100%;
-  border-radius:10px;
-}
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
 
-h2 { color:#e84118; }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 8px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            writing-mode: vertical-rl;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            border-left: 2px solid var(--primary-red);
+        }
 
-footer {
-  background:#111;
-  color:white;
-  text-align:center;
-  padding:15px;
-}
+        .sidebar a:hover { background: var(--primary-red); }
 
-</style>
+        /* Master Guide Section */
+        #guide-section { padding: 80px 5%; background: #111; }
 
-<script>
-function searchSite(){
- let input=document.getElementById("search").value.toLowerCase();
- let cards=document.getElementsByClassName("card");
+        .search-container {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
- for(let i=0;i<cards.length;i++){
-  let text=cards[i].innerText.toLowerCase();
-  cards[i].style.display = text.includes(input) ? "block" : "none";
- }
-}
-</script>
+        .search-container input {
+            padding: 15px 25px;
+            width: 100%;
+            max-width: 600px;
+            background: #222;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
 
+        .search-container input:focus { border-color: var(--primary-red); box-shadow: 0 0 15px rgba(188, 0, 45, 0.3); }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.4s;
+            border: 1px solid #2a2a2a;
+        }
+
+        .card:hover { transform: translateY(-10px); border-color: var(--primary-red); }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+
+        .card-content { padding: 25px; }
+
+        .card h2 { color: var(--primary-red); margin-bottom: 15px; font-size: 1.4rem; display: flex; align-items: center; gap: 10px; }
+
+        .card ul { list-style: none; margin-top: 10px; }
+        .card ul li { margin-bottom: 8px; font-size: 0.95rem; opacity: 0.9; position: relative; padding-left: 20px; }
+        .card ul li::before { content: '•'; position: absolute; left: 0; color: var(--primary-red); }
+
+        /* Footer & Socials */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            background: #000;
+            border-top: 1px solid #222;
+        }
+
+        .social-links { margin: 20px 0; display: flex; justify-content: center; gap: 20px; }
+        .social-links a { color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem; }
+        .social-links a:hover { color: var(--primary-red); }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>🇯🇵 JAPAN TRAVEL MASTER GUIDE</h1>
-<p>Pro Level • Budget • Planning • Full System</p>
-</header>
+    <nav class="sidebar">
+        <a href="#">HOME</a>
+        <a href="#guide-section">GUIDE</a>
+        <a href="#plan">PLAN</a>
+        <a href="#social">SOCIAL</a>
+    </nav>
 
-<nav>
-<a href="#">Home</a>
-<a href="#guide">Guide</a>
-<a href="#plan">Plan</a>
-</nav>
+    <section class="hero">
+        <div class="guide-badge">ULTIMATE JAPAN GUIDE 2026</div>
+        <h1>Dream World Japan</h1>
+        <p class="author">By <strong>Mahesh</strong></p>
+        <a href="#guide-section" style="margin-top: 30px; color: white; text-decoration: none; border: 1px solid white; padding: 10px 25px; border-radius: 50px;">Explore Guide ↓</a>
+    </section>
 
-<div class="search">
-<input type="text" id="search" onkeyup="searchSite()" placeholder="Search anything (Tokyo, budget, tips...)">
-</div>
+    <section id="guide-section">
+        <div class="search-container">
+            <h2 style="margin-bottom: 20px;">Search Your Destination</h2>
+            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search Tokyo, Budget, Food, Shinkansen...">
+        </div>
 
-<div class="container">
+        <div class="grid-container" id="guideGrid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1570610155223-66279ba5344c?q=80&w=2070" alt="Japan Airport">
+                <div class="card-content">
+                    <h2>✈️ Arrival & Airports</h2>
+                    <p>Haneda, Narita, Kansai main airports. Use <strong>Visit Japan Web</strong> for fast immigration aur queue se bachein.</p>
+                </div>
+            </div>
 
-<div class="card">
-<h2>✈️ Arrival & Airports</h2>
-<img src="https://source.unsplash.com/800x400/?airport,japan">
-<p>Haneda, Narita, Kansai main airports. Use Visit Japan Web for fast immigration.</p>
-</div>
+            <div class="card">
+                <div class="card-content">
+                    <h2>💴 Budget System</h2>
+                    <p>Japan expensive nahi hai agar plan sahi ho:</p>
+                    <ul>
+                        <li>Budget: ₹4k–6k/day</li>
+                        <li>Mid: ₹8k–15k/day</li>
+                        <li>Luxury: ₹20k+</li>
+                    </ul>
+                    <p style="margin-top:10px">7-Eleven ATMs best hain cash ke liye.</p>
+                </div>
+            </div>
 
-<div class="card">
-<h2>💴 Budget System</h2>
-<p>Budget ₹4k–6k/day | Mid ₹8k–15k | Luxury ₹20k+</p>
-<p>Use 7-Eleven ATMs. Cash still important.</p>
-</div>
+            <div class="card" id="plan">
+                <img src="https://images.unsplash.com/photo-1532186651327-6ac23687d189?q=80&w=2070" alt="Shinkansen">
+                <div class="card-content">
+                    <h2>🚆 Transport</h2>
+                    <p>Use <strong>Suica</strong> ya <strong>Pasmo</strong> card. Shinkansen fastest hai cities ke beech travel karne ke liye.</p>
+                </div>
+            </div>
 
-<div class="card">
-<h2>🚆 Transport</h2>
-<img src="https://source.unsplash.com/800x400/?shinkansen">
-<p>Use Suica / Pasmo. Shinkansen fastest. JR Pass not always worth.</p>
-</div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=2070" alt="Tokyo City">
+                <div class="card-content">
+                    <h2>🏙️ Top Cities</h2>
+                    <ul>
+                        <li>Tokyo – Modern Life & Neon</li>
+                        <li>Kyoto – Temples & Culture</li>
+                        <li>Osaka – Best Street Food</li>
+                        <li>Nara – Deer Park Experience</li>
+                    </ul>
+                </div>
+            </div>
 
-<div class="card">
-<h2>🏨 Stay</h2>
-<p>Capsule, business hotel, ryokan. Always stay near station.</p>
-</div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1526318896980-cf78c088247c?q=80&w=2070" alt="Ramen">
+                <div class="card-content">
+                    <h2>🍜 Food Guide</h2>
+                    <p>Sushi, Ramen, aur Takoyaki try karein. Convenience stores (Conbini) ka khana sasta aur badiya hota hai.</p>
+                </div>
+            </div>
 
-<div class="card">
-<h2>🍜 Food Guide</h2>
-<img src="https://source.unsplash.com/800x400/?ramen,japan">
-<p>Sushi, ramen, takoyaki. Convenience store food = cheap & good.</p>
-</div>
+            <div class="card">
+                <div class="card-content" style="background: linear-gradient(145deg, #1e1e1e, #bc002d33);">
+                    <h2>🎥 Creator Tips</h2>
+                    <p>Viral content ke liye:</p>
+                    <ul>
+                        <li>Rainy shots = Cinematic vibes 🌧️</li>
+                        <li>Night Neon = Best for Reels</li>
+                        <li>Early Morning = No Crowds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="card">
-<h2>🏙️ Cities</h2>
-<img src="https://source.unsplash.com/800x400/?tokyo,city">
-<ul>
-<li>Tokyo – modern life</li>
-<li>Kyoto – temples</li>
-<li>Osaka – food</li>
-<li>Nara – deer park</li>
-<li>Hokkaido – snow</li>
-</ul>
-</div>
+    <footer id="social">
+        <h2>Follow Dream World Japan</h2>
+        <div class="social-links">
+            <a href="#">TikTok</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+        </div>
+        <p style="opacity: 0.6; font-size: 0.9rem; margin-top: 20px;">
+            Designed by Mahesh | © 2026 Dream World Japan
+        </p>
+    </footer>
 
-<div class="card">
-<h2>💡 Pro Tips</h2>
-<ul>
-<li>No tipping ❌</li>
-<li>Silence in trains</li>
-<li>Carry cash</li>
-<li>Use Google Maps</li>
-</ul>
-</div>
+    <script>
+        function searchFunction() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let cards = document.getElementsByClassName("card");
 
-<div class="card">
-<h2>🔥 10 Day Travel Plan</h2>
-<img src="https://source.unsplash.com/800x400/?japan,travel">
-<ul>
-<li>Day 1–3: Tokyo</li>
-<li>Day 4: Fuji</li>
-<li>Day 5–6: Kyoto</li>
-<li>Day 7: Nara</li>
-<li>Day 8–9: Osaka</li>
-<li>Day 10: Return</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>🎥 Creator Tips</h2>
-<p>Rain shots = best 🌧️ | Night neon = viral | Early morning = cinematic</p>
-</div>
-
-<div class="card">
-<h2>⚠️ Mistakes</h2>
-<ul>
-<li>Missing last train</li>
-<li>Overplanning</li>
-<li>Ignoring walking fatigue</li>
-</ul>
-</div>
-
-</div>
-
-<footer>
-<p>© 2026 Japan Travel Master Guide</p>
-</footer>
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
