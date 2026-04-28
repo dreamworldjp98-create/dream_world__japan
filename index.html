@@ -13,6 +13,7 @@
             --dark-bg: #050505;
             --card-bg: #111111;
             --text-gray: #aaaaaa;
+            --light-blue-bg: #e3f2fd; /* New Light Blue requested */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
@@ -110,6 +111,75 @@
         .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
         .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
 
+        /* --- 3D GUIDE SECTION (THE NEW ADDITION) --- */
+        .guide-3d-section {
+            background-color: var(--light-blue-bg);
+            padding: 100px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .guide-3d-section h2 {
+            color: #1a73e8;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .guide-container {
+            perspective: 1200px;
+        }
+
+        .guide-book {
+            width: 280px;
+            height: 380px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateY(0deg) rotateX(5deg); }
+            50% { transform: translateY(-25px) rotateY(10deg) rotateX(-5deg); }
+        }
+
+        .guide-page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 3px solid #1a73e8; /* Blue Boundary */
+        }
+
+        .front {
+            background: linear-gradient(135deg, var(--primary-orange), #ff751a);
+            color: white;
+            z-index: 2;
+        }
+
+        .back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .guide-book.flipped {
+            transform: rotateY(-180deg);
+            animation: none;
+        }
+
         /* --- INFO SECTION --- */
         .info-split {
             display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 60px 8%;
@@ -160,7 +230,7 @@
         </div>
         <nav class="nav-links">
             <a href="#">Home</a>
-            <a href="#">The Guide</a>
+            <a href="#guide-section">The Guide</a>
             <a href="#">Intimate</a>
             <a href="#">What We Cover</a>
             <a href="#">Community</a>
@@ -208,6 +278,32 @@
         </div>
     </section>
 
+    <section class="guide-3d-section" id="guide-section">
+        <h2>Interactive 3D Master Guide</h2>
+        <div class="guide-container">
+            <div class="guide-book" id="myGuide" onclick="flipGuide()">
+                <div class="guide-page front">
+                    <i class="fas fa-book-open" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                    <h3 style="letter-spacing: 2px;">THE JAPAN GUIDE</h3>
+                    <p style="font-size: 0.8rem; margin-top: 10px;">CLICK TO UNLOCK SECRETS</p>
+                    <div style="margin-top: 30px;">
+                        <i class="fab fa-tiktok" style="margin: 0 10px;"></i>
+                        <i class="fab fa-instagram" style="margin: 0 10px;"></i>
+                        <i class="fab fa-youtube" style="margin: 0 10px;"></i>
+                    </div>
+                </div>
+                <div class="guide-page back">
+                    <h3 style="color: var(--primary-orange);">Inside The Guide</h3>
+                    <p style="font-size: 0.9rem; color: #555; margin-top: 15px;">
+                        Full access to Hidden Gems, Budget Hacks, and Mahesh's Personal Itineraries.
+                    </p>
+                    <hr style="width: 80%; margin: 20px auto; border: 0.5px solid #eee;">
+                    <p style="font-weight: 600;">Let's Begin Your Journey!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="info-split">
         <div class="info-text">
             <h2>Japan Travel. Simplified.</h2>
@@ -247,6 +343,11 @@
     </footer>
 
     <script>
+        // 3D Flip Logic
+        function flipGuide() {
+            document.getElementById('myGuide').classList.toggle('flipped');
+        }
+
         const details = {
             transport: {
                 title: "🚆 Transport & Arrival Mastery",
