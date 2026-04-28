@@ -302,4 +302,65 @@
         document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
     </script>
 </body>
+<section class="guide-preview">
+    <div class="guide-container">
+        
+        <!-- LEFT: BOOK IMAGE -->
+        <div class="guide-image">
+            <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=800" alt="Japan Guide">
+        </div>
+
+        <!-- RIGHT: TEXT -->
+        <div class="guide-text">
+            <h2>Your Smart Path to Japan</h2>
+            <p class="sub">Go from overwhelmed to confident in 3 steps</p>
+
+            <div class="steps">
+                <p><b>01. LAY THE FOUNDATION</b><br>
+                Visa, etiquette, money & transport simplified.</p>
+
+                <p><b>02. FOLLOW THE PLAN</b><br>
+                Execute a stress-free 7-day Tokyo itinerary.</p>
+
+                <p><b>03. MAKE IT YOURS</b><br>
+                Customize with food & local secrets.</p>
+            </div>
+
+            <!-- CTA -->
+            <div class="guide-form">
+                <input type="email" placeholder="Enter your email">
+                <button onclick="openGuide()">Get The Free Japan Guide</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- 🔥 GUIDE MODAL (Flipbook Hidden) -->
+<div id="guideModal" class="guide-modal">
+    <span class="close-btn" onclick="closeGuide()">&times;</span>
+
+    <div id="flipbook">
+        <div class="page cover">
+            <h2>The Ultimate Triangle</h2>
+            <p>Japan Guide</p>
+        </div>
+
+        <div class="page"><div class="page-content">
+            <h3>Introduction</h3>
+            <p>Welcome to your premium Japan system.</p>
+        </div></div>
+
+        <div class="page"><div class="page-content">
+            <h3>Transport Hack</h3>
+            <p>Use IC cards + avoid last train trap.</p>
+        </div></div>
+
+        <div class="page"><div class="page-content">
+            <h3>Food System</h3>
+            <p>Ticket machines + convenience hacks.</p>
+        </div></div>
+
+    </div>
+</div>
 </html>
