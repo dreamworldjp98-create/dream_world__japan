@@ -9,3 +9,6 @@ function closeBook() {
     document.getElementById("bookModal").style.display = "none";
     document.body.style.overflow = "auto";
 }
+const guidePages = [
+ {t:"Title", c:"Your content"},
+];
