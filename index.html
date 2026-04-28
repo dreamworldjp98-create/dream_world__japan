@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream World Japan | Master Guide</title>
+
+<!-- FONTS + ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<!-- LIBRARIES -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
+<style>
+:root{
+--primary-orange:#e65c00;
+--dark-bg:#050505;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#050505;color:#fff;overflow-x:hidden}
+
+/* HEADER */
+header{
+position:fixed;
+top:0;width:100%;
+display:flex;justify-content:space-between;
+padding:15px 5%;
+background:#000;z-index:1000;
+}
+
+.logo span{color:var(--primary-orange)}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+background:url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070') center/cover;
+text-align:center;
+}
+
+.hero h1{font-size:4rem}
+.hero span{color:var(--primary-orange)}
+
+/* CARDS */
+.section-padding{padding:80px 8%}
+.grid-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.feature-card{
+background:#111;
+padding:30px;
+border-radius:15px;
+cursor:pointer;
+transition:.3s;
+}
+.feature-card:hover{
+transform:translateY(-10px);
+border:1px solid var(--primary-orange);
+}
+
+/* GUIDE */
+.guide-section{
+padding:100px 20px;
+text-align:center;
+background:#e0f2fe;
+color:black;
+}
+
+.guide-book{
+width:280px;height:420px;
+margin:auto;
+cursor:pointer;
+transform:rotateY(-20deg);
+}
+
+.guide-cover{
+width:100%;height:100%;
+background:url('https://files.catbox.moe/7vkp3x.png') center/cover;
+border-radius:10px;
+}
+
+/* FLIPBOOK */
+.flipbook-modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+#flipbook{width:800px;height:550px}
+
+.page{
+background:white;
+color:black;
+padding:20px;
+}
+
+.nav-btn{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:orange;
+border:none;
+padding:15px;
+cursor:pointer;
+}
+
+#prev-btn{left:10px}
+#next-btn{right:10px}
+
+.close-flip{
+position:absolute;
+top:20px;
+right:30px;
+font-size:30px;
+cursor:pointer;
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.modal-content{
+background:#111;
+padding:30px;
+border-radius:15px;
+max-width:600px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">DREAM WORLD <span>JAPAN</span></div>
+</header>
+
+<section class="hero">
+<h1><span>MASTER</span> JAPAN</h1>
+</section>
+
+<!-- CARDS -->
+<section class="section-padding">
+<div class="grid-container">
+
+<div class="feature-card" onclick="openModal('transport')">
+<h3>🚆 Transport</h3>
+<p>IC card + JR hacks</p>
+</div>
+
+<div class="feature-card" onclick="openModal('food')">
+<h3>🍣 Food</h3>
+<p>Cheap meals & etiquette</p>
+</div>
+
+</div>
+</section>
+
+<!-- GUIDE -->
+<section class="guide-section">
+<h2>Click Book to Open Guide</h2>
+
+<div class="guide-book" onclick="openFlipbook()">
+<div class="guide-cover"></div>
+</div>
+
+</section>
+
+<!-- FLIPBOOK -->
+<div class="flipbook-modal" id="flipModal">
+
+<span class="close-flip" onclick="closeFlipbook()">✖</span>
+
+<button class="nav-btn" id="prev-btn">◀</button>
+<button class="nav-btn" id="next-btn">▶</button>
+
+<div id="flipbook"></div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="infoModal">
+<div class="modal-content">
+<h2 id="modalTitle"></h2>
+<p id="modalText"></p>
+<button onclick="closeModal()">Close</button>
+</div>
+</div>
+
+<script>
+
+/* -------- INFO MODAL -------- */
+const details={
+transport:{title:"Transport",text:"Use Suica & JR Pass"},
+food:{title:"Food",text:"8PM discounts 🍱"}
+};
+
+function openModal(type){
+document.getElementById("infoModal").style.display="flex";
+modalTitle.innerText=details[type].title;
+modalText.innerText=details[type].text;
+}
+
+function closeModal(){
+document.getElementById("infoModal").style.display="none";
+}
+
+/* -------- FLIPBOOK -------- */
+const data=[
+{title:"Transport",content:"Use IC Cards"},
+{title:"Food",content:"Discount Bento"},
+{title:"Spots",content:"Hidden Tokyo Views"}
+];
+
+const flipbook=$("#flipbook");
+
+data.forEach(p=>{
+flipbook.append(`
+<div class="page">
+<h2>${p.title}</h2>
+<p>${p.content}</p>
+</div>
+`);
+});
+
+/* fill pages */
+for(let i=data.length;i<30;i++){
+flipbook.append(`<div class="page">Notes...</div>`);
+}
+
+function openFlipbook(){
+document.getElementById("flipModal").style.display="flex";
+
+setTimeout(()=>{
+$("#flipbook").turn({
+width:800,
+height:550,
+autoCenter:true
+});
+},200);
+}
+
+function closeFlipbook(){
+document.getElementById("flipModal").style.display="none";
+$("#flipbook").turn("destroy");
+}
+
+/* controls */
+$("#next-btn").click(()=>$("#flipbook").turn("next"));
+$("#prev-btn").click(()=>$("#flipbook").turn("previous"));
+
+</script>
+
+</body>
+</html>
