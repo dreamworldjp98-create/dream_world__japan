@@ -12,7 +12,7 @@
             --dark-bg: #050505;
             --card-bg: #111111;
             --text-gray: #aaaaaa;
-            --light-blue: #e0f2fe; /* Light Blue for the Guide section */
+            --light-blue: #e0f2fe; /* Requested Light Blue */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
@@ -110,18 +110,18 @@
         .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
         .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
 
-        /* --- NEW 3D GUIDE SECTION (THE BOTTOM PART) --- */
+        /* --- UPDATED 3D GUIDE SECTION --- */
         .guide-section {
             background-color: var(--light-blue);
             padding: 100px 8%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #333;
+            color: #1a365d;
             text-align: center;
         }
 
-        .guide-section h2 { margin-bottom: 50px; font-size: 2.5rem; color: #0369a1; }
+        .guide-section h2 { margin-bottom: 50px; font-size: 2.5rem; color: #0369a1; font-weight: 800; }
 
         .guide-container {
             perspective: 1000px;
@@ -129,60 +129,71 @@
         }
 
         .guide-book {
-            width: 300px;
-            height: 420px;
+            width: 320px;
+            height: 500px;
             position: relative;
             transform-style: preserve-3d;
-            transform: rotateY(-25deg) rotateX(10deg);
+            transform: rotateY(-20deg) rotateX(5deg);
             transition: transform 0.5s ease;
             animation: float 4s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotateY(-25deg) rotateX(10deg); }
-            50% { transform: translateY(-20px) rotateY(-20deg) rotateX(5deg); }
+            0%, 100% { transform: translateY(0) rotateY(-20deg) rotateX(5deg); }
+            50% { transform: translateY(-15px) rotateY(-15deg) rotateX(2deg); }
         }
 
         .guide-cover {
             position: absolute;
             width: 100%;
             height: 100%;
-            /* Your provided image */
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), 
-                        url('https://files.catbox.moe/k3v70j.png') no-repeat center center; 
+            /* Your New High Quality Image */
+            background: url('https://files.catbox.moe/k3v70j.png') no-repeat center center; 
             background-size: cover;
             border-radius: 5px 15px 15px 5px;
-            border: 3px solid #0369a1;
+            box-shadow: 25px 25px 50px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 25px;
+            justify-content: space-between;
+            padding: 20px;
             box-sizing: border-box;
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,1);
-            box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .guide-title {
-            font-size: 1.1rem;
+        .book-top-title {
+            font-size: 0.9rem;
             font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 30px;
-            text-align: left;
-            border-left: 3px solid var(--primary-orange);
-            padding-left: 10px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+            padding: 5px;
+            backdrop-filter: blur(2px);
+        }
+
+        .book-main-title {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.1;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            margin-bottom: 60px; /* Positioned low to avoid face */
         }
 
         .guide-footer-info {
             text-align: left;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 12px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .guide-email { font-size: 0.75rem; color: #eee; }
-        .guide-name-jp { font-size: 1.2rem; font-weight: bold; color: #ffcc00; margin-top: 2px; }
+        .guide-email { font-size: 0.7rem; color: #ddd; font-weight: 400; }
+        .guide-name-jp { font-size: 1.1rem; font-weight: 800; color: #ffcc00; margin-top: 2px; }
 
         /* --- INFO SECTION --- */
         .info-split {
@@ -229,12 +240,12 @@
     <header>
         <div class="brand">
             <a href="#" class="logo">DREAM WORLD <span>JAPAN</span></a>
-            <div class="sub-logo">Ultimate Master Guide</div>
+            <div class="sub-logo">Dream World Japan</div>
         </div>
         <nav class="nav-links">
             <a href="#">Home</a>
             <a href="#the-guide">The Guide</a>
-            <a href="#">What We Cover</a>
+            <a href="#">Explore</a>
             <a href="#">Community</a>
         </nav>
         <div class="user-tag">マヘシュ (MAHESH)</div>
@@ -297,18 +308,21 @@
         <div class="guide-container">
             <div class="guide-book">
                 <div class="guide-cover">
-                    <div class="guide-title">
-                        Ultimate Master Dream World Japan <br>
-                        Ultimate Master of Light
-                    </div>
-                    <div class="guide-footer-info">
-                        <div class="guide-email">Dreamworld.jp98@gmail.com</div>
-                        <div class="guide-name-jp">マヘシュ</div>
+                    <div class="book-top-title">Dream World Japan</div>
+                    
+                    <div>
+                        <div class="book-main-title">
+                            Ultimate Master<br>Guide
+                        </div>
+                        <div class="guide-footer-info">
+                            <div class="guide-email">Dreamworld.jp98@gmail.com</div>
+                            <div class="guide-name-jp">マヘシュ</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <p style="max-width: 600px; color: #555; font-weight: 600;">Get the complete visual guide with 4K locations, transport hacks, and cultural secrets.</p>
+        <p style="max-width: 600px; color: #444; font-weight: 600; margin-top: 20px;">The complete visual guide with 4K locations, transport hacks, and cultural secrets.</p>
     </section>
 
     <section class="footer-cta">
