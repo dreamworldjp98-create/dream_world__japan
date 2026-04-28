@@ -1,0 +1,53 @@
+let bookLoaded = false;
+
+const guideContent = [
+{ t:"Mental Model", c:"Flow + Respect + Awareness system." },
+{ t:"Transport", c:"IC cards + perfect timing trains." },
+{ t:"Food", c:"Ticket machines + no tipping." },
+{ t:"Hidden Gems", c:"Secret Japan locations." }
+];
+
+function loadBook(){
+
+    if(bookLoaded) return;
+
+    for(let i=0;i<100;i++){
+
+        let d = guideContent[i] || {
+            t:"Dream World Japan",
+            c:"Premium Japan travel system page..."
+        };
+
+        $("#flipbook").append(`
+            <div class="page">
+                <h2>${d.t}</h2>
+                <p>${d.c}</p>
+            </div>
+        `);
+    }
+
+    $('#flipbook').turn({
+        width:1000,
+        height:650,
+        autoCenter:true
+    });
+
+    bookLoaded = true;
+}
+
+// LOAD BOOK WHEN OPEN
+function openBook(){
+    document.getElementById("bookModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+    loadBook();
+}
+
+// NAVIGATION
+$(document).on("click","#next",()=>$('#flipbook').turn('next'));
+$(document).on("click","#prev",()=>$('#flipbook').turn('previous'));
+
+// KEYBOARD
+document.addEventListener("keydown", e=>{
+    if(e.key==="ArrowRight") $('#flipbook').turn('next');
+    if(e.key==="ArrowLeft") $('#flipbook').turn('previous');
+});
