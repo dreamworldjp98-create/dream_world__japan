@@ -292,8 +292,85 @@
             if (event.target == document.getElementById('infoModal')) {
                 closeModal();
             }
+
+.hero h1 {
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(188,0,45,0.6);
+}
+            
         }
     </script>
 
 </body>
 </html>
+
+.feature-card {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.4s;
+}
+
+.feature-card:hover {
+    transform: translateY(-12px) scale(1.03);
+    border-color: var(--japan-red);
+    box-shadow: 0 0 25px rgba(188,0,45,0.3);
+}
+
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+});
+
+document.querySelectorAll(".feature-card").forEach(el=>{
+    el.style.opacity = "0";
+    el.style.transform = "translateY(50px)";
+    observer.observe(el);
+});
+
+.modal-content {
+    background: linear-gradient(145deg,#0a0a0a,#111);
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(188,0,45,0.2);
+}
+
+<div style="margin-top:30px;">
+<input type="text" id="searchBox" placeholder="🔍 Search Tokyo, Budget, Food..."
+style="padding:12px 20px; border-radius:30px; border:none; width:280px;">
+</div>
+
+document.getElementById("searchBox").addEventListener("keyup", function() {
+    let val = this.value.toLowerCase();
+    document.querySelectorAll(".feature-card").forEach(card=>{
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(val) ? "block" : "none";
+    });
+});
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+.hero video {
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-1;
+}
+
+<video autoplay muted loop>
+  <source src="https://cdn.coverr.co/videos/coverr-tokyo-street-night-5170/1080p.mp4" type="video/mp4">
+</video>
+
