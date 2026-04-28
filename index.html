@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dream World Japan | App UI</title>
 
-<title>Dream World Japan - PRO Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-<!-- GOOGLE FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-
-<!-- JQUERY + TURN JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
 
@@ -21,28 +18,89 @@ body {
     color:white;
 }
 
-/* HERO */
-.hero {
-    height:100vh;
+/* HEADER */
+.header {
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:15px 40px;
     display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070') center/cover;
+    justify-content:space-between;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+    z-index:1000;
 }
 
-.hero h1 {
+.logo {
+    font-size:22px;
+    font-weight:900;
+    color:#e65c00;
+}
+
+/* HERO */
+.hero {
+    height:90vh;
+    background:url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070') center/cover;
+    display:flex;
+    align-items:flex-end;
+    padding:40px;
+}
+
+.hero-content h1 {
     font-size:60px;
 }
 
-.pro-btn {
-    padding:15px 30px;
+.play-btn {
+    margin-top:20px;
+    padding:12px 30px;
     background:#e65c00;
     border:none;
     color:white;
     font-weight:bold;
+    border-radius:6px;
     cursor:pointer;
-    border-radius:8px;
+}
+
+/* ROWS */
+.row {
+    padding:20px 40px;
+}
+
+.row h2 {
+    margin-bottom:10px;
+}
+
+/* SCROLL */
+.row-container {
+    display:flex;
+    overflow-x:auto;
+    gap:15px;
+}
+
+.row-container::-webkit-scrollbar {
+    display:none;
+}
+
+/* CARD */
+.card {
+    min-width:200px;
+    height:280px;
+    background:#111;
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+    position:relative;
+}
+
+.card img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.card:hover {
+    transform:scale(1.15);
+    z-index:10;
 }
 
 /* MODAL */
@@ -71,14 +129,13 @@ body {
     padding:30px;
 }
 
-/* NAV */
 .nav-btn {
     position:absolute;
     top:50%;
     font-size:30px;
+    color:white;
     background:none;
     border:none;
-    color:white;
     cursor:pointer;
 }
 
@@ -97,82 +154,99 @@ body {
 
 <body>
 
+<div class="header">
+    <div class="logo">DREAM JAPAN</div>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-    <h1>🇯🇵 DREAM WORLD JAPAN</h1>
-    <button onclick="openBook()" class="pro-btn">OPEN PRO 3D GUIDE</button>
+    <div class="hero-content">
+        <h1>MASTER JAPAN</h1>
+        <button class="play-btn" onclick="openBook()">▶ Play Guide</button>
+    </div>
+</div>
+
+<!-- ROW 1 -->
+<div class="row">
+    <h2>🔥 Trending Guides</h2>
+    <div class="row-container">
+
+        <div class="card" onclick="openBook()">
+            <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c">
+        </div>
+
+        <div class="card"><img src="https://images.unsplash.com/photo-1526481280691-3c4695f8e4d8"></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9"></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26"></div>
+
+    </div>
+</div>
+
+<!-- ROW 2 -->
+<div class="row">
+    <h2>🎌 Explore Japan</h2>
+    <div class="row-container">
+
+        <div class="card"><img src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d"></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1505066836043-7a4f68c9d3b2"></div>
+        <div class="card"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"></div>
+
+    </div>
 </div>
 
 <!-- MODAL -->
 <div id="bookModal" class="pro-modal">
 
-    <div class="close" onclick="closeBook()">✖</div>
+<div class="close" onclick="closeBook()">✖</div>
 
-    <button id="prev" class="nav-btn">❮</button>
-    <button id="next" class="nav-btn">❯</button>
+<button id="prev" class="nav-btn">❮</button>
+<button id="next" class="nav-btn">❯</button>
 
-    <div id="flipbook"></div>
+<div id="flipbook"></div>
 
 </div>
 
 <script>
-let soundOn = true;
-let bookLoaded = false;
+let bookLoaded=false;
 
-const flipSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1134.mp3");
-
-const guideContent = [
-{ t:"Mental Model", c:"Flow + Respect + Awareness system." },
-{ t:"Transport", c:"IC cards + perfect timing trains." },
-{ t:"Food", c:"Ticket machines + no tipping." },
-{ t:"Logistics", c:"Use luggage forwarding." },
-{ t:"Hidden Gems", c:"Secret locations & views." }
+const guideContent=[
+{t:"Mental Model",c:"Flow + Respect + Awareness"},
+{t:"Transport",c:"IC cards + timing"},
+{t:"Food",c:"No tipping culture"}
 ];
 
-function openBook() {
-    document.getElementById("bookModal").style.display = "flex";
-    document.body.style.overflow = "hidden";
+function openBook(){
+document.getElementById("bookModal").style.display="flex";
 
-    if (!bookLoaded) {
+if(!bookLoaded){
 
-        for (let i = 0; i < 52; i++) {
-            let d = guideContent[i] || {t:"Guide Page", c:"Premium Japan content..."};
+for(let i=0;i<40;i++){
+let d=guideContent[i]||{t:"Guide Page",c:"Japan content..."};
 
-            $("#flipbook").append(`
-                <div class="page">
-                    <h2>${d.t}</h2>
-                    <p>${d.c}</p>
-                </div>
-            `);
-        }
-
-        $('#flipbook').turn({
-            width:1000,
-            height:650,
-            autoCenter:true,
-            when:{
-                turned:function(e,page){
-                    if(soundOn) flipSound.play();
-                }
-            }
-        });
-
-        bookLoaded = true;
-    }
+$("#flipbook").append(`
+<div class="page">
+<h2>${d.t}</h2>
+<p>${d.c}</p>
+</div>
+`);
 }
 
-function closeBook() {
-    document.getElementById("bookModal").style.display = "none";
-    document.body.style.overflow = "auto";
+$('#flipbook').turn({
+width:1000,
+height:650,
+autoCenter:true
+});
+
+bookLoaded=true;
+}
 }
 
-$('#next').click(()=>{
-    if(bookLoaded) $('#flipbook').turn('next');
-});
+function closeBook(){
+document.getElementById("bookModal").style.display="none";
+}
 
-$('#prev').click(()=>{
-    if(bookLoaded) $('#flipbook').turn('previous');
-});
+$('#next').click(()=>$('#flipbook').turn('next'));
+$('#prev').click(()=>$('#flipbook').turn('previous'));
 </script>
 
 </body>
