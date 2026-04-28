@@ -302,4 +302,194 @@
         document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
     </script>
 </body>
+</html
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream World Japan - The Ultimate 3D Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --bg: #030303;
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff0055;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 243, 255, 0.3);
+        }
+
+        body {
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            perspective: 2500px;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Container for the 3D Book */
+        .book-container {
+            position: relative;
+            width: 90vw;
+            max-width: 500px;
+            height: 80vh;
+            max-height: 700px;
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #0f0f11, #1a1a1d);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            overflow-y: auto;
+            backface-visibility: hidden;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.9);
+            z-index: var(--z);
+        }
+
+        /* Table Styling for Data */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+
+        th, td {
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px;
+            text-align: left;
+        }
+
+        th { background: var(--glass); color: var(--neon-blue); font-family: 'Orbitron'; font-size: 0.7rem; }
+        td:first-child { color: var(--neon-pink); font-weight: 600; width: 35%; }
+
+        h2 { font-family: 'Orbitron', sans-serif; color: var(--neon-blue); font-size: 1.1rem; text-align: center; border-bottom: 1px solid var(--neon-pink); padding-bottom: 10px; }
+        
+        .tag { background: var(--neon-pink); font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+
+        /* Cover Design */
+        .cover {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--neon-blue);
+        }
+
+        .cover h1 { font-family: 'Orbitron', sans-serif; font-size: 2.5rem; text-align: center; text-shadow: 0 0 20px var(--neon-blue); }
+        .cover .subtitle { color: var(--neon-blue); font-weight: bold; letter-spacing: 3px; animation: blink 1.5s infinite; }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        /* Animation class */
+        .turned { transform: rotateY(-170deg); }
+
+        /* Interactive Hints */
+        .hint { position: fixed; bottom: 10px; font-size: 0.7rem; color: #555; width: 100%; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+
+        <div class="page" style="--z: 1;">
+            <h2>🔥 FINAL MASTER & CREATOR</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Daily Structure</td><td>Morning: Major | Afternoon: Explore | Night: Neon</td></tr>
+                <tr><td>Golden Rule</td><td>👉 Don’t rush. Japan rewards discipline.</td></tr>
+                <tr><td>Hook (Viral)</td><td>First 3 sec = critical. Use contrast (Day vs Night)</td></tr>
+                <tr><td>Shot Ideas</td><td>Shibuya Crossing, Kyoto Walk, Osaka Neon</td></tr>
+            </table>
+            <p style="text-align:center; margin-top:20px; font-family:'Orbitron'; color:var(--neon-blue);">🏁 SYSTEM COMPLETE</p>
+        </div>
+
+        <div class="page" style="--z: 2;" onclick="flip(this)">
+            <h2>🌆 HIDDEN VIEWS & TIMING</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Free vs Paid</td><td>Choose Free: Tokyo Met. Gov Building over Skytree</td></tr>
+                <tr><td>Kyoto Secret</td><td>Fushimi Inari back trail. Walk 10 min extra → 90% crowd gone.</td></tr>
+                <tr><td>Mt. Fuji</td><td>Morning = best visibility.</td></tr>
+                <tr><td>Pro Tip</td><td>Early entry = no crowd.</td></tr>
+            </table>
+        </div>
+
+        <div class="page" style="--z: 3;" onclick="flip(this)">
+            <h2>🧳 LOGISTICS & HUB</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Luggage Problem</td><td>Suitcases + stairs. Use TA-Q-BIN (Yamato)</td></tr>
+                <tr><td>Konbini Role</td><td>Food, ATM, WiFi, Charging, Trash (3-5 times/day)</td></tr>
+                <tr><td>ATM Tip</td><td>Only 7-Eleven / Japan Post works best.</td></tr>
+                <tr><td>Internet</td><td>eSIM (Solo), Pocket WiFi (Group)</td></tr>
+            </table>
+        </div>
+
+        <div class="page" style="--z: 4;" onclick="flip(this)">
+            <h2>🍜 FOODIE SURVIVAL</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Ordering</td><td>Ticket machine, tablet, staff. No Tipping.</td></tr>
+                <tr><td>Discount Hack</td><td>8 PM at Depachika = 30-50% off Bento.</td></tr>
+                <tr><td>Nagoya Hack</td><td>Coffee = free toast + eggs (Komeda's Coffee)</td></tr>
+                <tr><td>Food Strategy</td><td>Cheap breakfast → good lunch → flexible dinner</td></tr>
+            </table>
+        </div>
+
+        <div class="page" style="--z: 5;" onclick="flip(this)">
+            <h2>🚉 TRANSPORT PRO</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Timing</td><td>Trains = EXACT time (even 30 sec late = miss)</td></tr>
+                <tr><td>IC Card</td><td>Suica / Pasmo. Add to Apple Wallet for tap-go.</td></tr>
+                <tr><td>Last Train</td><td>Around midnight. Miss = very expensive taxi.</td></tr>
+                <tr><td>Station Hack</td><td>Exit numbers are CRITICAL. Wrong exit = 15m walk.</td></tr>
+            </table>
+        </div>
+
+        <div class="page" style="--z: 6;" onclick="flip(this)">
+            <h2>🧠 MENTAL MODEL</h2>
+            <table>
+                <tr><th>Section</th><th>Deep Content</th></tr>
+                <tr><td>Core Rule</td><td>👉 Observe first, act second. Match the Rhythm.</td></tr>
+                <tr><td>Flow System</td><td>Escalator side, walking lanes, train queues.</td></tr>
+                <tr><td>Walking Reality</td><td>15,000–25,000 steps daily. Save energy for night.</td></tr>
+                <tr><td>Energy Strategy</td><td>Combine nearby spots. No zig-zag.</td></tr>
+            </table>
+        </div>
+
+        <div class="page cover" style="--z: 7;" onclick="flip(this)">
+            <p class="tag">GOD-LEVEL GUIDE PART 4</p>
+            <h1>DREAM WORLD JAPAN</h1>
+            <p class="subtitle">TAP TO BEGIN VOYAGE</p>
+            <p style="font-size:0.6rem; color:#aaa; margin-top:20px;">By Mahesh</p>
+        </div>
+
+    </div>
+
+    <div class="hint">Tap right side to flip forward | Long press to see details</div>
+
+    <script>
+        function flip(el) {
+            el.classList.toggle('turned');
+        }
+    </script>
+</body>
 </html>
