@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream World Japan | Ultimate Master Guide</title>
+    <title>Dream World Japan | Master Guide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --japan-red: #bc002d;
+            /* Dark Orange Theme as requested */
+            --primary-orange: #e65c00; 
             --dark-bg: #050505;
             --card-bg: #111111;
             --text-gray: #aaaaaa;
@@ -17,29 +18,33 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--dark-bg); color: white; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- HEADER --- */
+        /* --- HEADER & NAVIGATION --- */
         header {
             position: fixed;
             top: 0; width: 100%;
-            padding: 20px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(15px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(230, 92, 0, 0.2);
         }
 
         .brand { display: flex; flex-direction: column; }
         .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; letter-spacing: 1px; }
-        .logo span { color: var(--japan-red); }
-        .sub-logo { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--japan-red); font-weight: 600; text-transform: uppercase; }
+        .logo span { color: var(--primary-orange); }
+        .sub-logo { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--primary-orange); font-weight: 600; text-transform: uppercase; }
+
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-orange); }
 
         .user-tag { 
-            background: rgba(188, 0, 45, 0.1); 
+            background: rgba(230, 92, 0, 0.1); 
             padding: 6px 16px; border-radius: 50px; 
-            border: 1px solid var(--japan-red); color: var(--japan-red); 
+            border: 1px solid var(--primary-orange); color: var(--primary-orange); 
             font-weight: 600; font-size: 0.85rem; 
         }
 
@@ -55,82 +60,94 @@
             border: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
             border-radius: 12px; color: white; text-decoration: none;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
         }
 
-        .side-icon:hover { background: var(--japan-red); transform: scale(1.1) translateX(-5px); box-shadow: 0 0 15px rgba(188, 0, 45, 0.4); }
+        .side-icon:hover { background: var(--primary-orange); transform: scale(1.1); box-shadow: 0 0 15px rgba(230, 92, 0, 0.4); }
 
-        /* --- HERO WITH VIDEO --- */
+        /* --- HERO SECTION (Panoramic Photo - No Map) --- */
         .hero {
             height: 100vh; position: relative; overflow: hidden;
             display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; padding: 0 20px;
-        }
-        
-        .hero video {
-            position: absolute; width: 100%; height: 100%;
-            object-fit: cover; z-index: -1; filter: brightness(0.4);
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
         .hero h1 { 
             font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; 
-            text-transform: uppercase; margin-bottom: 25px; letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(188,0,45,0.6);
+            text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;
         }
-        .hero h1 span { color: var(--japan-red); }
+        .hero h1 span { color: var(--primary-orange); }
+        .hero p { color: var(--primary-orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 20px; }
 
-        /* --- SEARCH BOX --- */
         #searchBox {
             padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
             width: 300px; background: rgba(255,255,255,0.1); color: white;
-            backdrop-filter: blur(10px); margin-top: 20px; outline: none; transition: 0.3s;
+            backdrop-filter: blur(10px); outline: none; transition: 0.3s;
         }
-        #searchBox:focus { border-color: var(--japan-red); width: 350px; }
+        #searchBox:focus { border-color: var(--primary-orange); width: 380px; }
 
         /* --- CARDS SECTION --- */
-        .section-padding { padding: 100px 8%; }
+        .section-padding { padding: 80px 8%; }
         .grid-container {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
         }
 
         .feature-card {
-            background: rgba(255,255,255,0.03); backdrop-filter: blur(15px);
-            border-radius: 20px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.08);
-            transition: 0.4s; cursor: pointer; opacity: 0; transform: translateY(50px);
+            background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px 30px; 
+            border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; cursor: pointer;
+            opacity: 0; transform: translateY(30px);
         }
 
         .feature-card:hover {
-            transform: translateY(-12px) scale(1.03) !important;
-            border-color: var(--japan-red); box-shadow: 0 0 25px rgba(188,0,45,0.3);
+            transform: translateY(-10px);
+            border-color: var(--primary-orange); box-shadow: 0 0 20px rgba(230, 92, 0, 0.2);
         }
 
-        .feature-card i { font-size: 2.2rem; color: var(--japan-red); margin-bottom: 25px; }
-        .feature-card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 600; }
-        .feature-card p { color: #777; font-size: 0.9rem; }
+        .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+        /* --- INFO SECTION --- */
+        .info-split {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 60px 8%;
+            background: #0a0a0a; align-items: center;
+        }
+        .info-text h2 { color: var(--primary-orange); font-size: 2.5rem; margin-bottom: 15px; }
+        .info-text p { color: var(--text-gray); margin-bottom: 20px; }
+        
+        /* --- FOOTER CTA (Street Photo) --- */
+        .footer-cta {
+            padding: 120px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover; background-position: center; text-align: center;
+        }
+        .footer-cta h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .subscribe-form input { padding: 15px; width: 280px; border: none; border-radius: 5px; margin: 10px; }
+        .subscribe-form button { 
+            padding: 15px 35px; background: var(--primary-orange); color: white; 
+            border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .subscribe-form button:hover { background: #ff751a; transform: scale(1.05); }
 
         /* --- MODAL --- */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); display: none; 
-            justify-content: center; align-items: center; z-index: 2000; padding: 15px;
+            background: rgba(0,0,0,0.95); display: none; 
+            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
         }
-
         .modal-content {
-            background: linear-gradient(145deg, #0a0a0a, #111);
-            max-width: 850px; width: 100%; max-height: 85vh;
-            border-radius: 25px; overflow-y: auto; position: relative;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 0 40px rgba(188,0,45,0.2);
-            animation: slideUp 0.4s ease-out;
+            background: #111; max-width: 800px; width: 100%; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative; border: 1px solid var(--primary-orange);
         }
+        .modal-header-img { width: 100%; height: 250px; object-fit: cover; }
+        .modal-body { padding: 30px; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: white; z-index: 10; }
 
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        .modal-header-img { width: 100%; height: 300px; object-fit: cover; }
-        .modal-body { padding: 40px; }
-        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; cursor: pointer; color: white; z-index: 10; }
-
-        footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: #444; }
+        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 0.9rem; color: #555; }
 
     </style>
 </head>
@@ -141,23 +158,29 @@
             <a href="#" class="logo">DREAM WORLD <span>JAPAN</span></a>
             <div class="sub-logo">Ultimate Master Guide</div>
         </div>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">The Guide</a>
+            <a href="#">Intimate</a>
+            <a href="#">What We Cover</a>
+            <a href="#">Community</a>
+            <a href="#">Store</a>
+            <a href="#">Collaborate</a>
+        </nav>
         <div class="user-tag">マヘシュ (MAHESH)</div>
     </header>
 
     <div class="sidebar">
-        <a href="https://www.facebook.com/profile.php?id=61550754726657" target="_blank" class="side-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="side-icon"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.tiktok.com/@dream_world__japan" target="_blank" class="side-icon"><i class="fab fa-tiktok"></i></a>
         <a href="https://www.instagram.com/dream_world_japan" target="_blank" class="side-icon"><i class="fab fa-instagram"></i></a>
         <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="side-icon"><i class="fab fa-youtube"></i></a>
     </div>
 
     <section class="hero">
-        <video autoplay muted loop playsinline>
-            <source src="https://cdn.coverr.co/videos/coverr-tokyo-street-night-5170/1080p.mp4" type="video/mp4">
-        </video>
-        <h1>JAPAN <span>MASTER</span> GUIDE</h1>
-        <p>Expertly curated travel blueprints for the modern explorer.</p>
-        <input type="text" id="searchBox" placeholder="🔍 Search e.g. 'Food', 'Tokyo'...">
+        <h1><span>MASTER</span> JAPAN</h1>
+        <p>EXPLORE THE DREAM WORLD WITH MAHESH</p>
+        <input type="text" id="searchBox" placeholder="🔍 Search travel tips...">
     </section>
 
     <section class="section-padding">
@@ -165,23 +188,46 @@
             <div class="feature-card" onclick="openModal('transport')">
                 <i class="fas fa-train-tram"></i>
                 <h3>Smart Transport</h3>
-                <p>Arrival flows, IC Card secrets, and the truth about JR Pass.</p>
+                <p>Arrival flows, IC Card secrets, and JR Pass hacks.</p>
             </div>
             <div class="feature-card" onclick="openModal('planning')">
                 <i class="fas fa-calendar-check"></i>
                 <h3>10-Day Execution</h3>
-                <p>Day-by-day itinerary from Tokyo to Osaka. Perfect flow.</p>
+                <p>Day-by-day itinerary from Tokyo to Osaka.</p>
             </div>
             <div class="feature-card" onclick="openModal('culture')">
                 <i class="fas fa-bowl-food"></i>
                 <h3>Food & Etiquette</h3>
-                <p>Convenience store hacks and Japanese social rules.</p>
+                <p>Local dining rules and convenience store hacks.</p>
             </div>
             <div class="feature-card" onclick="openModal('secrets')">
                 <i class="fas fa-camera-retro"></i>
                 <h3>Hidden Pro Gems</h3>
-                <p>4K photo locations and luggage forwarding hacks.</p>
+                <p>4K photo locations and luggage forwarding.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="info-split">
+        <div class="info-text">
+            <h2>Japan Travel. Simplified.</h2>
+            <p>Traveling to Japan doesn't have to be complicated. We break down the most complex routes and cultural norms into simple, actionable steps for your perfect journey.</p>
+            <div class="user-tag" style="display:inline-block; margin-top:10px;">Follow For Journey: TikTok • YouTube • Instagram</div>
+        </div>
+        <div style="border-left: 2px solid var(--primary-orange); padding-left: 30px;">
+            <h4 style="color:var(--primary-orange); margin-bottom:10px;">Fast Facts</h4>
+            <p>• 33,610+ Happy Explorers</p>
+            <p>• 9.7M+ Monthly Views</p>
+            <p>• 100% Authentic Content</p>
+        </div>
+    </section>
+
+    <section class="footer-cta">
+        <h2>Join the Dream World Japan Community</h2>
+        <div class="subscribe-form">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <button>GET YOUR FREE JAPAN GUIDE</button>
         </div>
     </section>
 
@@ -190,8 +236,8 @@
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <img id="modalImg" src="" class="modal-header-img">
             <div class="modal-body">
-                <h2 id="modalTitle" style="color: var(--japan-red); margin-bottom: 20px;"></h2>
-                <div id="modalText" style="color: #ccc; line-height: 1.8;"></div>
+                <h2 id="modalTitle" style="color: var(--primary-orange); margin-bottom: 20px;"></h2>
+                <div id="modalText" style="color: #ccc;"></div>
             </div>
         </div>
     </div>
@@ -205,22 +251,22 @@
             transport: {
                 title: "🚆 Transport & Arrival Mastery",
                 img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
-                text: "<b>Arrival Hack:</b> Use 'Visit Japan Web' to save 60 mins at immigration.<br><br><b>IC Cards:</b> Suica & Pasmo are your best friends. No need for tickets every time.<br><br><b>The JR Pass Truth:</b> It is NOT always worth it now due to price hikes. Use Google Maps for 100% accuracy.<br><br><b>Pro Tip:</b> Doors in Taxis open automatically—don't touch them!"
+                text: "Arrival Hack: Use 'Visit Japan Web' to save 60 mins at immigration. IC Cards like Suica are essential. No tipping in Taxis!"
             },
             planning: {
                 title: "📅 10-Day Perfect Plan",
                 img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
-                text: "<b>Day 1-3 (Tokyo):</b> Shibuya Crossing, Senso-ji, and Akihabara.<br><br><b>Day 4 (Fuji/Hakone):</b> Best views in winter. Check live webcams before going!<br><br><b>Day 5-7 (Kyoto & Nara):</b> Fushimi Inari, Bamboo Grove, and Nara deers.<br><br><b>Day 8-10 (Osaka):</b> Food capital! Dotonbori at night is the best vibe."
+                text: "From the neon lights of Shinjuku to the peaceful temples of Kyoto. This plan covers the 'Golden Route' efficiently."
             },
             culture: {
                 title: "🍣 Food & Etiquette",
                 img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
-                text: "<b>The Golden Rules:</b> No tipping, No loud talking on trains, remove shoes indoors.<br><br><b>Food Strategy:</b> Convenience stores (7-Eleven) = Life Savers! Try the Egg Sandwich.<br><br><b>Budgeting:</b> Mid-range travel costs about ₹8,000–15,000 per day."
+                text: "Remember: No loud talking on trains and always carry a small trash bag as public bins are rare."
             },
             secrets: {
                 title: "📸 Pro Hacks & Secrets",
                 img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
-                text: "<b>Hidden Gem:</b> Kanazawa is like a mini-Kyoto but with 70% fewer tourists.<br><br><b>Cinematic Tip:</b> Shoot in the rain at night in Shinjuku for neon reflections.<br><br><b>Luggage:</b> Use 'Ta-Q-Bin' to forward your heavy bags from hotel to hotel."
+                text: "Use luggage forwarding (Takkyubin) to send bags between cities for just a few dollars. Travel hands-free!"
             }
         };
 
@@ -237,9 +283,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        window.onclick = (e) => { if (e.target == document.getElementById('infoModal')) closeModal(); }
-
-        // Search Function
         document.getElementById("searchBox").addEventListener("keyup", function() {
             let val = this.value.toLowerCase();
             document.querySelectorAll(".feature-card").forEach(card => {
@@ -247,7 +290,6 @@
             });
         });
 
-        // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
