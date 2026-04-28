@@ -17,7 +17,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
         body { background-color: var(--dark-bg); color: white; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; width: 100%;
@@ -38,125 +38,94 @@
 
         .user-tag { 
             background: rgba(188, 0, 45, 0.1); 
-            padding: 6px 16px; 
-            border-radius: 50px; 
-            border: 1px solid var(--japan-red); 
-            color: var(--japan-red); 
-            font-weight: 600; 
-            font-size: 0.85rem; 
+            padding: 6px 16px; border-radius: 50px; 
+            border: 1px solid var(--japan-red); color: var(--japan-red); 
+            font-weight: 600; font-size: 0.85rem; 
         }
 
         /* --- SOCIAL SIDEBAR --- */
         .sidebar {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 1001;
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%); display: flex;
+            flex-direction: column; gap: 12px; z-index: 1001;
         }
 
         .side-icon {
-            width: 42px; height: 42px;
-            background: var(--card-bg);
+            width: 42px; height: 42px; background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
             border-radius: 12px; color: white; text-decoration: none;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .side-icon:hover { 
-            background: var(--japan-red); 
-            transform: scale(1.1) translateX(-5px); 
-            box-shadow: 0 0 15px rgba(188, 0, 45, 0.4); 
-        }
+        .side-icon:hover { background: var(--japan-red); transform: scale(1.1) translateX(-5px); }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO WITH VIDEO --- */
         .hero {
-            height: 100vh;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--dark-bg)), 
-                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=100&w=2500');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            padding: 0 20px;
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 0 20px;
+        }
+        
+        .hero video {
+            position: absolute; width: 100%; height: 100%;
+            object-fit: cover; z-index: -1; filter: brightness(0.4);
         }
 
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; line-height: 1; margin-bottom: 25px; text-transform: uppercase; }
+        .hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; 
+            text-transform: uppercase; margin-bottom: 25px; letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(188,0,45,0.6);
+        }
         .hero h1 span { color: var(--japan-red); }
-        .hero p { font-size: 1.1rem; color: var(--text-gray); max-width: 650px; }
 
-        /* --- EXPLORE SECTION --- */
+        /* --- SEARCH BOX --- */
+        #searchBox {
+            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
+            width: 300px; background: rgba(255,255,255,0.1); color: white;
+            backdrop-filter: blur(10px); margin-top: 20px; outline: none; transition: 0.3s;
+        }
+        #searchBox:focus { border-color: var(--japan-red); width: 350px; }
+
+        /* --- CARDS SECTION --- */
         .section-padding { padding: 100px 8%; }
-        .center-text { text-align: center; margin-bottom: 60px; }
-        .section-title { font-size: 2.8rem; margin-bottom: 15px; }
-
         .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
         }
 
         .feature-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.4s;
-            cursor: pointer;
-            position: relative;
+            background: rgba(255,255,255,0.03); backdrop-filter: blur(15px);
+            border-radius: 20px; padding: 40px 30px; border: 1px solid rgba(255,255,255,0.08);
+            transition: 0.4s; cursor: pointer; opacity: 0; transform: translateY(50px);
         }
 
-        .feature-card:hover { 
-            border-color: var(--japan-red); 
-            transform: translateY(-10px);
-            background: #161616;
+        .feature-card:hover {
+            transform: translateY(-12px) scale(1.03) !important;
+            border-color: var(--japan-red); box-shadow: 0 0 25px rgba(188,0,45,0.3);
         }
 
         .feature-card i { font-size: 2.2rem; color: var(--japan-red); margin-bottom: 25px; }
-        .feature-card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 600; }
-        .feature-card p { color: #777; font-size: 0.9rem; }
 
-        /* --- MODAL / POPUP --- */
+        /* --- MODAL --- */
         .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98);
-            display: none; 
-            justify-content: center; align-items: center;
-            z-index: 2000; padding: 15px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); display: none; 
+            justify-content: center; align-items: center; z-index: 2000; padding: 15px;
         }
 
         .modal-content {
-            background: #0d0d0d;
-            max-width: 850px; width: 100%;
-            max-height: 85vh;
-            border-radius: 25px;
-            overflow-y: auto;
-            position: relative;
+            background: linear-gradient(145deg, #0a0a0a, #111);
+            max-width: 850px; width: 100%; max-height: 85vh;
+            border-radius: 25px; overflow-y: auto; position: relative;
             border: 1px solid rgba(255,255,255,0.1);
-            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 0 40px rgba(188,0,45,0.2);
         }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         .modal-header-img { width: 100%; height: 300px; object-fit: cover; }
         .modal-body { padding: 40px; }
-        .modal-body h2 { color: var(--japan-red); font-size: 2.2rem; margin-bottom: 20px; }
-        .modal-body b { color: white; display: block; margin-top: 15px; }
-        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; cursor: pointer; color: white; z-index: 10; opacity: 0.6; }
-        .close-btn:hover { opacity: 1; }
+        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 2.5rem; cursor: pointer; color: white; z-index: 10; }
 
-        /* --- FOOTER --- */
-        footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        footer p { color: #444; font-size: 0.8rem; letter-spacing: 1px; }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--japan-red); }
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: #444; }
 
     </style>
 </head>
@@ -177,40 +146,36 @@
         <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="side-icon"><i class="fab fa-youtube"></i></a>
     </div>
 
-    <section class="hero" id="home">
+    <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="https://cdn.coverr.co/videos/coverr-tokyo-street-night-5170/1080p.mp4" type="video/mp4">
+        </video>
         <h1>JAPAN <span>MASTER</span> GUIDE</h1>
-        <p>From arrival hacks to secret photography spots, explore the Land of the Rising Sun with A-to-Z precision curated by Mahesh.</p>
+        <p>Expertly curated travel blueprints for the modern explorer.</p>
+        <input type="text" id="searchBox" placeholder="🔍 Search e.g. 'Food', 'Tokyo'...">
     </section>
 
-    <section class="section-padding" id="explore">
-        <div class="center-text">
-            <h2 class="section-title">Simplified Intelligence</h2>
-            <p style="color: #666;">Click on a section to reveal the full 4K detailed guide.</p>
-        </div>
-
+    <section class="section-padding">
         <div class="grid-container">
             <div class="feature-card" onclick="openModal('transport')">
                 <i class="fas fa-train-tram"></i>
                 <h3>Smart Transport</h3>
-                <p>Arrival flows, IC Card secrets, and the truth about JR Pass. Never get lost.</p>
+                <p>Arrival flows, IC Card secrets, and the truth about JR Pass.</p>
             </div>
-
             <div class="feature-card" onclick="openModal('planning')">
                 <i class="fas fa-calendar-check"></i>
-                <h3>The Perfect 10-Day Plan</h3>
-                <p>Day-by-day execution from Tokyo neon to Kyoto tranquility. Max efficiency.</p>
+                <h3>10-Day Execution</h3>
+                <p>Day-by-day itinerary from Tokyo to Osaka. Perfect flow.</p>
             </div>
-
             <div class="feature-card" onclick="openModal('culture')">
                 <i class="fas fa-bowl-food"></i>
                 <h3>Food & Etiquette</h3>
-                <p>7-Eleven secrets, Ramen etiquette, and "Must-Know" cultural rules for foreigners.</p>
+                <p>Convenience store hacks and Japanese social rules.</p>
             </div>
-
             <div class="feature-card" onclick="openModal('secrets')">
-                <i class="fas fa-gem"></i>
-                <h3>Elite Pro Hacks</h3>
-                <p>Hidden 4K photo spots, luggage forwarding, and saving money like a local expert.</p>
+                <i class="fas fa-camera-retro"></i>
+                <h3>Hidden Pro Gems</h3>
+                <p>4K photo locations and luggage forwarding hacks.</p>
             </div>
         </div>
     </section>
@@ -218,60 +183,39 @@
     <div id="infoModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" class="modal-header-img" alt="Japan HD">
+            <img id="modalImg" src="" class="modal-header-img">
             <div class="modal-body">
-                <h2 id="modalTitle"></h2>
-                <div id="modalText"></div>
+                <h2 id="modalTitle" style="color: var(--japan-red); margin-bottom: 20px;"></h2>
+                <div id="modalText" style="color: #ccc; line-height: 1.8;"></div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 DREAM WORLD JAPAN | CURATED BY マヘシュ (MAHESH)</p>
+        <p>&copy; 2026 DREAM WORLD JAPAN | CURATED BY MAHESH</p>
     </footer>
 
     <script>
         const details = {
             transport: {
-                title: "🚆 Transport & Arrival Mastery",
-                img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&q=100&w=1500",
-                text: `
-                    <b>A - Arrival Flow:</b> Use "Visit Japan Web" to pre-fill forms. It saves 30-60 mins at Narita or Haneda.<br>
-                    <b>B - IC Cards:</b> Get a Suica or Pasmo immediately. It works for trains, buses, and even vending machines.<br>
-                    <b>C - The JR Pass Truth:</b> Prices increased significantly. Use it only if traveling long distances frequently. For single city hops, buy individual Shinkansen tickets.<br>
-                    <b>D - Navigation:</b> Google Maps is 100% accurate for platform numbers and exit gates in Japan.
-                `
+                title: "🚆 Transport Mastery",
+                img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
+                text: "<b>Arrival:</b> Use Visit Japan Web.<br><b>Cards:</b> Get Suica/Pasmo immediately.<br><b>JR Pass:</b> Check if worth it before buying.<br><b>Taxis:</b> Doors open automatically!"
             },
             planning: {
-                title: "📅 10-Day Ultimate Itinerary",
-                img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&q=100&w=1500",
-                text: `
-                    <b>Day 1-3 (Tokyo):</b> Shibuya Crossing, Senso-ji Temple (Go at 6AM), and Akihabara.<br>
-                    <b>Day 4 (Fuji/Hakone):</b> Visit Lake Kawaguchi. Best views are in early morning or winter.<br>
-                    <b>Day 5-7 (Kyoto):</b> Fushimi Inari Taisha and Arashiyama Bamboo Grove. Avoid midday crowds.<br>
-                    <b>Day 8-9 (Osaka):</b> The Food Capital. Dotonbori at night for the best street food vibes.<br>
-                    <b>Day 10:</b> Return to Tokyo for last-minute shopping at Don Quijote.
-                `
+                title: "📅 10-Day Plan",
+                img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
+                text: "<b>Day 1-3:</b> Tokyo.<br><b>Day 4:</b> Fuji.<br><b>Day 5-7:</b> Kyoto/Nara.<br><b>Day 8-10:</b> Osaka."
             },
             culture: {
-                title: "🍣 Food, Money & Culture",
-                img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&q=100&w=1500",
-                text: `
-                    <b>Money:</b> Cash is king. Use 7-Eleven ATMs for foreign cards. Budget ₹8k-15k/day for comfort.<br>
-                    <b>Convenience Stores:</b> 7-Eleven, Lawson, and FamilyMart are lifesavers. Try the Egg Sandwich and Onigiri.<br>
-                    <b>The Golden Rules:</b> 1. No tipping (it's rude). 2. No loud talking on trains. 3. Remove shoes indoors.<br>
-                    <b>Dining:</b> Say "Itadakimasu" before eating to show respect.
-                `
+                title: "🍣 Food & Culture",
+                img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
+                text: "<b>Rules:</b> No tipping. Keep silent on trains.<br><b>Food:</b> Try 7-Eleven egg sandwiches and Dotonbori street food."
             },
             secrets: {
-                title: "💡 Pro Hacks & Hidden Gems",
-                img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&q=100&w=1500",
-                text: `
-                    <b>Luggage Flow:</b> Use "Ta-Q-Bin" (Yamato Transport) to forward bags from hotel to hotel. Don't carry suitcases on trains.<br>
-                    <b>Hidden Spot:</b> Kanazawa. It offers the beauty of Kyoto but with 70% fewer tourists.<br>
-                    <b>Cinematic Tips:</b> Shoot at night during the rain in Shinjuku for incredible 4K neon reflections.<br>
-                    <b>Coin Lockers:</b> Found at every station—lifesavers for day trips.
-                `
+                title: "📸 Hidden Gems",
+                img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
+                text: "<b>Kanazawa:</b> Like Kyoto but fewer crowds.<br><b> luggage:</b> Use Ta-Q-Bin service to send bags to next hotel."
             }
         };
 
@@ -280,97 +224,35 @@
             document.getElementById('modalImg').src = details[type].img;
             document.getElementById('modalText').innerHTML = details[type].text;
             document.getElementById('infoModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; 
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('infoModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; 
+            document.body.style.overflow = 'auto';
         }
 
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('infoModal')) {
-                closeModal();
-            }
+        window.onclick = (e) => { if (e.target == document.getElementById('infoModal')) closeModal(); }
 
-.hero h1 {
-    font-size: clamp(2.5rem, 8vw, 5.5rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 25px;
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px rgba(188,0,45,0.6);
-}
-            
-        }
+        // Search Function
+        document.getElementById("searchBox").addEventListener("keyup", function() {
+            let val = this.value.toLowerCase();
+            document.querySelectorAll(".feature-card").forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+            });
+        });
+
+        // Scroll Animation (Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
     </script>
-
 </body>
 </html>
-
-.feature-card {
-    background: rgba(255,255,255,0.03);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    padding: 40px 30px;
-    border: 1px solid rgba(255,255,255,0.08);
-    transition: 0.4s;
-}
-
-.feature-card:hover {
-    transform: translateY(-12px) scale(1.03);
-    border-color: var(--japan-red);
-    box-shadow: 0 0 25px rgba(188,0,45,0.3);
-}
-
-const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-        }
-    });
-});
-
-document.querySelectorAll(".feature-card").forEach(el=>{
-    el.style.opacity = "0";
-    el.style.transform = "translateY(50px)";
-    observer.observe(el);
-});
-
-.modal-content {
-    background: linear-gradient(145deg,#0a0a0a,#111);
-    border-radius: 25px;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(188,0,45,0.2);
-}
-
-<div style="margin-top:30px;">
-<input type="text" id="searchBox" placeholder="🔍 Search Tokyo, Budget, Food..."
-style="padding:12px 20px; border-radius:30px; border:none; width:280px;">
-</div>
-
-document.getElementById("searchBox").addEventListener("keyup", function() {
-    let val = this.value.toLowerCase();
-    document.querySelectorAll(".feature-card").forEach(card=>{
-        let text = card.innerText.toLowerCase();
-        card.style.display = text.includes(val) ? "block" : "none";
-    });
-});
-
-.hero {
-    position: relative;
-    overflow: hidden;
-}
-.hero video {
-    position:absolute;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    z-index:-1;
-}
-
-<video autoplay muted loop>
-  <source src="https://cdn.coverr.co/videos/coverr-tokyo-street-night-5170/1080p.mp4" type="video/mp4">
-</video>
-
