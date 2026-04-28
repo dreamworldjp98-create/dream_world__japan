@@ -3,232 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Japan Travel Simplified | Ultimate Guide</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+    <title>Dream World Japan | Master Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #bc002d;
-            --dark-bg: #ffffff;
-            --text-black: #1a1a1a;
-            --gray-bg: #f4f4f4;
+            /* Dark Orange Theme */
+            --primary-orange: #e65c00; 
+            --dark-bg: #050505;
+            --card-bg: #111111;
+            --text-gray: #aaaaaa;
         }
 
-        body {
-            margin: 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-black);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- Navigation --- */
-        nav {
+        /* --- HEADER & NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 5%;
-            background: white;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
             z-index: 1000;
+            border-bottom: 1px solid rgba(230, 92, 0, 0.2);
         }
 
-        .logo { font-weight: bold; font-size: 1.2rem; letter-spacing: 2px; }
-        .nav-links a { text-decoration: none; color: black; margin-left: 30px; font-size: 0.9rem; text-transform: uppercase; }
+        .brand { display: flex; flex-direction: column; }
+        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary-orange); }
+        .sub-logo { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--primary-orange); font-weight: 600; text-transform: uppercase; }
 
-        /* --- Hero Section --- */
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-orange); }
+
+        .user-tag { 
+            background: rgba(230, 92, 0, 0.1); 
+            padding: 6px 16px; border-radius: 50px; 
+            border: 1px solid var(--primary-orange); color: var(--primary-orange); 
+            font-weight: 600; font-size: 0.85rem; 
+        }
+
+        /* --- SOCIAL SIDEBAR --- */
+        .sidebar {
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%); display: flex;
+            flex-direction: column; gap: 12px; z-index: 1001;
+        }
+
+        .side-icon {
+            width: 42px; height: 42px; background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; color: white; text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .side-icon:hover { background: var(--primary-orange); transform: scale(1.1); box-shadow: 0 0 15px rgba(230, 92, 0, 0.4); }
+
+        /* --- HERO SECTION --- */
         .hero {
-            height: 60vh;
-            background: #f9f9f9; /* Replace with your image URL */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-bottom: 1px solid #eee;
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
-        .hero p { font-size: 1.2rem; color: #666; }
+        .hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; 
+            text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;
+        }
+        .hero h1 span { color: var(--primary-orange); }
+        .hero p { color: var(--primary-orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 20px; }
 
-        /* --- Email Subscription --- */
-        .email-section {
-            padding: 60px 20px;
-            text-align: center;
-            background: var(--gray-bg);
+        #searchBox {
+            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
+            width: 300px; background: rgba(255,255,255,0.1); color: white;
+            backdrop-filter: blur(10px); outline: none; transition: 0.3s;
+        }
+        #searchBox:focus { border-color: var(--primary-orange); width: 380px; }
+
+        /* --- CARDS SECTION --- */
+        .section-padding { padding: 80px 8%; }
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
         }
 
-        .email-section h2 { margin-bottom: 20px; }
-        .email-box {
-            display: flex;
-            justify-content: center;
-            max-width: 500px;
-            margin: 0 auto;
+        .feature-card {
+            background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px 30px; 
+            border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; cursor: pointer;
+            opacity: 0; transform: translateY(30px);
         }
 
-        .email-box input {
-            flex: 1;
-            padding: 15px;
-            border: 1px solid #ccc;
-            outline: none;
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-orange); box-shadow: 0 0 20px rgba(230, 92, 0, 0.2);
         }
 
-        .email-box button {
-            padding: 15px 30px;
-            background: var(--primary-red);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
+        .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+        /* --- INFO SECTION --- */
+        .info-split {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 60px 8%;
+            background: #0a0a0a; align-items: center;
         }
-
-        /* --- Flipbook Container --- */
-        .guide-container {
-            padding: 80px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #222; /* Dark background to make book pop */
+        .info-text h2 { color: var(--primary-orange); font-size: 2.5rem; margin-bottom: 15px; }
+        .info-text p { color: var(--text-gray); margin-bottom: 20px; }
+        
+        /* --- FOOTER CTA --- */
+        .footer-cta {
+            padding: 120px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover; background-position: center; text-align: center;
         }
-
-        .guide-container h2 { color: white; margin-bottom: 40px; font-weight: 300; letter-spacing: 2px; }
-
-        #flipbook {
-            width: 800px;
-            height: 500px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        .footer-cta h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .subscribe-form input { padding: 15px; width: 280px; border: none; border-radius: 5px; margin: 10px; }
+        .subscribe-form button { 
+            padding: 15px 35px; background: var(--primary-orange); color: white; 
+            border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;
         }
+        .subscribe-form button:hover { background: #ff751a; transform: scale(1.05); }
 
-        .page {
-            width: 400px;
-            height: 500px;
-            background-color: #fff;
-            padding: 40px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
+        /* --- MODAL --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; 
+            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
         }
-
-        .page.cover {
-            background-color: var(--primary-red);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        .modal-content {
+            background: #111; max-width: 800px; width: 100%; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative; border: 1px solid var(--primary-orange);
         }
+        .modal-header-img { width: 100%; height: 250px; object-fit: cover; }
+        .modal-body { padding: 30px; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: white; z-index: 10; }
 
-        /* --- Footer Section --- */
-        .footer-collab {
-            padding: 100px 20px;
-            text-align: center;
-        }
+        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 0.9rem; color: #555; }
 
-        .footer-collab h2 { font-size: 2rem; margin-bottom: 20px; }
-
-        .controls { margin-top: 30px; display: flex; gap: 15px; }
-        .btn-outline {
-            padding: 10px 20px;
-            border: 1px solid white;
-            background: transparent;
-            color: white;
-            cursor: pointer;
-        }
-
-        @media (max-width: 850px) {
-            #flipbook { width: 320px !important; height: 450px !important; }
-            .page { width: 320px !important; }
-        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">JAPAN TRAVEL</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">The Triangle</a>
-            <a href="#">Contact</a>
+    <header>
+        <div class="brand">
+            <a href="#" class="logo">DREAM WORLD <span>JAPAN</span></a>
+            <div class="sub-logo">Ultimate Master Guide</div>
         </div>
-    </nav>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">The Guide</a>
+            <a href="#">Intimate</a>
+            <a href="#">What We Cover</a>
+            <a href="#">Community</a>
+            <a href="#">Store</a>
+            <a href="#">Collaborate</a>
+        </nav>
+        <div class="user-tag">マヘシュ (MAHESH)</div>
+    </header>
+
+    <div class="sidebar">
+        <a href="#" class="side-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@dream_world__japan" target="_blank" class="side-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/dream_world_japan" target="_blank" class="side-icon"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="side-icon"><i class="fab fa-youtube"></i></a>
+    </div>
 
     <section class="hero">
-        <h1>Japan Travel. Simplified.</h1>
-        <p>Expertly curated guides for the modern traveler.</p>
+        <h1><span>MASTER</span> JAPAN</h1>
+        <p>EXPLORE THE DREAM WORLD WITH MAHESH</p>
+        <input type="text" id="searchBox" placeholder="🔍 Search travel tips...">
     </section>
 
-    <section class="email-section">
-        <h2>Get Your Free Japan Guide</h2>
-        <div class="email-box">
-            <input type="email" placeholder="Enter your Gmail ID">
-            <button>GET IT NOW</button>
+    <section class="section-padding">
+        <div class="grid-container">
+            <div class="feature-card" onclick="openModal('transport')">
+                <i class="fas fa-train-tram"></i>
+                <h3>Smart Transport</h3>
+                <p>Arrival flows, IC Card secrets, and JR Pass hacks.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('planning')">
+                <i class="fas fa-calendar-check"></i>
+                <h3>10-Day Execution</h3>
+                <p>Day-by-day itinerary from Tokyo to Osaka.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('culture')">
+                <i class="fas fa-bowl-food"></i>
+                <h3>Food & Etiquette</h3>
+                <p>Local dining rules and convenience store hacks.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('secrets')">
+                <i class="fas fa-camera-retro"></i>
+                <h3>Hidden Pro Gems</h3>
+                <p>4K photo locations and luggage forwarding.</p>
+            </div>
         </div>
     </section>
 
-    <section class="guide-container">
-        <h2>THE ULTIMATE TRIANGLE GUIDE</h2>
-        
-        <div id="flipbook">
-            <div class="page cover">
-                <h1>THE<br>ULTIMATE<br>TRIANGLE</h1>
-                <p>Japan Edition</p>
-            </div>
-            <div class="page">
-                <h3>Welcome</h3>
-                <p>This guide simplifies your journey through Tokyo, Kyoto, and Osaka.</p>
-                <p>No fluff, just the best spots.</p>
-            </div>
-            <div class="page">
-                <h3>Why the Triangle?</h3>
-                <p>Tokyo offers the future, Kyoto preserves the past, and Osaka feeds the soul.</p>
-            </div>
-            <div class="page">
-                <h3>What's Inside</h3>
-                <ul>
-                    <li>Hidden Cafes</li>
-                    <li>Efficient Routes</li>
-                    <li>Cultural Etiquette</li>
-                </ul>
-            </div>
-            <div class="page cover" style="background:#333">
-                <h3>Ready?</h3>
-                <p>Turn back to start again.</p>
-            </div>
+    <section class="info-split">
+        <div class="info-text">
+            <h2>Japan Travel. Simplified.</h2>
+            <p>Traveling to Japan doesn't have to be complicated. We break down the most complex routes and cultural norms into simple, actionable steps for your perfect journey.</p>
+            <div class="user-tag" style="display:inline-block; margin-top:10px;">Follow For Journey: TikTok • YouTube • Instagram</div>
         </div>
-
-        <div class="controls">
-            <button class="btn-outline" id="prev-btn">Previous</button>
-            <button class="btn-outline" id="next-btn">Next</button>
+        <div style="border-left: 2px solid var(--primary-orange); padding-left: 30px;">
+            <h4 style="color:var(--primary-orange); margin-bottom:10px;">Fast Facts</h4>
+            <p>• 33,610+ Happy Explorers</p>
+            <p>• 9.7M+ Monthly Views</p>
+            <p>• 100% Authentic Content</p>
         </div>
     </section>
 
-    <section class="footer-collab">
-        <h2>Creating Real Connections</h2>
-        <p>Authentic partnerships that go beyond traditional advertising.</p>
-        <p style="margin-top: 40px; color: #888;">© 2026 Japan Travel Simplified</p>
+    <section class="footer-cta">
+        <h2>Join the Dream World Japan Community</h2>
+        <form action="https://formspree.io/f/xbdqvzwj" method="POST" class="subscribe-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <button type="submit">GET YOUR FREE JAPAN GUIDE</button>
+        </form>
     </section>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" class="modal-header-img">
+            <div class="modal-body">
+                <h2 id="modalTitle" style="color: var(--primary-orange); margin-bottom: 20px;"></h2>
+                <div id="modalText" style="color: #ccc;"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DREAM WORLD JAPAN | CURATED BY MAHESH</p>
+    </footer>
 
     <script>
-        $(document).ready(function() {
-            $('#flipbook').turn({
-                width: 800,
-                height: 500,
-                autoCenter: true,
-                duration: 1000
-            });
-
-            $("#prev-btn").click(function(){ $("#flipbook").turn("previous"); });
-            $("#next-btn").click(function(){ $("#flipbook").turn("next"); });
-        });
-
-        $(window).resize(function() {
-            if($(window).width() < 850) {
-                $('#flipbook').turn('display', 'single');
-            } else {
-                $('#flipbook').turn('display', 'double');
+        const details = {
+            transport: {
+                title: "🚆 Transport & Arrival Mastery",
+                img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
+                text: "Arrival Hack: Use 'Visit Japan Web' to save 60 mins at immigration. IC Cards like Suica are essential. No tipping in Taxis!"
+            },
+            planning: {
+                title: "📅 10-Day Perfect Plan",
+                img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
+                text: "From the neon lights of Shinjuku to the peaceful temples of Kyoto. This plan covers the 'Golden Route' efficiently."
+            },
+            culture: {
+                title: "🍣 Food & Etiquette",
+                img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
+                text: "Remember: No loud talking on trains and always carry a small trash bag as public bins are rare."
+            },
+            secrets: {
+                title: "📸 Pro Hacks & Secrets",
+                img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
+                text: "Use luggage forwarding (Takkyubin) to send bags between cities for just a few dollars. Travel hands-free!"
             }
+        };
+
+        function openModal(type) {
+            document.getElementById('modalTitle').innerText = details[type].title;
+            document.getElementById('modalImg').src = details[type].img;
+            document.getElementById('modalText').innerHTML = details[type].text;
+            document.getElementById('infoModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById("searchBox").addEventListener("keyup", function() {
+            let val = this.value.toLowerCase();
+            document.querySelectorAll(".feature-card").forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+            });
         });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
