@@ -58,7 +58,7 @@
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .side-icon:hover { background: var(--japan-red); transform: scale(1.1) translateX(-5px); }
+        .side-icon:hover { background: var(--japan-red); transform: scale(1.1) translateX(-5px); box-shadow: 0 0 15px rgba(188, 0, 45, 0.4); }
 
         /* --- HERO WITH VIDEO --- */
         .hero {
@@ -105,6 +105,8 @@
         }
 
         .feature-card i { font-size: 2.2rem; color: var(--japan-red); margin-bottom: 25px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 12px; font-weight: 600; }
+        .feature-card p { color: #777; font-size: 0.9rem; }
 
         /* --- MODAL --- */
         .modal {
@@ -119,7 +121,10 @@
             border-radius: 25px; overflow-y: auto; position: relative;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 0 40px rgba(188,0,45,0.2);
+            animation: slideUp 0.4s ease-out;
         }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         .modal-header-img { width: 100%; height: 300px; object-fit: cover; }
         .modal-body { padding: 40px; }
@@ -198,24 +203,24 @@
     <script>
         const details = {
             transport: {
-                title: "🚆 Transport Mastery",
+                title: "🚆 Transport & Arrival Mastery",
                 img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
-                text: "<b>Arrival:</b> Use Visit Japan Web.<br><b>Cards:</b> Get Suica/Pasmo immediately.<br><b>JR Pass:</b> Check if worth it before buying.<br><b>Taxis:</b> Doors open automatically!"
+                text: "<b>Arrival Hack:</b> Use 'Visit Japan Web' to save 60 mins at immigration.<br><br><b>IC Cards:</b> Suica & Pasmo are your best friends. No need for tickets every time.<br><br><b>The JR Pass Truth:</b> It is NOT always worth it now due to price hikes. Use Google Maps for 100% accuracy.<br><br><b>Pro Tip:</b> Doors in Taxis open automatically—don't touch them!"
             },
             planning: {
-                title: "📅 10-Day Plan",
+                title: "📅 10-Day Perfect Plan",
                 img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
-                text: "<b>Day 1-3:</b> Tokyo.<br><b>Day 4:</b> Fuji.<br><b>Day 5-7:</b> Kyoto/Nara.<br><b>Day 8-10:</b> Osaka."
+                text: "<b>Day 1-3 (Tokyo):</b> Shibuya Crossing, Senso-ji, and Akihabara.<br><br><b>Day 4 (Fuji/Hakone):</b> Best views in winter. Check live webcams before going!<br><br><b>Day 5-7 (Kyoto & Nara):</b> Fushimi Inari, Bamboo Grove, and Nara deers.<br><br><b>Day 8-10 (Osaka):</b> Food capital! Dotonbori at night is the best vibe."
             },
             culture: {
-                title: "🍣 Food & Culture",
+                title: "🍣 Food & Etiquette",
                 img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
-                text: "<b>Rules:</b> No tipping. Keep silent on trains.<br><b>Food:</b> Try 7-Eleven egg sandwiches and Dotonbori street food."
+                text: "<b>The Golden Rules:</b> No tipping, No loud talking on trains, remove shoes indoors.<br><br><b>Food Strategy:</b> Convenience stores (7-Eleven) = Life Savers! Try the Egg Sandwich.<br><br><b>Budgeting:</b> Mid-range travel costs about ₹8,000–15,000 per day."
             },
             secrets: {
-                title: "📸 Hidden Gems",
+                title: "📸 Pro Hacks & Secrets",
                 img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
-                text: "<b>Kanazawa:</b> Like Kyoto but fewer crowds.<br><b> luggage:</b> Use Ta-Q-Bin service to send bags to next hotel."
+                text: "<b>Hidden Gem:</b> Kanazawa is like a mini-Kyoto but with 70% fewer tourists.<br><br><b>Cinematic Tip:</b> Shoot in the rain at night in Shinjuku for neon reflections.<br><br><b>Luggage:</b> Use 'Ta-Q-Bin' to forward your heavy bags from hotel to hotel."
             }
         };
 
@@ -242,7 +247,7 @@
             });
         });
 
-        // Scroll Animation (Observer)
+        // Scroll Animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
