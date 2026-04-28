@@ -1,1 +1,18 @@
+title: Dream World Japan
+description: Ultimate Japan Travel Master Guide
+theme: jekyll-theme-primer
 
+# Disable unnecessary चीजें
+markdown: kramdown
+highlighter: rouge
+
+# Build settings
+exclude:
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+
+# Keep assets safe
+include:
+  - assets
