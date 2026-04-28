@@ -1,4 +1,179 @@
-<link rel="stylesheet" href="css/style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Dream World Japan - PRO Guide</title>
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+<!-- JQUERY + TURN JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+
+<style>
+body {
+    margin:0;
+    font-family:Poppins;
+    background:#000;
+    color:white;
+}
+
+/* HERO */
+.hero {
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070') center/cover;
+}
+
+.hero h1 {
+    font-size:60px;
+}
+
+.pro-btn {
+    padding:15px 30px;
+    background:#e65c00;
+    border:none;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+/* MODAL */
+.pro-modal {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#flipbook {
+    width:90vw;
+    max-width:1000px;
+    height:650px;
+}
+
+.page {
+    background:#111;
+    color:white;
+    padding:30px;
+}
+
+/* NAV */
+.nav-btn {
+    position:absolute;
+    top:50%;
+    font-size:30px;
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+
+#prev { left:20px; }
+#next { right:20px; }
+
+.close {
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:30px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>🇯🇵 DREAM WORLD JAPAN</h1>
+    <button onclick="openBook()" class="pro-btn">OPEN PRO 3D GUIDE</button>
+</div>
+
+<!-- MODAL -->
+<div id="bookModal" class="pro-modal">
+
+    <div class="close" onclick="closeBook()">✖</div>
+
+    <button id="prev" class="nav-btn">❮</button>
+    <button id="next" class="nav-btn">❯</button>
+
+    <div id="flipbook"></div>
+
+</div>
+
+<script>
+let soundOn = true;
+let bookLoaded = false;
+
+const flipSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-page-turn-1134.mp3");
+
+const guideContent = [
+{ t:"Mental Model", c:"Flow + Respect + Awareness system." },
+{ t:"Transport", c:"IC cards + perfect timing trains." },
+{ t:"Food", c:"Ticket machines + no tipping." },
+{ t:"Logistics", c:"Use luggage forwarding." },
+{ t:"Hidden Gems", c:"Secret locations & views." }
+];
+
+function openBook() {
+    document.getElementById("bookModal").style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    if (!bookLoaded) {
+
+        for (let i = 0; i < 52; i++) {
+            let d = guideContent[i] || {t:"Guide Page", c:"Premium Japan content..."};
+
+            $("#flipbook").append(`
+                <div class="page">
+                    <h2>${d.t}</h2>
+                    <p>${d.c}</p>
+                </div>
+            `);
+        }
+
+        $('#flipbook').turn({
+            width:1000,
+            height:650,
+            autoCenter:true,
+            when:{
+                turned:function(e,page){
+                    if(soundOn) flipSound.play();
+                }
+            }
+        });
+
+        bookLoaded = true;
+    }
+}
+
+function closeBook() {
+    document.getElementById("bookModal").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+$('#next').click(()=>{
+    if(bookLoaded) $('#flipbook').turn('next');
+});
+
+$('#prev').click(()=>{
+    if(bookLoaded) $('#flipbook').turn('previous');
+});
+</script>
+
+</body>
+</html>
