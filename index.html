@@ -3,75 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream World Japan | Master 3D Guide</title>
+    <title>Dream World Japan | Master Guide</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Dark Orange Theme */
             --primary-orange: #e65c00; 
             --dark-bg: #050505;
             --card-bg: #111111;
-            --neon-blue: #00f3ff;
-            --neon-pink: #ff0055;
+            --text-gray: #aaaaaa;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; }
+        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- HEADER --- */
+        /* --- HEADER & NAVIGATION --- */
         header {
-            position: fixed; top: 0; width: 100%; padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); z-index: 1000;
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
             border-bottom: 1px solid rgba(230, 92, 0, 0.2);
         }
-        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; font-family: 'Orbitron'; }
+
+        .brand { display: flex; flex-direction: column; }
+        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; letter-spacing: 1px; }
         .logo span { color: var(--primary-orange); }
-        .user-tag { background: rgba(230, 92, 0, 0.1); padding: 6px 16px; border-radius: 50px; border: 1px solid var(--primary-orange); color: var(--primary-orange); font-weight: 600; font-size: 0.85rem; }
+        .sub-logo { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--primary-orange); font-weight: 600; text-transform: uppercase; }
 
-        /* --- HERO --- */
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-orange); }
+
+        .user-tag { 
+            background: rgba(230, 92, 0, 0.1); 
+            padding: 6px 16px; border-radius: 50px; 
+            border: 1px solid var(--primary-orange); color: var(--primary-orange); 
+            font-weight: 600; font-size: 0.85rem; 
+        }
+
+        /* --- SOCIAL SIDEBAR --- */
+        .sidebar {
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%); display: flex;
+            flex-direction: column; gap: 12px; z-index: 1001;
+        }
+
+        .side-icon {
+            width: 42px; height: 42px; background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px; color: white; text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .side-icon:hover { background: var(--primary-orange); transform: scale(1.1); box-shadow: 0 0 15px rgba(230, 92, 0, 0.4); }
+
+        /* --- HERO SECTION --- */
         .hero {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            height: 100vh; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-family: 'Orbitron'; margin-bottom: 10px; }
-        .hero h1 span { color: var(--primary-orange); text-shadow: 0 0 20px var(--primary-orange); }
 
-        /* --- 3D BOOK MODAL --- */
-        .book-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); display: none; justify-content: center; align-items: center; z-index: 2000;
-            perspective: 2500px;
+        .hero h1 { 
+            font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; 
+            text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;
         }
-        .book-container { position: relative; width: 350px; height: 500px; transform-style: preserve-3d; }
-        .book-page {
-            position: absolute; width: 100%; height: 100%; padding: 25px;
-            background: #151515; border: 1px solid var(--primary-orange); border-radius: 15px;
-            transform-origin: left; transition: transform 1s; backface-visibility: hidden; overflow-y: auto;
+        .hero h1 span { color: var(--primary-orange); }
+        .hero p { color: var(--primary-orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 20px; }
+
+        #searchBox {
+            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
+            width: 300px; background: rgba(255,255,255,0.1); color: white;
+            backdrop-filter: blur(10px); outline: none; transition: 0.3s;
         }
-        .book-page.turned { transform: rotateY(-170deg); }
-        .close-book { position: absolute; top: 20px; right: 30px; color: white; font-size: 2rem; cursor: pointer; z-index: 2100; }
+        #searchBox:focus { border-color: var(--primary-orange); width: 380px; }
 
-        /* Tables inside Book */
-        .guide-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.75rem; }
-        .guide-table th, .guide-table td { border: 1px solid #333; padding: 8px; text-align: left; }
-        .guide-table th { color: var(--primary-orange); font-family: 'Orbitron'; }
-        .guide-table td:first-child { color: var(--neon-blue); font-weight: bold; width: 35%; }
+        /* --- CARDS SECTION --- */
+        .section-padding { padding: 80px 8%; }
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
+        }
 
-        /* --- FEATURE CARDS --- */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 80px 8%; }
         .feature-card {
-            background: var(--card-bg); border-radius: 20px; padding: 40px; 
-            border: 1px solid #222; transition: 0.4s; cursor: pointer; text-align: center;
+            background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px 30px; 
+            border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; cursor: pointer;
+            opacity: 0; transform: translateY(30px);
         }
-        .feature-card:hover { border-color: var(--primary-orange); transform: translateY(-10px); }
-        .feature-card i { font-size: 2.5rem; color: var(--primary-orange); margin-bottom: 20px; }
 
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-orange); box-shadow: 0 0 20px rgba(230, 92, 0, 0.2);
+        }
+
+        .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
+        .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+
+        /* --- INFO SECTION --- */
+        .info-split {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 60px 8%;
+            background: #0a0a0a; align-items: center;
+        }
+        .info-text h2 { color: var(--primary-orange); font-size: 2.5rem; margin-bottom: 15px; }
+        .info-text p { color: var(--text-gray); margin-bottom: 20px; }
+        
         /* --- FOOTER CTA --- */
-        .footer-cta { padding: 100px 20px; text-align: center; background: #0a0a0a; border-top: 1px solid #222; }
-        .subscribe-form input { padding: 15px; width: 250px; border-radius: 5px; border: none; margin: 5px; }
-        .subscribe-form button { padding: 15px 30px; background: var(--primary-orange); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .footer-cta {
+            padding: 120px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover; background-position: center; text-align: center;
+        }
+        .footer-cta h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .subscribe-form input { padding: 15px; width: 280px; border: none; border-radius: 5px; margin: 10px; }
+        .subscribe-form button { 
+            padding: 15px 35px; background: var(--primary-orange); color: white; 
+            border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .subscribe-form button:hover { background: #ff751a; transform: scale(1.05); }
+
+        /* --- MODAL --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; 
+            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
+        }
+        .modal-content {
+            background: #111; max-width: 800px; width: 100%; max-height: 85vh;
+            border-radius: 20px; overflow-y: auto; position: relative; border: 1px solid var(--primary-orange);
+        }
+        .modal-header-img { width: 100%; height: 250px; object-fit: cover; }
+        .modal-body { padding: 30px; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: white; z-index: 10; }
+
+        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 0.9rem; color: #555; }
 
     </style>
 </head>
@@ -80,93 +156,150 @@
     <header>
         <div class="brand">
             <a href="#" class="logo">DREAM WORLD <span>JAPAN</span></a>
+            <div class="sub-logo">Ultimate Master Guide</div>
         </div>
-        <div class="user-tag" onclick="toggleBook()">OPEN 3D GUIDE</div>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">The Guide</a>
+            <a href="#">Intimate</a>
+            <a href="#">What We Cover</a>
+            <a href="#">Community</a>
+            <a href="#">Store</a>
+            <a href="#">Collaborate</a>
+        </nav>
+        <div class="user-tag">マヘシュ (MAHESH)</div>
     </header>
 
-    <section class="hero">
-        <p style="letter-spacing: 5px; color: var(--primary-orange);">BY MAHESH</p>
-        <h1><span>GOD-LEVEL</span> JAPAN</h1>
-        <button onclick="toggleBook()" style="padding: 15px 40px; background: none; border: 2px solid var(--primary-orange); color: white; font-family: 'Orbitron'; cursor: pointer; margin-top: 20px;">EXPLORE HANDBOOK</button>
-    </section>
-
-    <section class="grid-container">
-        <div class="feature-card" onclick="toggleBook()">
-            <i class="fas fa-book-open"></i>
-            <h3>Master Handbook</h3>
-            <p>Sari details jo aapne bhei hain—sab kuch ek 3D book ke andar.</p>
-        </div>
-        <div class="feature-card" onclick="location.href='https://www.instagram.com/dream_world_japan'">
-            <i class="fab fa-instagram"></i>
-            <h3>Visual Journey</h3>
-            <p>Follow the daily vibes of Japan through our community.</p>
-        </div>
-    </section>
-
-    <div class="book-modal" id="bookModal">
-        <span class="close-book" onclick="toggleBook()">&times;</span>
-        <div class="book-container">
-
-            <div class="book-page" style="z-index: 1;">
-                <h2 style="color:var(--primary-orange); font-family:'Orbitron'; font-size:1rem;">🗣️ SURVIVAL & FINAL</h2>
-                <table class="guide-table">
-                    <tr><th>Section</th><th>Content</th></tr>
-                    <tr><td>Bill Hack</td><td>Make "X" with fingers for check</td></tr>
-                    <tr><td>Core Word</td><td>Sumimasen (Excuse me/Sorry)</td></tr>
-                    <tr><td>Daily Flow</td><td>Morning: Major | Night: Neon</td></tr>
-                    <tr><td>Elite Tip</td><td>Travel Light + Follow System</td></tr>
-                </table>
-                <p style="margin-top:20px; font-size:0.7rem; color:var(--primary-orange); text-align:center;">🏁 END OF MASTER GUIDE</p>
-            </div>
-
-            <div class="book-page" style="z-index: 2;" onclick="flipPage(this)">
-                <h2 style="color:var(--primary-orange); font-family:'Orbitron'; font-size:1rem;">🍜 FOOD & LOGISTICS</h2>
-                <table class="guide-table">
-                    <tr><th>Section</th><th>Content</th></tr>
-                    <tr><td>8 PM Hack</td><td>Depachika Bento = 50% Off</td></tr>
-                    <tr><td>Nagoya Tip</td><td>Free toast+eggs at Komeda's</td></tr>
-                    <tr><td>Luggage</td><td>Use TA-Q-BIN (Yamato Trans)</td></tr>
-                    <tr><td>Konbini</td><td>7-Eleven is your Survival Hub</td></tr>
-                </table>
-            </div>
-
-            <div class="book-page" style="z-index: 3;" onclick="flipPage(this)">
-                <h2 style="color:var(--primary-orange); font-family:'Orbitron'; font-size:1rem;">🚉 TRANSPORT PRO</h2>
-                <table class="guide-table">
-                    <tr><th>Section</th><th>Content</th></tr>
-                    <tr><td>Trains</td><td>Exact time arrival. No delays.</td></tr>
-                    <tr><td>IC Card</td><td>Add Suica to Apple Wallet</td></tr>
-                    <tr><td>Exits</td><td>Exit numbers are VERY important</td></tr>
-                    <tr><td>Walking</td><td>15k-25k steps. Wear good shoes.</td></tr>
-                </table>
-            </div>
-
-            <div class="book-page" style="z-index: 4; background: linear-gradient(45deg, #e65c00, #000); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;" onclick="flipPage(this)">
-                <h1 style="font-family:'Orbitron'; font-size: 1.5rem;">DREAM WORLD<br>JAPAN</h1>
-                <p style="font-size: 0.7rem; margin-top: 20px;">GOD-LEVEL GUIDE<br>BY MAHESH</p>
-                <p style="font-size: 0.5rem; margin-top: 40px; color: #ccc;">(TAP TO OPEN)</p>
-            </div>
-
-        </div>
+    <div class="sidebar">
+        <a href="#" class="side-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@dream_world__japan" target="_blank" class="side-icon"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.instagram.com/dream_world_japan" target="_blank" class="side-icon"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="side-icon"><i class="fab fa-youtube"></i></a>
     </div>
 
+    <section class="hero">
+        <h1><span>MASTER</span> JAPAN</h1>
+        <p>EXPLORE THE DREAM WORLD WITH MAHESH</p>
+        <input type="text" id="searchBox" placeholder="🔍 Search travel tips...">
+    </section>
+
+    <section class="section-padding">
+        <div class="grid-container">
+            <div class="feature-card" onclick="openModal('transport')">
+                <i class="fas fa-train-tram"></i>
+                <h3>Smart Transport</h3>
+                <p>Arrival flows, IC Card secrets, and JR Pass hacks.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('planning')">
+                <i class="fas fa-calendar-check"></i>
+                <h3>10-Day Execution</h3>
+                <p>Day-by-day itinerary from Tokyo to Osaka.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('culture')">
+                <i class="fas fa-bowl-food"></i>
+                <h3>Food & Etiquette</h3>
+                <p>Local dining rules and convenience store hacks.</p>
+            </div>
+            <div class="feature-card" onclick="openModal('secrets')">
+                <i class="fas fa-camera-retro"></i>
+                <h3>Hidden Pro Gems</h3>
+                <p>4K photo locations and luggage forwarding.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-split">
+        <div class="info-text">
+            <h2>Japan Travel. Simplified.</h2>
+            <p>Traveling to Japan doesn't have to be complicated. We break down the most complex routes and cultural norms into simple, actionable steps for your perfect journey.</p>
+            <div class="user-tag" style="display:inline-block; margin-top:10px;">Follow For Journey: TikTok • YouTube • Instagram</div>
+        </div>
+        <div style="border-left: 2px solid var(--primary-orange); padding-left: 30px;">
+            <h4 style="color:var(--primary-orange); margin-bottom:10px;">Fast Facts</h4>
+            <p>• 33,610+ Happy Explorers</p>
+            <p>• 9.7M+ Monthly Views</p>
+            <p>• 100% Authentic Content</p>
+        </div>
+    </section>
+
     <section class="footer-cta">
-        <h2 style="font-family:'Orbitron'; margin-bottom: 20px;">GET FREE UPDATES</h2>
-        <form class="subscribe-form">
-            <input type="email" placeholder="Your Email">
-            <button type="submit">SUBSCRIBE</button>
+        <h2>Join the Dream World Japan Community</h2>
+        <form action="https://formspree.io/f/xbdqvzwj" method="POST" class="subscribe-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <button type="submit">GET YOUR FREE JAPAN GUIDE</button>
         </form>
     </section>
 
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" class="modal-header-img">
+            <div class="modal-body">
+                <h2 id="modalTitle" style="color: var(--primary-orange); margin-bottom: 20px;"></h2>
+                <div id="modalText" style="color: #ccc;"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 DREAM WORLD JAPAN | CURATED BY MAHESH</p>
+    </footer>
+
     <script>
-        function toggleBook() {
-            const modal = document.getElementById('bookModal');
-            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        const details = {
+            transport: {
+                title: "🚆 Transport & Arrival Mastery",
+                img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
+                text: "Arrival Hack: Use 'Visit Japan Web' to save 60 mins at immigration. IC Cards like Suica are essential. No tipping in Taxis!"
+            },
+            planning: {
+                title: "📅 10-Day Perfect Plan",
+                img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
+                text: "From the neon lights of Shinjuku to the peaceful temples of Kyoto. This plan covers the 'Golden Route' efficiently."
+            },
+            culture: {
+                title: "🍣 Food & Etiquette",
+                img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
+                text: "Remember: No loud talking on trains and always carry a small trash bag as public bins are rare."
+            },
+            secrets: {
+                title: "📸 Pro Hacks & Secrets",
+                img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
+                text: "Use luggage forwarding (Takkyubin) to send bags between cities for just a few dollars. Travel hands-free!"
+            }
+        };
+
+        function openModal(type) {
+            document.getElementById('modalTitle').innerText = details[type].title;
+            document.getElementById('modalImg').src = details[type].img;
+            document.getElementById('modalText').innerHTML = details[type].text;
+            document.getElementById('infoModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
-        function flipPage(el) {
-            el.classList.toggle('turned');
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
+
+        document.getElementById("searchBox").addEventListener("keyup", function() {
+            let val = this.value.toLowerCase();
+            document.querySelectorAll(".feature-card").forEach(card => {
+                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
