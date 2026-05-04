@@ -1,429 +1,803 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream World Japan | Master Guide</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-orange: #e65c00; 
-            --dark-bg: #050505;
-            --card-bg: #111111;
-            --text-gray: #aaaaaa;
-            --light-blue: #e0f2fe; 
-        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; line-height: 1.6; }
+<h2 class="sr-only">30-Day Japan Ultimate Travel Guide — Interactive daily itinerary with food, transport, hacks, and etiquette tips</h2>
 
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(230, 92, 0, 0.2);
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-        .brand { display: flex; flex-direction: column; }
-        .logo { font-weight: 800; font-size: 1.4rem; color: white; text-decoration: none; letter-spacing: 1px; }
-        .logo span { color: var(--primary-orange); }
-        .sub-logo { font-size: 0.6rem; letter-spacing: 2.5px; color: var(--primary-orange); font-weight: 600; text-transform: uppercase; }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sakura:#e8a0b0;--sakura-light:#fdf0f3;--ink:#1a1a2e;--gold:#c9962a;--matcha:#4a7c59;
+  --stone:#6b6b7b;--washi:#faf8f4;--torii:#c0392b;
+}
+body{background:transparent;font-family:'DM Sans',sans-serif;color:var(--color-text-primary)}
 
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary-orange); }
+.hero{
+  background:linear-gradient(135deg,#1a1a2e 0%,#2d1b4e 40%,#1a3a2e 100%);
+  padding:2.5rem 2rem 2rem;border-radius:var(--border-radius-lg);margin-bottom:1.5rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:250px;height:250px;
+  border-radius:50%;background:radial-gradient(circle,rgba(232,160,176,0.15) 0%,transparent 70%);
+}
+.hero-jp{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.12);letter-spacing:0.1em;line-height:1;margin-bottom:0.5rem}
+.hero-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:0.5rem}
+.hero-sub{font-size:0.85rem;color:rgba(255,255,255,0.6);margin-bottom:1.5rem;line-height:1.6}
+.route-pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{background:rgba(255,255,255,0.1);border:0.5px solid rgba(255,255,255,0.2);
+  color:rgba(255,255,255,0.85);font-size:0.72rem;padding:4px 10px;border-radius:20px;
+  font-family:'Syne',sans-serif;font-weight:600;letter-spacing:0.05em}
+.pill.active-p{background:rgba(232,160,176,0.25);border-color:rgba(232,160,176,0.5);color:#f0b8c8}
 
-        .user-tag { 
-            background: rgba(230, 92, 0, 0.1); 
-            padding: 6px 16px; border-radius: 50px; 
-            border: 1px solid var(--primary-orange); color: var(--primary-orange); 
-            font-weight: 600; font-size: 0.85rem; 
-        }
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.5rem}
+.stat{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);
+  border-radius:var(--border-radius-md);padding:0.75rem;text-align:center}
+.stat-n{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--color-text-primary);line-height:1}
+.stat-l{font-size:0.7rem;color:var(--color-text-secondary);margin-top:3px;text-transform:uppercase;letter-spacing:0.05em}
 
-        /* --- SOCIAL SIDEBAR --- */
-        .sidebar {
-            position: fixed; right: 20px; top: 50%;
-            transform: translateY(-50%); display: flex;
-            flex-direction: column; gap: 12px; z-index: 1001;
-        }
+.section-nav{display:flex;gap:6px;margin-bottom:1.2rem;flex-wrap:wrap}
+.snav-btn{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.04em;
+  padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);
+  background:transparent;cursor:pointer;color:var(--color-text-secondary);transition:all 0.15s}
+.snav-btn:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.snav-btn.active{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
 
-        .side-icon {
-            width: 42px; height: 42px; background: var(--card-bg);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 12px; color: white; text-decoration: none;
-            transition: 0.3s;
-        }
+.phase-header{
+  background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);
+  border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:0.75rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  transition:background 0.15s;user-select:none;
+}
+.phase-header:hover{background:var(--color-background-primary)}
+.phase-meta{display:flex;align-items:center;gap:10px}
+.phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.phase-name{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:var(--color-text-primary)}
+.phase-city{font-size:0.78rem;color:var(--color-text-secondary);margin-top:2px}
+.phase-days{font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:600;color:var(--color-text-secondary)}
+.chevron{transition:transform 0.2s;color:var(--color-text-secondary);font-size:14px}
+.chevron.open{transform:rotate(180deg)}
 
-        .side-icon:hover { background: var(--primary-orange); transform: scale(1.1); box-shadow: 0 0 15px rgba(230, 92, 0, 0.4); }
+.days-grid{display:none;margin-bottom:0.75rem;padding-left:0}
+.days-grid.open{display:block}
 
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
+.day-card{
+  border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);
+  margin-bottom:8px;overflow:hidden;
+}
+.day-header{
+  display:flex;align-items:center;gap:10px;padding:0.75rem 1rem;
+  cursor:pointer;background:var(--color-background-primary);transition:background 0.15s;
+  user-select:none;
+}
+.day-header:hover{background:var(--color-background-secondary)}
+.day-num{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:800;
+  background:var(--color-text-primary);color:var(--color-background-primary);
+  width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0}
+.day-title{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:var(--color-text-primary)}
+.day-sub{font-size:0.75rem;color:var(--color-text-secondary);margin-top:1px}
+.day-tags{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:0.65rem;padding:2px 7px;border-radius:10px;font-weight:500;letter-spacing:0.03em}
+.t-food{background:#fef3c7;color:#92400e}
+.t-temple{background:#e0e7ff;color:#3730a3}
+.t-nature{background:#d1fae5;color:#065f46}
+.t-city{background:#fce7f3;color:#9d174d}
+.t-hack{background:#fef9c3;color:#713f12}
+.t-transport{background:#e0f2fe;color:#0c4a6e}
 
-        .hero h1 { 
-            font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 900; 
-            text-transform: uppercase; margin-bottom: 10px; letter-spacing: 3px;
-        }
-        .hero h1 span { color: var(--primary-orange); }
-        .hero p { color: var(--primary-orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 20px; }
+.day-body{display:none;padding:0.75rem 1rem 1rem;border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary)}
+.day-body.open{display:block}
 
-        #searchBox {
-            padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
-            width: 300px; background: rgba(255,255,255,0.1); color: white;
-            backdrop-filter: blur(10px); outline: none; transition: 0.3s;
-        }
-        #searchBox:focus { border-color: var(--primary-orange); width: 380px; }
+.timeline{position:relative;padding-left:20px}
+.timeline::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--color-border-secondary)}
 
-        /* --- CARDS SECTION --- */
-        .section-padding { padding: 80px 8%; }
-        .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;
-        }
+.slot{position:relative;margin-bottom:14px}
+.slot:last-child{margin-bottom:0}
+.slot-dot{position:absolute;left:-15px;top:5px;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--color-border-primary);background:var(--color-background-primary)}
+.slot-time{font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px}
+.slot-main{font-size:0.82rem;font-weight:500;color:var(--color-text-primary);line-height:1.4;margin-bottom:3px}
+.slot-detail{font-size:0.78rem;color:var(--color-text-secondary);line-height:1.5}
 
-        .feature-card {
-            background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px 30px; 
-            border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; cursor: pointer;
-            opacity: 0; transform: translateY(30px);
-        }
+.hack-box{background:#fffbeb;border:0.5px solid #fde68a;border-radius:var(--border-radius-md);
+  padding:0.6rem 0.85rem;margin-top:10px;display:flex;gap:8px;align-items:flex-start}
+.hack-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.hack-text{font-size:0.78rem;color:#78350f;line-height:1.5}
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-orange); box-shadow: 0 0 20px rgba(230, 92, 0, 0.2);
-        }
+.etiquette-box{background:#f0fdf4;border:0.5px solid #bbf7d0;border-radius:var(--border-radius-md);
+  padding:0.6rem 0.85rem;margin-top:10px;display:flex;gap:8px;align-items:flex-start}
+.etiquette-text{font-size:0.78rem;color:#14532d;line-height:1.5}
 
-        .feature-card i { font-size: 2.2rem; color: var(--primary-orange); margin-bottom: 20px; }
-        .feature-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
+.section-content{display:none}
+.section-content.active{display:block}
 
-        /* --- UPDATED 3D GUIDE SECTION --- */
-        .guide-section {
-            background-color: var(--light-blue);
-            padding: 100px 8%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #1a365d;
-            text-align: center;
-        }
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.info-card{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);
+  border-radius:var(--border-radius-md);padding:1rem}
+.info-card h3{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;
+  color:var(--color-text-primary);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em}
+.info-item{font-size:0.78rem;color:var(--color-text-secondary);line-height:1.6;padding:3px 0;
+  border-bottom:0.5px solid var(--color-border-tertiary)}
+.info-item:last-child{border-bottom:none}
+.info-item strong{color:var(--color-text-primary);font-weight:500}
 
-        .guide-section h2 { margin-bottom: 50px; font-size: 2.5rem; color: #0369a1; font-weight: 800; }
+.food-section{margin-bottom:1.2rem}
+.food-section h3{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;
+  color:var(--color-text-primary);margin-bottom:0.6rem;padding-bottom:6px;
+  border-bottom:0.5px solid var(--color-border-tertiary)}
+.food-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;
+  border-bottom:0.5px solid var(--color-border-tertiary);font-size:0.8rem}
+.food-row:last-child{border-bottom:none}
+.food-name{font-weight:500;color:var(--color-text-primary);min-width:130px}
+.food-desc{color:var(--color-text-secondary);line-height:1.4}
+.food-price{font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:700;
+  color:var(--matcha);margin-left:auto;white-space:nowrap}
 
-        .guide-container {
-            perspective: 1500px;
-            margin-bottom: 40px;
-        }
+.budget-table{width:100%;border-collapse:collapse;font-size:0.8rem;margin-top:0.5rem}
+.budget-table th{text-align:left;padding:6px 8px;font-family:'Syne',sans-serif;font-weight:700;
+  font-size:0.7rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-secondary);
+  border-bottom:0.5px solid var(--color-border-secondary)}
+.budget-table td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);
+  color:var(--color-text-secondary)}
+.budget-table td:first-child{color:var(--color-text-primary);font-weight:500}
+.budget-table tr:last-child td{border-bottom:none;font-weight:500;color:var(--color-text-primary)}
 
-        .guide-book {
-            width: 320px;
-            height: 480px;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateY(-25deg) rotateX(10deg);
-            transition: transform 0.6s ease;
-            animation: float 5s ease-in-out infinite;
-        }
+.transport-step{display:flex;gap:10px;align-items:flex-start;padding:8px 0;
+  border-bottom:0.5px solid var(--color-border-tertiary);font-size:0.8rem}
+.transport-step:last-child{border-bottom:none}
+.ts-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;background:var(--color-background-secondary)}
+.ts-info{flex:1}
+.ts-title{font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.ts-detail{color:var(--color-text-secondary);font-size:0.76rem;line-height:1.4}
+.ts-cost{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:700;color:var(--color-text-info)}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateY(-25deg) rotateX(10deg); }
-            50% { transform: translateY(-20px) rotateY(-15deg) rotateX(5deg); }
-        }
+.expand-all{font-family:'Syne',sans-serif;font-size:0.72rem;font-weight:600;
+  border:0.5px solid var(--color-border-secondary);background:transparent;
+  color:var(--color-text-secondary);padding:4px 12px;border-radius:20px;cursor:pointer;
+  margin-bottom:0.75rem;transition:all 0.15s}
+.expand-all:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+</style>
 
-        /* The Spine of the Book */
-        .guide-book::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 100%;
-            background: #222;
-            transform: rotateY(-90deg);
-            transform-origin: left;
-            box-shadow: inset -10px 0 20px rgba(0,0,0,0.5);
-        }
+<div class="hero">
+  <div class="hero-jp">日本</div>
+  <div class="hero-title">30-Day Japan<br>Ultimate Guide</div>
+  <div class="hero-sub">The complete Golden Route + extensions — every day planned from morning to night</div>
+  <div class="route-pills">
+    <span class="pill active-p">Tokyo</span>
+    <span class="pill">Nikko</span>
+    <span class="pill">Hakone</span>
+    <span class="pill">Kyoto</span>
+    <span class="pill">Nara</span>
+    <span class="pill">Osaka</span>
+    <span class="pill">Hiroshima</span>
+    <span class="pill">Miyajima</span>
+    <span class="pill">Kanazawa</span>
+    <span class="pill">Takayama</span>
+    <span class="pill">Matsumoto</span>
+  </div>
+</div>
 
-        .guide-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            /* YOUR NEW UPDATED IMAGE LINK BELOW */
-            background: url('https://files.catbox.moe/7vkp3x.png') no-repeat center center; 
-            background-size: cover;
-            border-radius: 2px 10px 10px 2px;
-            box-shadow: 15px 15px 40px rgba(0, 0, 0, 0.4);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 25px;
-            box-sizing: border-box;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+<div class="stats-bar">
+  <div class="stat"><div class="stat-n">30</div><div class="stat-l">Days</div></div>
+  <div class="stat"><div class="stat-n">11</div><div class="stat-l">Cities</div></div>
+  <div class="stat"><div class="stat-n">¥480K</div><div class="stat-l">Est. budget</div></div>
+  <div class="stat"><div class="stat-n">150+</div><div class="stat-l">Tips & hacks</div></div>
+</div>
 
-        .book-top-title {
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-            background: rgba(230, 92, 0, 0.8);
-            padding: 4px 10px;
-            width: fit-content;
-            margin: 0 auto;
-            border-radius: 4px;
-        }
+<div class="section-nav">
+  <button class="snav-btn active" onclick="showSection('itinerary')">Daily Itinerary</button>
+  <button class="snav-btn" onclick="showSection('transport')">Transport</button>
+  <button class="snav-btn" onclick="showSection('food')">Food Guide</button>
+  <button class="snav-btn" onclick="showSection('hacks')">Pro Hacks</button>
+  <button class="snav-btn" onclick="showSection('budget')">Budget</button>
+  <button class="snav-btn" onclick="showSection('etiquette')">Etiquette</button>
+</div>
 
-        .book-main-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #fff;
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 1.2;
-            text-shadow: 3px 3px 15px rgba(0,0,0,1);
-            margin-bottom: 20px;
-        }
+<div id="s-itinerary" class="section-content active">
+  <button class="expand-all" onclick="toggleAll()">Expand all phases</button>
+  <div id="phases-container"></div>
+</div>
 
-        .guide-footer-info {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border-left: 4px solid var(--primary-orange);
-        }
-
-        .guide-email { font-size: 0.65rem; color: #bbb; font-weight: 400; }
-        .guide-name-jp { font-size: 1.2rem; font-weight: 800; color: #ffcc00; margin-top: 2px; letter-spacing: 1px; }
-
-        /* --- INFO SECTION --- */
-        .info-split {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 60px 8%;
-            background: #0a0a0a; align-items: center;
-        }
-        .info-text h2 { color: var(--primary-orange); font-size: 2.5rem; margin-bottom: 15px; }
-        .info-text p { color: var(--text-gray); margin-bottom: 20px; }
-        
-        /* --- FOOTER CTA --- */
-        .footer-cta {
-            padding: 80px 20px;
-            background: #000;
-            text-align: center;
-        }
-        .footer-cta h2 { font-size: 2rem; margin-bottom: 30px; }
-        .subscribe-form input { padding: 15px; width: 280px; border: none; border-radius: 5px; margin: 10px; }
-        .subscribe-form button { 
-            padding: 15px 35px; background: var(--primary-orange); color: white; 
-            border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s;
-        }
-        .subscribe-form button:hover { background: #ff751a; transform: scale(1.05); }
-
-        /* --- MODAL --- */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; 
-            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
-        }
-        .modal-content {
-            background: #111; max-width: 800px; width: 100%; max-height: 85vh;
-            border-radius: 20px; overflow-y: auto; position: relative; border: 1px solid var(--primary-orange);
-        }
-        .modal-header-img { width: 100%; height: 250px; object-fit: cover; }
-        .modal-body { padding: 30px; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: white; z-index: 10; }
-
-        footer { padding: 40px; text-align: center; border-top: 1px solid #222; font-size: 0.9rem; color: #555; background: #050505; }
-
-        @media (max-width: 768px) {
-            .info-split { grid-template-columns: 1fr; text-align: center; }
-            .nav-links { display: none; }
-            .guide-book { width: 260px; height: 400px; }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <div class="brand">
-            <a href="#" class="logo">DREAM WORLD <span>JAPAN</span></a>
-            <div class="sub-logo">Dream World Japan</div>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Home</a>
-            <a href="#the-guide">The Guide</a>
-            <a href="#">Explore</a>
-            <a href="#">Community</a>
-        </nav>
-        <div class="user-tag">マヘシュ (MAHESH)</div>
-    </header>
-
-    <div class="sidebar">
-        <a href="#" class="side-icon"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.tiktok.com/@dream_world__japan" target="_blank" class="side-icon"><i class="fab fa-tiktok"></i></a>
-        <a href="https://www.instagram.com/dream_world_japan" target="_blank" class="side-icon"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.youtube.com/@Dream_world_Japan" target="_blank" class="side-icon"><i class="fab fa-youtube"></i></a>
+<div id="s-transport" class="section-content">
+  <div style="margin-bottom:1rem">
+    <h3 style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-secondary);margin-bottom:0.75rem">Before you arrive</h3>
+    <div class="transport-step">
+      <div class="ts-icon">✈</div>
+      <div class="ts-info">
+        <div class="ts-title">Visit Japan Web — register before flying</div>
+        <div class="ts-detail">Complete immigration/customs forms online at vjw-lp.digital.go.jp. Generates a QR code that lets you skip the paper forms and use the fast lane at immigration. Saves 45–60 mins at Narita or Haneda.</div>
+      </div>
+      <div class="ts-cost">FREE</div>
     </div>
-
-    <section class="hero">
-        <h1><span>MASTER</span> JAPAN</h1>
-        <p>EXPLORE THE DREAM WORLD WITH MAHESH</p>
-        <input type="text" id="searchBox" placeholder="🔍 Search travel tips...">
-    </section>
-
-    <section class="section-padding">
-        <div class="grid-container">
-            <div class="feature-card" onclick="openModal('transport')">
-                <i class="fas fa-train-tram"></i>
-                <h3>Smart Transport</h3>
-                <p>Arrival flows, IC Card secrets, and JR Pass hacks.</p>
-            </div>
-            <div class="feature-card" onclick="openModal('planning')">
-                <i class="fas fa-calendar-check"></i>
-                <h3>10-Day Execution</h3>
-                <p>Day-by-day itinerary from Tokyo to Osaka.</p>
-            </div>
-            <div class="feature-card" onclick="openModal('culture')">
-                <i class="fas fa-bowl-food"></i>
-                <h3>Food & Etiquette</h3>
-                <p>Local dining rules and convenience store hacks.</p>
-            </div>
-            <div class="feature-card" onclick="openModal('secrets')">
-                <i class="fas fa-camera-retro"></i>
-                <h3>Hidden Pro Gems</h3>
-                <p>4K photo locations and luggage forwarding.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="info-split">
-        <div class="info-text">
-            <h2>Japan Travel. Simplified.</h2>
-            <p>Traveling to Japan doesn't have to be complicated. We break down the most complex routes and cultural norms into simple, actionable steps for your perfect journey.</p>
-            <div class="user-tag" style="display:inline-block; margin-top:10px;">Follow For Journey: TikTok • YouTube • Instagram</div>
-        </div>
-        <div style="border-left: 2px solid var(--primary-orange); padding-left: 30px;">
-            <h4 style="color:var(--primary-orange); margin-bottom:10px;">Fast Facts</h4>
-            <p>• 33,610+ Happy Explorers</p>
-            <p>• 9.7M+ Monthly Views</p>
-            <p>• 100% Authentic Content</p>
-        </div>
-    </section>
-
-    <section class="guide-section" id="the-guide">
-        <h2>Your Ultimate Masterpiece</h2>
-        <div class="guide-container">
-            <div class="guide-book">
-                <div class="guide-cover">
-                    <div class="book-top-title">Dream World Japan</div>
-                    
-                    <div>
-                        <div class="book-main-title">
-                            Ultimate Master<br>Guide
-                        </div>
-                        <div class="guide-footer-info">
-                            <div class="guide-email">Dreamworld.jp98@gmail.com</div>
-                            <div class="guide-name-jp">マヘシュ</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p style="max-width: 600px; color: #444; font-weight: 600; margin-top: 20px;">The complete visual guide with 4K locations, transport hacks, and cultural secrets.</p>
-    </section>
-
-    <section class="footer-cta">
-        <h2>Join the Dream World Japan Community</h2>
-        <form action="https://formspree.io/f/xbdqvzwj" method="POST" class="subscribe-form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <button type="submit">GET YOUR FREE JAPAN GUIDE</button>
-        </form>
-    </section>
-
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" class="modal-header-img">
-            <div class="modal-body">
-                <h2 id="modalTitle" style="color: var(--primary-orange); margin-bottom: 20px;"></h2>
-                <div id="modalText" style="color: #ccc;"></div>
-            </div>
-        </div>
+    <div class="transport-step">
+      <div class="ts-icon">💳</div>
+      <div class="ts-info">
+        <div class="ts-title">Suica / Pasmo IC Card</div>
+        <div class="ts-detail">Get at any major airport JR machine or 7-Eleven ATM. Load ¥5,000 to start. Works on all trains, subways, and buses nationwide, plus 7-Eleven, Lawson, FamilyMart, and most vending machines. No need to buy tickets at machines ever again.</div>
+      </div>
+      <div class="ts-cost">¥500 deposit</div>
     </div>
+    <div class="transport-step">
+      <div class="ts-icon">📶</div>
+      <div class="ts-info">
+        <div class="ts-title">Pocket WiFi or SIM</div>
+        <div class="ts-detail">Order pocket WiFi from IIJmio or Sakura Mobile before departure — pick it up at the airport arrivals hall. Alternatively, buy an eSIM (Ubigi / Airalo) before flying. Google Maps works offline if you download Tokyo / Kyoto / Osaka maps in advance.</div>
+      </div>
+      <div class="ts-cost">¥800–1,200/day</div>
+    </div>
+    <div class="transport-step">
+      <div class="ts-icon">🚄</div>
+      <div class="ts-info">
+        <div class="ts-title">JR Pass — buy before leaving home</div>
+        <div class="ts-detail">21-day or 30-day JR Pass covers ALL Shinkansen (except Nozomi/Mizuho), local JR lines, and some buses/ferries. Cannot be purchased in Japan at the lower overseas price. For 30 days covering Tokyo→Hiroshima→Kanazawa→Matsumoto, the pass pays for itself massively.</div>
+      </div>
+      <div class="ts-cost">~¥100,000 (30-day)</div>
+    </div>
+  </div>
+  <div>
+    <h3 style="font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--color-text-secondary);margin-bottom:0.75rem">Airport to city</h3>
+    <div class="transport-step">
+      <div class="ts-icon">🚆</div>
+      <div class="ts-info">
+        <div class="ts-title">Narita → Tokyo (Narita Express / N'EX)</div>
+        <div class="ts-detail">60 mins to Shinjuku. Buy the N'EX Tokyo Round Trip ticket (¥4,070) — valid for 14 days return. Departs every 30 mins. Much better than the Limousine Bus (90+ mins, traffic risk).</div>
+      </div>
+      <div class="ts-cost">¥3,070 one way</div>
+    </div>
+    <div class="transport-step">
+      <div class="ts-icon">🚆</div>
+      <div class="ts-info">
+        <div class="ts-title">Haneda → Tokyo (Keikyu Line)</div>
+        <div class="ts-detail">13 mins to Shinagawa, then JR to your hotel area. The fastest and cheapest option from Haneda. Runs 24 hours on weekends.</div>
+      </div>
+      <div class="ts-cost">¥410</div>
+    </div>
+    <div class="transport-step">
+      <div class="ts-icon">🧳</div>
+      <div class="ts-info">
+        <div class="ts-title">Luggage forwarding (Takkyubin / クロネコヤマト)</div>
+        <div class="ts-detail">Japan's single best travel hack. Send bags from airport to hotel on Day 1 — arrives same evening or next morning. Between cities, drop bags at 7-Eleven or hotel front desk by 12pm and they arrive at next hotel by 2pm next day. ¥1,500–2,000 per bag. Travel completely hands-free on trains.</div>
+      </div>
+      <div class="ts-cost">¥1,500–2,000/bag</div>
+    </div>
+  </div>
+</div>
 
-    <footer>
-        <p>&copy; 2026 DREAM WORLD JAPAN | CURATED BY MAHESH</p>
-    </footer>
+<div id="s-food" class="section-content">
+  <div class="food-section">
+    <h3>Tokyo essentials</h3>
+    <div class="food-row"><span class="food-name">Tsukiji Outer Market</span><span class="food-desc">Tuna sashimi breakfast, tamagoyaki (egg roll), fresh oysters. Go by 7am before crowds.</span><span class="food-price">¥800–2,000</span></div>
+    <div class="food-row"><span class="food-name">Ramen (Ichiran)</span><span class="food-desc">Solo booth ramen — you fill a paper order slip. Perfect for shy first-timers. Rich tonkotsu broth.</span><span class="food-price">¥980</span></div>
+    <div class="food-row"><span class="food-name">Depachika basement</span><span class="food-desc">Department store food halls. Isetan Shinjuku B2 has the best wagashi (Japanese sweets) and packed bento.</span><span class="food-price">¥500–3,000</span></div>
+    <div class="food-row"><span class="food-name">Yakitori Alley (Yurakucho)</span><span class="food-desc">Under the train tracks. Chicken skewers, beer, salary-workers. Authentic Tokyo atmosphere.</span><span class="food-price">¥1,500–3,000</span></div>
+    <div class="food-row"><span class="food-name">Convenience store meals</span><span class="food-desc">7-Eleven onigiri (¥130), hot oden (¥100/piece), sandwiches are genuinely good. Not a fallback — a staple.</span><span class="food-price">¥300–800</span></div>
+  </div>
+  <div class="food-section">
+    <h3>Kyoto must-eats</h3>
+    <div class="food-row"><span class="food-name">Nishiki Market</span><span class="food-desc">"Kyoto's Kitchen" — 400m covered market. Try tofu donuts, pickled everything, skewered octopus, matcha soft serve.</span><span class="food-price">¥200–500/item</span></div>
+    <div class="food-row"><span class="food-name">Kaiseki (multi-course)</span><span class="food-desc">Book Kikunoi (¥10,000 lunch menu) for a once-in-a-trip kaiseki. Reservations essential 2–3 weeks ahead.</span><span class="food-price">¥8,000–15,000</span></div>
+    <div class="food-row"><span class="food-name">Tofu cuisine (Yudofu)</span><span class="food-desc">Zen Buddhist simmered tofu. Best at Okutan near Nanzenji. Preceded by tofu appetizers, served in tatami room.</span><span class="food-price">¥3,000–4,000</span></div>
+    <div class="food-row"><span class="food-name">Matcha everything</span><span class="food-desc">Uji (30 min from Kyoto) is Japan's matcha capital. Try matcha soba, matcha soft serve, and ceremonial grade tea at Tsujiri.</span><span class="food-price">¥400–1,200</span></div>
+  </div>
+  <div class="food-section">
+    <h3>Osaka food must-dos</h3>
+    <div class="food-row"><span class="food-name">Takoyaki</span><span class="food-desc">Octopus balls. Wanaka near Dotonbori is legendary. Order the bonito version — watch them flip 8 balls at once.</span><span class="food-price">¥600/8pcs</span></div>
+    <div class="food-row"><span class="food-name">Okonomiyaki</span><span class="food-desc">Savory pancake. Mizuno on Dotonbori has been there since 1945. Get the yam version — crispy outside, custardy inside.</span><span class="food-price">¥1,200–1,800</span></div>
+    <div class="food-row"><span class="food-name">Kuromon Market</span><span class="food-desc">Osaka's professional kitchen market. Best early morning for fresh fish, kobe beef skewers, sea urchin on rice.</span><span class="food-price">¥500–2,500</span></div>
+    <div class="food-row"><span class="food-name">Kani Doraku (crab)</span><span class="food-desc">The iconic crab restaurant with the giant moving crab sign. Splurge on all-crab course here.</span><span class="food-price">¥5,000–12,000</span></div>
+  </div>
+  <div class="food-section">
+    <h3>Eating etiquette rules</h3>
+    <div class="food-row"><span class="food-name">Slurping noodles</span><span class="food-desc">Completely acceptable and even appreciated — shows enjoyment. Slurp your ramen and soba loudly.</span></div>
+    <div class="food-row"><span class="food-name">No tipping</span><span class="food-desc">Tipping is considered rude in Japan. Never tip at restaurants, taxis, hotels, or anywhere. Service is included in the pride of work.</span></div>
+    <div class="food-row"><span class="food-name">Oshibori (wet towel)</span><span class="food-desc">Use to clean hands only — not face. Fold neatly after use and place on the side of your tray or table.</span></div>
+    <div class="food-row"><span class="food-name">Chopstick rules</span><span class="food-desc">Never stand chopsticks upright in rice (funeral omen). Never pass food chopstick to chopstick (another funeral custom).</span></div>
+    <div class="food-row"><span class="food-name">Eating while walking</span><span class="food-desc">Not widely acceptable outside festivals and designated market zones. If you get street food at Nishiki, step aside and eat standing still.</span></div>
+  </div>
+</div>
 
-    <script>
-        const details = {
-            transport: {
-                title: "🚆 Transport & Arrival Mastery",
-                img: "https://images.unsplash.com/photo-1532236204992-f5e85c024202?auto=format&fit=crop&w=1200",
-                text: "Arrival Hack: Use 'Visit Japan Web' to save 60 mins at immigration. IC Cards like Suica are essential. No tipping in Taxis!"
-            },
-            planning: {
-                title: "📅 10-Day Perfect Plan",
-                img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200",
-                text: "From the neon lights of Shinjuku to the peaceful temples of Kyoto. This plan covers the 'Golden Route' efficiently."
-            },
-            culture: {
-                title: "🍣 Food & Etiquette",
-                img: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=1200",
-                text: "Remember: No loud talking on trains and always carry a small trash bag as public bins are rare."
-            },
-            secrets: {
-                title: "📸 Pro Hacks & Secrets",
-                img: "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=1200",
-                text: "Use luggage forwarding (Takkyubin) to send bags between cities for just a few dollars. Travel hands-free!"
-            }
-        };
+<div id="s-hacks" class="section-content">
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>Crowd avoidance</h3>
+      <div class="info-item"><strong>Fushimi Inari:</strong> Arrive at 6am sharp. The iconic tunnel path is empty. By 9am it's packed solid.</div>
+      <div class="info-item"><strong>Arashiyama bamboo:</strong> 7am visit. Most influencers show up at 10am. Sunrise light is better anyway.</div>
+      <div class="info-item"><strong>Shibuya crossing:</strong> Best shot from Starbucks 2nd floor window or Mag's Park on the roof of Shibuya 109.</div>
+      <div class="info-item"><strong>TeamLab Borderless:</strong> Book online 2–3 months ahead. Sold out constantly. No walk-ins available.</div>
+      <div class="info-item"><strong>Nikko:</strong> Weekday visit only. Weekend crowds are brutal. Day 3 (Wednesday) in this itinerary is ideal timing.</div>
+    </div>
+    <div class="info-card">
+      <h3>Money hacks</h3>
+      <div class="info-item"><strong>7-Eleven ATM:</strong> Accepts all foreign cards, best exchange rate, no surprise fees. Japan Post Bank ATMs are second best.</div>
+      <div class="info-item"><strong>100-yen stores:</strong> Daiso and Seria have everything — travel adapters, containers, snacks, stationery. Better than airport prices.</div>
+      <div class="info-item"><strong>Konbini meals:</strong> Breakfast at 7-Eleven daily saves ¥800–1,200 vs cafes. Use this budget for one extra experience.</div>
+      <div class="info-item"><strong>Day passes:</strong> Kyoto 1-day bus pass (¥700) is worth it if doing Arashiyama + Fushimi in same day.</div>
+      <div class="info-item"><strong>Suica auto-reload:</strong> Link a foreign Visa/Mastercard via the Suica app to avoid running out of balance.</div>
+    </div>
+    <div class="info-card">
+      <h3>Luggage forwarding</h3>
+      <div class="info-item"><strong>Service name:</strong> Takkyubin (TA-KYU-BIN) by Yamato Transport. Also called "courier service" at hotels.</div>
+      <div class="info-item"><strong>Where to drop:</strong> Hotel front desk (by 12pm) or any 7-Eleven, Lawson, or FamilyMart.</div>
+      <div class="info-item"><strong>Cost:</strong> ¥1,500–2,000 per bag depending on size. Box/oversized charges extra.</div>
+      <div class="info-item"><strong>Delivery timing:</strong> Same-day delivery possible in some areas. Next-day delivery standard. Specify check-in date.</div>
+      <div class="info-item"><strong>Envelope trick:</strong> At hotels, fill out the slip the night before. Morning Shinkansen departure becomes effortless.</div>
+    </div>
+    <div class="info-card">
+      <h3>Phone & navigation</h3>
+      <div class="info-item"><strong>Google Maps:</strong> Download offline maps for Tokyo, Kyoto, Osaka, Hiroshima before departing.</div>
+      <div class="info-item"><strong>HyperDia:</strong> Best app for train route planning including exact platform numbers and transfers.</div>
+      <div class="info-item"><strong>Google Translate camera:</strong> Point at menus — it reads kanji in real time. Works offline once Japanese is downloaded.</div>
+      <div class="info-item"><strong>TabiEats / Gurunavi:</strong> Restaurant discovery with English menus. Filter by area and cuisine type.</div>
+      <div class="info-item"><strong>Japan Official Travel App:</strong> Free WiFi finder, disaster alerts, and tourist info from JNTO.</div>
+    </div>
+  </div>
+  <div class="hack-box" style="margin-top:0">
+    <span class="hack-icon">🗑</span>
+    <span class="hack-text"><strong>The trash bag rule:</strong> Japan has almost no public bins since 1995 (Sarin attack aftermath). Carry a small ziplock bag as your personal rubbish bag. Konbini (convenience stores) have bins near the entrance and accept your trash when you buy something. This is the #1 thing that separates tourist from thoughtful traveler.</span>
+  </div>
+  <div class="hack-box" style="margin-top:8px">
+    <span class="hack-icon">🩺</span>
+    <span class="hack-text"><strong>Medical hack:</strong> Bring your own basic medications — paracetamol (Tylenol equivalent), antihistamines, and upset-stomach pills from home. Japanese pharmacies (Matsumoto Kiyoshi) are excellent but foreign brands differ. Japan's own Seirogan works well for digestion. If you need prescription medicine, bring a translated letter from your doctor plus extra supply.</span>
+  </div>
+</div>
 
-        function openModal(type) {
-            document.getElementById('modalTitle').innerText = details[type].title;
-            document.getElementById('modalImg').src = details[type].img;
-            document.getElementById('modalText').innerHTML = details[type].text;
-            document.getElementById('infoModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+<div id="s-budget" class="section-content">
+  <table class="budget-table">
+    <tr><th>Category</th><th>Budget</th><th>Mid-range</th><th>Splurge</th></tr>
+    <tr><td>Accommodation (per night)</td><td>¥3,500 (hostel)</td><td>¥10,000 (business hotel)</td><td>¥25,000+ (ryokan)</td></tr>
+    <tr><td>Breakfast</td><td>¥300 (konbini)</td><td>¥800 (cafe)</td><td>¥2,000 (hotel included)</td></tr>
+    <tr><td>Lunch</td><td>¥800 (ramen/set)</td><td>¥1,500 (restaurant)</td><td>¥4,000 (kaiseki lunch)</td></tr>
+    <tr><td>Dinner</td><td>¥1,200 (izakaya)</td><td>¥3,000 (restaurant)</td><td>¥15,000+ (kaiseki dinner)</td></tr>
+    <tr><td>Transport (daily)</td><td>¥500 (walk-heavy)</td><td>¥1,500 (mix trains)</td><td>¥3,000 (taxis + JR)</td></tr>
+    <tr><td>Attractions</td><td>¥0–500 (temples free)</td><td>¥1,500 (mix)</td><td>¥5,000 (TeamLab etc.)</td></tr>
+    <tr><td>Snacks & drinks</td><td>¥400</td><td>¥800</td><td>¥2,000</td></tr>
+    <tr><td>Daily total</td><td>¥6,700</td><td>¥19,100</td><td>¥56,000+</td></tr>
+    <tr><td><strong>30-day total (excl. flights + JR pass)</strong></td><td><strong>¥201,000</strong></td><td><strong>¥573,000</strong></td><td><strong>¥1,680,000+</strong></td></tr>
+  </table>
+  <div class="hack-box" style="margin-top:12px">
+    <span class="hack-icon">💡</span>
+    <span class="hack-text"><strong>Recommended strategy:</strong> Budget accommodation + budget transport (JR pass already paid) + splurge on 3–4 key meals (one kaiseki, one sushi omakase, one Kobe beef, one crab). Total realistic 30-day budget excluding flights: ~¥380,000–420,000 (approx. £2,000–2,200 / $2,500–2,800 USD).</span>
+  </div>
+</div>
 
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+<div id="s-etiquette" class="section-content">
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>Train etiquette</h3>
+      <div class="info-item">No loud phone calls. Silent mode is required; speaking on phone is prohibited.</div>
+      <div class="info-item">Priority seats (silver/blue markings) — stand near them but let elderly, pregnant, and disabled passengers have them always.</div>
+      <div class="info-item">Queue in the marked lines on the platform. The lines are for specific train doors — follow them precisely.</div>
+      <div class="info-item">No eating on local/metro trains (bullet train dining cars are fine).</div>
+      <div class="info-item">Backpacks go on the rack above or in front of you — not on your back in crowded cars.</div>
+    </div>
+    <div class="info-card">
+      <h3>Temple & shrine rules</h3>
+      <div class="info-item"><strong>Torii gates:</strong> Walk on the side, not down the center — the center lane is for the gods.</div>
+      <div class="info-item"><strong>Temizuya (water purification):</strong> Rinse left hand, right hand, then left hand holding water, then the ladle handle.</div>
+      <div class="info-item"><strong>Shrine approach:</strong> Bow twice, clap twice, pray, bow once more. Called ni-rei ni-hakushu ichi-rei.</div>
+      <div class="info-item"><strong>Photography:</strong> Inner sanctuaries are often no-photo zones. Heed the signs. Asking before photographing monks is respectful.</div>
+      <div class="info-item"><strong>Shoes:</strong> Remove shoes before entering tatami rooms, traditional restaurants, and many shrines. Slip-on shoes recommended.</div>
+    </div>
+    <div class="info-card">
+      <h3>Public behavior</h3>
+      <div class="info-item">Blowing your nose in public is considered rude. Sniff discreetly or find a private space.</div>
+      <div class="info-item">Eating or drinking while walking is frowned upon except at markets and festivals.</div>
+      <div class="info-item">Pointing is rude — use your whole open hand to gesture toward something.</div>
+      <div class="info-item">Stand on the left side of escalators in Tokyo (right in Osaka) to let people pass on the active side.</div>
+      <div class="info-item">Never hand money directly person-to-person at shops — place it on the small tray provided.</div>
+    </div>
+    <div class="info-card">
+      <h3>Onsen rules</h3>
+      <div class="info-item"><strong>Tattoos:</strong> Most onsen ban visible tattoos. Cover-up stickers available at some. Inquire at private bath onsens (kashikiri-buro) which are tattoo-friendly.</div>
+      <div class="info-item"><strong>Shower first:</strong> Always wash your body completely at the shower stations before entering the communal bath.</div>
+      <div class="info-item"><strong>No swimwear:</strong> Traditional onsen are nude. It is not optional. Some newer onsen allow swimwear — check beforehand.</div>
+      <div class="info-item"><strong>Small towel:</strong> The small towel is for modesty while walking. Keep it on your head or at your side — never in the water.</div>
+      <div class="info-item"><strong>After onsen:</strong> Hydrate immediately. Drink water at the vending machine just outside. Don't shower after — the minerals are beneficial.</div>
+    </div>
+  </div>
+</div>
 
-        document.getElementById("searchBox").addEventListener("keyup", function() {
-            let val = this.value.toLowerCase();
-            document.querySelectorAll(".feature-card").forEach(card => {
-                card.style.display = card.innerText.toLowerCase().includes(val) ? "block" : "none";
-            });
-        });
+<script>
+const phases=[
+  {color:"#e8a0b0",name:"Phase 1 — Tokyo Arrival & Foundations",city:"Shinjuku / Harajuku / Shibuya / Akihabara",days:[
+    {n:1,title:"Arrival — Shinjuku base setup",sub:"Airport → Hotel → First night walk",tags:["transport","city"],
+     slots:[
+      {t:"Flexible AM","m":"Land at Narita or Haneda","d":"At immigration, use Visit Japan Web QR code for fast lane. Saves 45–60 mins vs paper form queue."},
+      {t:"Transfer","m":"Narita Express (N'EX) or Keikyu Line to Shinjuku","d":"Buy IC Suica card at JR machine with ¥5,000 loaded. This card runs your entire trip."},
+      {t:"2–3 PM","m":"Check in, send luggage forward (Day 2 museum plan)","d":"Ask hotel front desk for Takkyubin envelope if moving between areas. Rest 30 mins — jet lag is real."},
+      {t:"4 PM","m":"Walk Shinjuku: East exit → Kabukicho → Golden Gai","d":"Golden Gai: 200 tiny bars in 6 alleys. Many open from 5pm. Cover charge ¥500–1,000. Pick one that looks interesting."},
+      {t:"7 PM","m":"Dinner: Ichiran Ramen Shinjuku","d":"Solo-booth ramen experience. Order via ticket machine outside. Tonkotsu broth, soft-boiled egg add-on, extra noodles. Under ¥1,200."},
+      {t:"9 PM","m":"Optional: Shinjuku Omoide Yokocho (Memory Lane)","d":"Smoke-filled alley of tiny yakitori stalls under the train tracks. Order yakitori (skewers) and cold Sapporo."}
+     ],hack:"No tipping ever — not at Ichiran, not in a taxi, not at the hotel. Service is a point of national pride.",etiquette:null},
+    {n:2,title:"Tsukiji → Harajuku → Shibuya",sub:"Market breakfast, fashion, crossing",tags:["food","city"],
+     slots:[
+      {t:"6:30 AM","m":"Tsukiji Outer Market breakfast","d":"Tuna sashimi on rice (¥1,200), thick tamagoyaki egg roll (¥300), fresh oysters (¥200 each). Crowd builds after 8am — arrive early."},
+      {t:"9 AM","m":"Harajuku: Takeshita Street → Omotesando","d":"Takeshita for youth fashion spectacle. Omotesando for luxury brands and beautiful European-style boulevard. Omotesando Hills basement for food."},
+      {t:"11 AM","m":"Meiji Jingu Shrine","d":"20min walk from Harajuku station. Japan's most important Shinto shrine. Temizuya purification ritual at entrance. Morning light is beautiful through the forested path."},
+      {t:"1 PM","m":"Lunch: Gyukatsu Motomura (Shibuya)","d":"Breaded beef cutlet cooked at your own tabletop grill. Set meal ¥1,600. Usually a queue — worth it."},
+      {t:"3 PM","m":"Shibuya: Scramble crossing and beyond","d":"Best crossing photo from Starbucks 2nd floor (get there early for window seat) or Mag's Park roof. Then explore Center-gai shopping street."},
+      {t:"5 PM","m":"Shibuya Sky observation deck","d":"Book online in advance (¥2,000). Top-floor outdoor observation deck with 360° views. Sunset slot is best — book the 5:30pm entry."},
+      {t:"8 PM","m":"Dinner: Izakaya near Shibuya","d":"Try Torikizoku for budget yakitori (most items ¥360) or Uotami for fresher fish-focused izakaya. Asahi Super Dry on tap."}
+     ],hack:"Book Shibuya Sky online at least 1 week ahead. It sells out on weekends. Check shibuya-sky.com.",etiquette:"When queuing for the scramble crossing, stay on the pavement until the walk signal. Don't step into the road early — everyone notices."},
+    {n:3,title:"Nikko Day Trip",sub:"Unesco temples, waterfall, mountain air",tags:["temple","nature"],
+     slots:[
+      {t:"7 AM","m":"Shinjuku → Nikko (Tobu Nikko Limited Express)","d":"From Tobu Asakusa station. Book the ¥1,400 limited express ticket at Asakusa station the day before. 2 hours. JR Pass does NOT cover this — buy separately."},
+      {t:"9:30 AM","m":"Rinno-ji Temple and Treasury Hall","d":"First stop after arriving. 17th century Buddhist temple complex. Sanbutsudo main hall has three 8-meter lacquered Buddha statues. ¥1,000 combined ticket."},
+      {t:"10:30 AM","m":"Tosho-gu Shrine — Japan's most ornate","d":"Resting place of Tokugawa Ieyasu. Every surface is carved and gilded. Find the famous three wise monkeys carving (see no evil, hear no evil, speak no evil) on the Sacred Stable wall. ¥1,300 entry."},
+      {t:"12:30 PM","m":"Lunch: Yuba cuisine or soba near shrine","d":"Nikko is famous for yuba (tofu skin). Gyoshintei restaurant inside the temple grounds does a stunning yuba set (¥2,500) in a traditional tatami room."},
+      {t:"2 PM","m":"Kegon Falls + Lake Chuzenji","d":"20-min bus from Niko station (¥550 each way). Elevator descends to observation deck at the 97m waterfall base. Spectacular. Lake Chuzenji is a 5-minute walk."},
+      {t:"4:30 PM","m":"Return bus, Nikko station by 5:30pm","d":"Tobu Express back to Asakusa, then Asakusa metro or JR to Shinjuku. Total journey ~2 hrs."},
+      {t:"8 PM","m":"Dinner: Asakusa area (stop en route)","d":"Komagata Dojo restaurant: traditional eel and loach (dojo) river fish since 1801. Counter seating, paper screens. ¥2,000–3,500."}
+     ],hack:"Go on a weekday. Nikko weekends are Japanese tourist bus hell. Wednesday or Thursday ideal.",etiquette:"At Tosho-gu, bow before walking through each gate. Don't eat while walking between shrine buildings."},
+    {n:4,title:"Asakusa, Ueno & Akihabara",sub:"Old Tokyo, museums, tech district",tags:["city","temple"],
+     slots:[
+      {t:"7 AM","m":"Senso-ji Temple, Asakusa — before crowds","d":"Tokyo's oldest temple. The Kaminarimon gate (giant red lantern) is iconic. By 7am the Nakamise shopping street vendors aren't set up yet — perfect for photos. Buy o-mikuji (fortune slip) for ¥100."},
+      {t:"9 AM","m":"Nakamise Dori shopping strip opens","d":"Best traditional souvenir shopping in Tokyo. Try: ningyo-yaki (small cakes, ¥100 each), kaminari-okoshi rice crackers, hagoita decorative paddles."},
+      {t:"10:30 AM","m":"Tokyo National Museum, Ueno","d":"Japan's largest museum. Spend 2 hrs. Gallery of Horyuji Treasures has 7th-century Buddhist art in stunning minimalist setting. ¥1,000 entry."},
+      {t:"1 PM","m":"Lunch: Ameyoko Market, Ueno","d":"Bustling postwar market. Street food stalls, fresh seafood counters, discount goods. Eat gyoza, yakitori, or sit at a counter sushi stall. ¥500–1,200."},
+      {t:"3 PM","m":"Akihabara Electric Town","d":"Anime, manga, retro games, electronics. Multi-Kotobukiya for figurines, Super Potato for retro video games, Yodobashi Camera for electronics at Japan prices. AKB48 cafe if that's your thing."},
+      {t:"6 PM","m":"Kanda Myojin Shrine (5-min walk from Akihabara)","d":"One of Tokyo's oldest shrines. Famous for blessings on electronics and computers — local tech companies send offerings. Beautiful evening light."},
+      {t:"8 PM","m":"Dinner: Kanda area — old Tokyo restaurants","d":"Botan (since 1899) serves sukiyaki (beef hotpot) in private tatami rooms. ¥6,000/person, reservations needed. Or budget: Kanda yabu soba (hand-cut buckwheat noodles, ¥900)."}
+     ],hack:"The Ueno park area has multiple free museums on specific days. Tokyo National Museum is free on the last Friday/Saturday of the month — plan accordingly.",etiquette:null},
+    {n:5,title:"Odaiba + TeamLab Borderless",sub:"Futuristic waterfront, digital art",tags:["city","hack"],
+     slots:[
+      {t:"9 AM","m":"Odaiba via Yurikamome automated monorail","d":"Departs from Shimbashi. The driverless train offers great views of Rainbow Bridge and Tokyo Bay. IC Card works fine."},
+      {t:"10 AM","m":"TeamLab Borderless — pre-booked entry","d":"Full-immersive digital art museum. No permanent rooms — art flows between spaces. Allow 2.5–3 hours. Wear dark, comfortable clothing. Key: the Floating Forest, the Athletic Forest, and the Crystal Universe room."},
+      {t:"1 PM","m":"Lunch: DiverCity Tokyo Plaza food court","d":"Excellent food court — Ramen Kaigan, gyoza specialists, and a sushi conveyor. ¥800–1,500."},
+      {t:"2:30 PM","m":"Odaiba attractions: Gundam statue + Palette Town","d":"Real-scale Unicorn Gundam robot statue outside DiverCity. Free. Marvel at it, then Venus Fort mall if you want vintage shopping."},
+      {t:"4 PM","m":"Odaiba beach and Rainbow Bridge view","d":"The artificial beach faces the Rainbow Bridge with the Tokyo skyline behind it. Best golden hour photo in Tokyo. Incredibly photogenic."},
+      {t:"7 PM","m":"Return to city: Shimbashi → dinner Ginza","d":"Ginza Corridor Street (under the train tracks): upscale bars and restaurants. Try Kyubey sushi bar (book ahead, ¥15,000 omakase) or Ginza Lion Beer Hall (since 1934, Sapporo on tap, affordable)."}
+     ],hack:"TeamLab Borderless Tokyo has a new location in Azabudai Hills (opened 2024). Book months ahead at borderless.teamlab.art — absolutely no walk-ins accepted.",etiquette:null},
+    {n:6,title:"Shinjuku Gyoen + Harajuku + Night Shibuya",sub:"Gardens, vintage fashion, nightlife",tags:["nature","city"],
+     slots:[
+      {t:"9 AM","m":"Shinjuku Gyoen National Garden","d":"Best garden in Tokyo. ¥500 entry. Mix of Japanese, French formal, and English landscape gardens on 58 hectares. Rent a bench or picnic rug. No alcohol allowed."},
+      {t:"11 AM","m":"Stroll to Cat Street, Harajuku","d":"Narrow street parallel to Omotesando with vintage boutiques, indie cafes, Japanese streetwear brands. Kapital, Beams, and rare-find vintage stores."},
+      {t:"1 PM","m":"Lunch: Omotesando Hills or nearby","d":"Omotesando Hills basement: excellent upscale food hall. Try the Japanese parfait at Maison de Louis Marie or a rice bowl from Yoshihashi."},
+      {t:"3 PM","m":"Daikanyama T-Site Bookstore","d":"The most beautiful bookshop in Tokyo. Tsutaya Books in Daikanyama: design books, vinyl records, a Starbucks inside a greenhouse. Wander for an hour."},
+      {t:"5 PM","m":"Ebisu Garden Place and view deck","d":"Former Yebisu beer factory turned cultural complex. Westin Hotel sky bar has a free view (buy a drink). The garden plaza is quiet and photogenic."},
+      {t:"8 PM","m":"Dinner & night: Shibuya eating and bars","d":"Nonbei Yokocho (Nonbei = drinker's alley) near Shibuya: small bars, some with English menus, all intimate. Then rooftop bar at Trunk Hotel for skyline views."}
+     ],hack:null,etiquette:null},
+    {n:7,title:"Tokyo to Hakone — Onsen Day",sub:"Fuji views, mountain onsen, ryokan",tags:["nature","transport"],
+     slots:[
+      {t:"8 AM","m":"Forward luggage to Hakone ryokan via Takkyubin","d":"Drop bag at hotel by 9am. Specify delivery address and check-in date. Travel with just a day bag on the Romancecar."},
+      {t:"9:30 AM","m":"Shinjuku → Hakone-Yumoto (Odakyu Romancecar)","d":"Book the Romancecar express (¥1,290 supplement) from Odakyu Shinjuku station. Reserved window seats. 85 minutes. Stunning views as you enter the mountains."},
+      {t:"11 AM","m":"Hakone Open Air Museum","d":"World-class sculpture park on a mountainside. Picasso pavilion (300+ works), Henry Moore pieces, and outdoor sculptures you can interact with. ¥1,600. 2–3 hours easily."},
+      {t:"2 PM","m":"Hakone Ropeway + Lake Ashi","d":"Cable car from Sounzan over sulfurous Owakudani volcanic valley (if Mt. Fuji is visible, the views are extraordinary). Down to Togendai on Lake Ashi. Pirate ship ferry across the lake."},
+      {t:"4:30 PM","m":"Check in to ryokan","d":"Traditional Japanese inn. You'll be given a yukata (cotton robe) to wear all evening. Room service available. Most ryokan include 2-meal plan (dinner + breakfast)."},
+      {t:"5 PM","m":"Private or shared onsen (hot spring bath)","d":"Use the indoor bath first. Wash thoroughly at the shower station first. If Mt. Fuji is visible from the rotenburo (outdoor bath), you've struck gold. Sunset onsen is a life experience."},
+      {t:"7:30 PM","m":"Kaiseki dinner at ryokan","d":"Multi-course traditional dinner in your room or dining hall. 8–12 small courses: sashimi, grilled fish, tofu dishes, pickles, miso soup, dessert. Eat slowly and savor."}
+     ],hack:"Book a ryokan with a Mt. Fuji-view outdoor bath (rotenburo). Gora Kadan or Hakone Ginyu are exceptional. Book 2–3 months ahead for weekend stays.",etiquette:"At onsen: shower before entering. Small towel stays out of the water. No soap in the communal bath. Speak quietly — it's a meditative space."}
+  ]},
+  {color:"#c9962a",name:"Phase 2 — Kyoto Deep Dive",city:"Fushimi / Arashiyama / Gion / Nishiki",days:[
+    {n:8,title:"Hakone → Kyoto Shinkansen",sub:"Bullet train travel day + Gion evening",tags:["transport","city"],
+     slots:[
+      {t:"7 AM","m":"Ryokan breakfast + forward luggage","d":"Japanese breakfast in the ryokan: grilled fish, pickles, miso soup, tamago, rice. Ask front desk to send bags to Kyoto hotel (Takkyubin by 12pm). Walk to Hakone-Yumoto station light."},
+      {t:"9:30 AM","m":"Odawara → Kyoto Shinkansen (JR Pass)","d":"Transfer to Odawara by local train (20 min), then board Hikari or Kodama Shinkansen to Kyoto. 2 hrs 20 mins. Mt. Fuji view on the right side — sit on the right!"},
+      {t:"12 PM","m":"Arrive Kyoto, check in, orient","d":"Store day bag at hotel (luggage arrives by 2pm from Hakone). Walk to Nishiki Market for lunch snacks."},
+      {t:"2 PM","m":"Nishiki Market — Kyoto's kitchen","d":"400m covered shotengai (shopping street) with 100+ stalls. Must try: fresh yuba, tsukemono (pickled veg), octopus on a stick, matcha soft serve at Tsujiri."},
+      {t:"4 PM","m":"Gion district walking tour","d":"Geisha district. Hanamikoji Street is the main geisha corridor — stone-paved, wooden machiya teahouses. Most active at dusk. Geiko and maiko (geishas) are real, not tourist performers — do not chase or photograph them rudely."},
+      {t:"7 PM","m":"Dinner: Pontocho Alley","d":"Narrow lantern-lit alley parallel to the Kamo River. Restaurants with riverside terraces (kawayuka platforms). Try Kafuu for kaiseki-lite (¥4,000) or Kichi Kichi for famous omurice (book online)."}
+     ],hack:"Sit on the right side of the Shinkansen (facing forward, window seat D) for Mt. Fuji views. The mountain appears between Shin-Fuji and Mishima stations — have camera ready.",etiquette:null},
+    {n:9,title:"Fushimi Inari + Nishiyama temples",sub:"Dawn torii gates, bamboo, temple walk",tags:["temple","nature"],
+     slots:[
+      {t:"6 AM","m":"Fushimi Inari Taisha — arrive at dawn","d":"The single most important crowd hack in Japan. The famous 10,000 torii gate tunnel is EMPTY at 6am. First trains run from 5:50am. Walk the full upper circuit (2 hrs) before anyone arrives. By 9am it's a wall of tourists."},
+      {t:"8:30 AM","m":"Return to Kyoto, breakfast","d":"Konbini breakfast or Inari-zushi (fox sushi) from a stall near the shrine entrance. Fushimi is also Japan's sake brewing district — Gekkeikan Okura Sake Museum opens at 9am."},
+      {t:"10 AM","m":"Tofuku-ji Temple — lesser-known, extraordinary","d":"Not on most tourist itineraries. Famous for its Zen rock garden (hojo gardens) and dramatic maple-canopied bridge. ¥500. Often empty on weekday mornings."},
+      {t:"12 PM","m":"Lunch: Obanzai set meal in central Kyoto","d":"Obanzai = Kyoto home cooking. Small dishes in lacquered boxes: simmered vegetables, tofu, dashimaki egg. Lunch sets ¥1,200–1,800 at any Gion-area restaurant."},
+      {t:"2 PM","m":"Kiyomizudera Temple","d":"Kyoto's most iconic. The wooden stage platform extends over a forested cliff — views over the city are spectacular. Arrive via Ninenzaka and Sannenzaka stone-paved lanes for a full approach experience. ¥500."},
+      {t:"4:30 PM","m":"Philosopher's Path (Tetsugaku-no-michi)","d":"2km canal-side stone path connecting Nanzenji to Ginkakuji (Silver Pavilion). Lined with cherry trees (spectacular in bloom). Nanzenji aqueduct is a stunning Roman-looking structure inside the temple grounds."},
+      {t:"7 PM","m":"Dinner: Gion Kinotouya or local izakaya","d":"Gion Kinotouya: upscale but approachable Kyoto cuisine in a renovated machiya. Alternatively, Yoramu sake bar for Kyoto sake tasting flights with light appetizers."}
+     ],hack:"Philosopher's Path in cherry blossom season (late March – early April) is magical but extremely crowded. In non-bloom seasons it's peaceful and beautiful. Worth it regardless.",etiquette:"At Fushimi Inari early morning, walk on the left side of the torii tunnels. Follow the arrows on the path. The shrine asks visitors not to eat or drink while walking through the gates."},
+    {n:10,title:"Arashiyama — Bamboo & River",sub:"Bamboo grove, monkey park, boat",tags:["nature","temple"],
+     slots:[
+      {t:"7 AM","m":"Arashiyama Bamboo Grove — before crowds","d":"Walk from Tenryuji temple north entrance straight into the bamboo. 7am is ideal — the low-angle morning light filters through the bamboo canopy. By 10am it's a selfie traffic jam."},
+      {t:"8:30 AM","m":"Tenryuji Temple and Zen Garden","d":"UNESCO World Heritage. The pond garden (Sogenchi Garden) is one of the best preserved medieval Zen gardens in Japan. ¥500 garden-only or ¥1,000 including buildings. Morning light on the water is extraordinary."},
+      {t:"10:30 AM","m":"Iwatayama Monkey Park","d":"Steep 20-min hike up the mountain. At the top: 120 Japanese macaques roam free. You enter a cage to feed them through the wire. Views of Kyoto and the Hozu River from up here."},
+      {t:"1 PM","m":"Lunch: Togetsu-kyo bridge area restaurants","d":"Yoshimura tofu restaurant beside the Oi River: traditional Kyoto tofu course (¥2,500) in a tatami room over the water. Or simpler: matcha soba noodles at riverside Sagano restaurant."},
+      {t:"3 PM","m":"Sagano Scenic Railway (Torokko Train)","d":"Narrow-gauge tourist train through the Hozu River gorge. Runs Mar–Dec. Book tickets at Torokko Saga station well in advance (sells out weeks ahead). 7km, 25 minutes of stunning gorge scenery."},
+      {t:"5 PM","m":"Return to Kyoto city center","d":"Randen tram from Arashiyama to Shijo/Omiya. Or JR San'in line from Saga-Arashiyama."},
+      {t:"7 PM","m":"Dinner: Kyoto ramen or sushi","d":"Kyoto-style ramen is lighter than Tokyo — white miso base, thin noodles. Menya Inoichi near Kyoto Station is exceptional. Or Musashi conveyor belt sushi at Sanjo for budget sushi (¥130–450/plate)."}
+     ],hack:"Book Sagano Torokko Train at torokko.sagano.jp — the website now has English. Print the ticket or screenshot it. No tickets sold on the day.",etiquette:null},
+    {n:11,title:"Kinkakuji, Ryoanji & Nijo Castle",sub:"Gold pavilion, rock garden, shogun's palace",tags:["temple","city"],
+     slots:[
+      {t:"9 AM","m":"Kinkakuji (Golden Pavilion)","d":"Japan's most photographed building. Third-floor roof covered in pure gold leaf. The reflection in Kyoko-chi mirror pond is the defining image. Arrive by 9am to beat bus tours. ¥500."},
+      {t:"10:30 AM","m":"Ryoanji Temple Rock Garden","d":"Japan's most famous karesansui (dry rock garden). 15 stones arranged so that you can never see all 15 from any single vantage point. A Zen koan in stone. Contemplate. ¥600."},
+      {t:"12 PM","m":"Nishiki Market lunch","d":"Second visit — you know what you like now. Load up on pickled vegetables as food gifts (excellent, shelf-stable souvenirs)."},
+      {t":"2 PM","m":"Nijo Castle","d":"Tokugawa shogun's Kyoto palace. Famous 'nightingale floors' that squeak when walked upon — deliberately designed to alert guards of intruders. Ninomaru palace interior requires advance booking. ¥1,000."},
+      {t:"4 PM","m":"Kyoto Imperial Palace Park","d":"The former imperial palace complex is free to enter. The gardens are immaculate and huge. Perfect afternoon walk before dinner."},
+      {t:"7 PM","m":"Dinner: Pontocho or Gion splurge","d":"Reserve one night for a proper multi-course kaiseki. Kikunoi Honten (Michelin 2-star) does a lunch kaiseki from ¥8,800. Book at least 2 weeks ahead."}
+     ],hack:null,etiquette:null},
+    {n:12,title:"Uji Day Trip — Matcha Capital",sub:"Tea ceremony, Byodoin, riverside",tags:["food","temple"],
+     slots:[
+      {t:"9 AM","m":"Kyoto → Uji by JR Nara Line (30 min)","d":"¥240 each way — JR pass covers this. Uji is Japan's most important tea-growing region and home to some of the finest matcha in existence."},
+      {t:"10 AM","m":"Byodoin Temple — the 10-yen coin building","d":"The Phoenix Hall on the 10-yen coin. Built 1053. Perfectly reflected in the Aji-ike pond. ¥600 temple + ¥300 Phoenix Hall interior. Book Phoenix Hall entry slot at the gate (limited)."},
+      {t:"12 PM","m":"Uji Bridge area and tea houses","d":"The historic Uji Bridge is Japan's oldest. Tea houses line the main street — they all serve matcha in every form. Tsujiri Chaho: try the matcha parfait (¥1,200) — seven layers of matcha perfection."},
+      {t:"1:30 PM","m":"Tea ceremony experience","d":"Many tea houses on Uji's main street offer 30-min tea ceremony for ¥1,000–1,500. You'll learn the choreography and make your own bowl of matcha. Seasonal wagashi sweet served first."},
+      {t:"3 PM","m":"Return to Kyoto, evening free","d":"Walk Higashiyama for any missed temples or craft shopping. Tsujiri flagship store in Kyoto is a second stop for matcha products."},
+      {t:"7 PM","m":"Dinner: Kyoto standing sushi bar","d":"Musashi at Sanjo Station (Kyoto's famous rotating sushi) or Kyoto Cuisine Kichisen for a splurge kaiseki (book 1 month ahead, ¥25,000+, one of Japan's finest)."}
+     ],hack:"Uji is only 30 minutes from Kyoto — completely overlooked by most tourists. Best matcha you'll ever drink is here, not in some overpriced Kyoto tourist trap.",etiquette:null}
+  ]},
+  {color:"#4a7c59",name:"Phase 3 — Nara, Osaka & Kobe",city:"Nara deer park / Dotonbori / Kobe waterfront",days:[
+    {n:13,title:"Kyoto → Nara → Osaka transit day",sub:"Deer park, Todai-ji, arrival Osaka",tags:["temple","nature","transport"],
+     slots:[
+      {t:"8 AM","m":"Forward luggage Kyoto → Osaka hotel","d":"Drop at Kyoto hotel front desk by 9am. Travel light to Nara as a half-day stop before Osaka check-in."},
+      {t:"9 AM","m":"Kyoto → Nara (JR Nara Line, 45 min)","d":"JR Pass covers this. Trains every 15 minutes from Kyoto station. Walk 15 minutes from Nara station or take bus to Kintetsu Nara for the deer park."},
+      {t:"10 AM","m":"Nara Deer Park — 1,200 free-roaming deer","d":"The deer are sacred and genuinely free. Buy shika-senbei (deer crackers, ¥200) and be immediately surrounded. Watch out: they bow to ask for crackers and will headbutt if you tease. Great comedy and great photos."},
+      {t:"11 AM","m":"Todai-ji Temple — world's largest wooden building","d":"Houses a 15-meter bronze Buddha (Daibutsu). One of Japan's most impressive sights. Try to squeeze through the wooden pillar with the Buddha's nostril hole — legend says it grants enlightenment. ¥600."},
+      {t:"1 PM","m":"Kasuga Taisha Shrine","d":"Shinto shrine with 3,000 stone and bronze lanterns lining the forested approach. Lit twice a year (Feb and Aug). The mossy stone lantern path is photogenic year-round."},
+      {t":"2:30 PM","m":"Nara → Osaka (Kintetsu line, 40 min or JR)","d":"Arrive at Osaka Namba or Umeda. Check in to hotel. Bags already delivered from Kyoto."},
+      {t:"6 PM","m":"Evening: Dotonbori introduction","d":"Walk the neon canal district. Glico running man sign, giant crab sign at Kani Doraku, fugu (blowfish) restaurant signs. The sensory overload is part of the experience."},
+      {t:"8 PM","m":"Dinner: First takoyaki at Wanaka","d":"The original takoyaki masters. Crispy outside, molten gooey inside, bonito flakes dancing in the heat. ¥600 for 8. Eat standing at the counter. Don't bite immediately — they're 80°C inside."}
+     ],hack:"Nara makes the perfect 3-hour transit stop between Kyoto and Osaka — you get the main highlights without needing a separate overnight stay. Forward your luggage and travel light.",etiquette:"Don't feed deer human food — only official shika-senbei. Don't stand between a deer and its food — they bite. Really."},
+    {n:14,title:"Osaka Food Crawl — Full Day",sub:"Kuromon market, Tsutenkaku, Shinsekai",tags:["food","city"],
+     slots:[
+      {t:"8 AM","m":"Kuromon Ichiba Market — Osaka's kitchen","d":"Professional-grade market open since 1922. Arrive early for the freshest fish. Counter sushi stalls along the side aisles: sea urchin on rice (¥400), king crab legs (¥800), wagyu beef skewers."},
+      {t:"10 AM","m":"Osaka Castle and grounds","d":"The castle itself is a modern reconstruction (1931, rebuilt 1997), but the park grounds are genuinely historic. Stone walls built with 500,000 stones. Park is free; castle interior ¥600."},
+      {t:"1 PM","m":"Lunch: Okonomiyaki masterclass at Mizuno","d":"Since 1945 on Dotonbori. Osaka-style okonomiyaki: toppings mixed into the batter (not layered like Hiroshima-style). Get the yam version with extra bonito and Japanese mayo. ¥1,500."},
+      {t":"3 PM","m":"Shinsekai and Tsutenkaku Tower","d":"Retro-futuristic district from the 1912 World Expo. Kushikatsu (deep-fried skewers) everywhere — the Osaka rule: ONE DIP only in the communal sauce. Double-dipping is socially catastrophic here."},
+      {t:"5 PM","m":"Amerikamura (American Village)","d":"Osaka's streetwear and vintage culture district. Second-hand American clothing, independent music, youth culture. The area around Triangle Park has great people-watching."},
+      {t:"7 PM","m":"Dinner: Honkaku Osaka standing sushi or ramen","d":"Ganko Sushi near Umeda: excellent conveyor + ordered sushi in a beautiful traditional setting. Or Marutama ramen for chicken-broth ramen with silky noodles (¥900)."},
+      {t:"9 PM","m":"Night: Dotonbori bar crawl","d":"The canal promenade is lively until midnight. Tengu Bar, Pharaoh Club, or just pick any standing bar with a noren curtain. Cold Asahi and yakitori skewers."}
+     ],hack:"Osaka kushikatsu ONE DIP RULE: you get one dip into the communal sauce per piece. If you want more sauce, use the shredded cabbage to ladle sauce onto your food. Double-dipping is a major offense in Osaka.",etiquette:null},
+    {n:15,title:"Kobe Day Trip",sub:"Wagyu beef, European quarter, harbor",tags:["food","city"],
+     slots:[
+      {t:"9 AM","m":"Osaka → Kobe (JR Kobe/Namba line, 30 min)","d":"JR Pass covers this. Arrive at Sannomiya station. Kobe is a completely different atmosphere — cosmopolitan, European-influenced, seaside."},
+      {t:"10 AM","m":"Kitano-cho (Ijinkan-gai) foreign settlement","d":"Well-preserved late 19th-century Western-style mansions from Kobe's treaty port era. British, German, French, and American consular residences. Walk the cobblestone streets among the blossom trees."},
+      {t:"12 PM","m":"Kobe beef lunch — the main event","d":"Misono in Kitano-cho (opened in Japan's first teppanyaki restaurant). Kobe beef teppanyaki lunch set: ¥6,000–12,000 depending on grade. The beef melts on the tongue. This is worth every yen."},
+      {t:"2:30 PM","m":"Kobe Harborland and Mosaic mall","d":"The waterfront shopping and food complex. Take the sea bus across to Meriken Park — the 1995 earthquake memorial preserves the shattered pier exactly as it was found."},
+      {t":"4 PM","m":"Nunobiki Herb Garden (ropeway)","d":"Cable car up to a hillside herb garden with views over Kobe and Osaka Bay. ¥1,800 return. The garden has a greenhouse, outdoor terraces, and an excellent soft-serve with local herbs."},
+      {t:"6:30 PM","m":"Return to Osaka","d":"30-minute train back. Arrive Osaka Sannomiya → Osaka Umeda by JR."},
+      {t:"8 PM","m":"Dinner: Osaka Nakazakicho","d":"Hipster neighborhood with specialty coffee shops, vintage furniture stores, and small natural wine bars. Quieter and more local than Dotonbori."}
+     ],hack:"Kobe beef must be certified — ask for the official Kobe Beef certification number if the price seems too cheap. Genuine Kobe beef lunch starts at ¥5,000–6,000. Anything cheaper is likely just 'wagyu' from elsewhere.",etiquette:null},
+    {n:16,title:"Universal Studios Japan or Day in Osaka",sub:"Theme park option or deeper city exploration",tags:["city"],
+     slots:[
+      {t:"8 AM","m":"Option A: Universal Studios Japan (USJ)","d":"Book Express Pass online in advance (¥5,000–11,000 on top of ¥9,400 admission). Must-do: Nintendo World (Super Mario area), Wizarding World of Harry Potter, and Minion Park. Arrive at opening — use Express Pass to skip morning queues."},
+      {t:"8 AM","m":"Option B: Naoshima Art Island day trip","d":"Take the ferry from Uno Port (1.5 hrs from Osaka via Shinkansen to Okayama + train). Island covered in permanent art installations by Kusama, Turrell, and others. Chichu Art Museum requires advance booking."},
+      {t:"8 AM","m":"Option C: More Osaka — Sumiyoshi Taisha + south","d":"Sumiyoshi Taisha: one of Japan's oldest shrines, no Chinese influence — purely Japanese architectural style. Then Tennoji district and Shin-Sekai for more kushikatsu."},
+      {t:"7 PM","m":"Dinner: Umeda Sky Building","d":"The floating garden observatory (¥1,500) has views over the Osaka-Kyoto-Kobe urban sprawl. Restaurants in the basement of the building serve excellent Osaka food at mid-range prices."}
+     ],hack:"USJ Nintendo World requires a separate timed entry lottery on the USJ app from 8am on the day. Do this from the queue line on arrival — it fills in minutes.",etiquette:null}
+  ]},
+  {color:"#535ab7",name:"Phase 4 — Hiroshima & Miyajima",city:"Peace Memorial / Torii Gate Island",days:[
+    {n:17,title:"Osaka → Hiroshima Shinkansen",sub:"Peace Memorial Park, atomic bomb dome",tags:["transport","city"],
+     slots:[
+      {t:"8 AM","m":"Forward luggage Osaka → Hiroshima hotel","d":"Drop bags at hotel by 9am for Takkyubin. Travel with day bag only on Shinkansen."},
+      {t:"9:30 AM","m":"Osaka → Hiroshima (Shinkansen Hikari, 90 min)","d":"JR Pass covers. Sit on the left side (N seat) for views. Hiroshima is in Hiroshima Prefecture on the Seto Inland Sea."},
+      {t:"11 AM","m":"Peace Memorial Museum","d":"One of the most important museums in the world. Allow 2 full hours. The basement exhibitions with personal belongings of victims, the melted watches stopped at 8:15am, and the children's origami section are deeply moving. ¥200."},
+      {t:"1:30 PM","m":"Atomic Bomb Dome (Genbaku Domu)","d":"The only structure left standing near the hypocenter, preserved exactly as it was after the bomb. UNESCO World Heritage. Spend time at the Peace Flame and cenotaph."},
+      {t:"3 PM","m":"Children's Peace Monument and Memorial Park","d":"The paper crane memorial for Sadako Sasaki. Visitors leave origami cranes from around the world. The main arch frames the A-bomb dome in the distance — the most powerful photograph in Japan."},
+      {t:"5 PM","m":"Hiroshima okonomiyaki at Okonomi-mura","d":"Hiroshima-style okonomiyaki is different from Osaka — layered (not mixed), with yakisoba noodles inside. The Okonomi-mura building has 3 floors of okonomiyaki restaurants. ¥1,100–1,500."},
+      {t":"7:30 PM","m":"Explore Nagarekawa entertainment district","d":"Hiroshima's lively bar and restaurant district. Try Kagura-no-sato for Kagura dance performances over dinner, or Kikunoya sake bar."}
+     ],hack:"The Peace Memorial Museum sells out timed entry on weekends. Book at pcf.city.hiroshima.jp. On weekdays, walk-in is usually fine but go early — emotional visits run long.",etiquette:"Maintain quiet and respectful demeanor throughout the Peace Park. Photography is permitted but treat it as a solemn site, not a photo backdrop. Don't eat at the memorial."},
+    {n:18,title:"Miyajima Island — Floating Torii",sub:"Itsukushima shrine, Mt. Misen, deer",tags:["temple","nature"],
+     slots:[
+      {t:"7 AM","m":"JR Ferry to Miyajima (JR Pass covers)","d":"From Hiroshima, take JR Sanyo Line to Miyajimaguchi (30 min), then JR ferry (10 min). The floating red torii gate of Itsukushima appears as you approach the island."},
+      {t:"8 AM","m":"Itsukushima Shrine at high tide","d":"Check tide times in advance (tide-forecast.com/japan). At high tide, the torii appears to float on the sea — the classic image. Shrine walkways hover over the water too. ¥300 entry."},
+      {t:"10 AM","m":"Walk to Mt. Misen summit (ropeway + hike)","d":"Ropeway to Shishiiwa Station (¥2,000 return), then 30-min hike to summit. Views across the Seto Inland Sea to countless forested islands. The sacred flame at the summit has burned for 1,200 years."},
+      {t:"1 PM","m":"Lunch: Momiji manju and oysters","d":"Miyajima is famous for both. Oysters: grilled fresh at Kakiya restaurant (¥1,200 for 6 large grilled oysters overlooking the sea). Momiji manju: maple leaf cakes filled with red bean or custard (¥150 each)."},
+      {t:"3 PM","m":"Low tide walk to the torii gate","d":"At low tide, you can walk across the sand to the base of the torii gate. Check tide table — ideal if low tide is in the afternoon."},
+      {t":"4:30 PM","m":"Daisho-in Temple","d":"Beautiful hillside temple complex with hundreds of small Jizo statues wearing knitted caps. Prayer wheels, moss-covered lanterns, and corridors of carved stone. Less visited than the shrine — more intimate."},
+      {t:"6 PM","m":"Return ferry to Hiroshima, dinner","d":"Back to Hiroshima. Try Suishin restaurant for Hiroshima oysters in season (Sept–March are best). Or Nagata-ya for a classic Hiroshima okonomiyaki dinner."}
+     ],hack:"The torii gate 'floats' only at high tide. It stands on the seabed at low tide. If you have flexibility in your schedule, time the morning visit for high tide and the afternoon for low tide (walk to the gate).",etiquette:null}
+  ]},
+  {color:"#c0392b",name:"Phase 5 — Kanazawa & The Hidden Japan",city:"Kenroku-en / Higashi Chaya / Omicho Market",days:[
+    {n:19,title:"Hiroshima → Kanazawa",sub:"Long Shinkansen transit + first evening",tags:["transport","city"],
+     slots:[
+      {t:"8 AM","m":"Forward luggage Hiroshima → Kanazawa hotel","d":"Takkyubin: drop by 9am, arrives tomorrow. Kanazawa is accessible via Shinkansen (Kagayaki, 3.5 hrs from Osaka or 2.5 hrs from Kyoto after backtracking to Shin-Osaka)."},
+      {t:"10 AM","m":"Hiroshima → Shin-Osaka → Kanazawa","d":"Shinkansen Hiroshima to Shin-Osaka (1 hr), transfer to Kagayaki to Kanazawa (2.5 hrs). JR Pass covers both. Kanazawa reopened to Shinkansen only in 2024 — the route is new and the station is stunning."},
+      {t":"1 PM","m":"Arrive Kanazawa — check in","d":"Kanazawa is called 'Little Kyoto' — it was never bombed in WWII and retains its original samurai and geisha districts intact. The contrast with modern Japan is striking."},
+      {t:"2:30 PM","m":"Omicho Market (Kanazawa's kitchen)","d":"The freshest seafood in Japan outside Tokyo. Crab, squid, sweet shrimp (ama-ebi), and Noto Hanto seafood. Many stalls have small counters serving lunch sets — try the crab chirashi don (¥2,000)."},
+      {t:"4:30 PM","m":"Higashi Chaya District — preserved geisha quarter","d":"Better preserved than Gion. The amber-lacquered facades of the chaya (teahouses) line a river district that hasn't changed since the 1820s. Shima teahouse museum is the interior experience (¥750)."},
+      {t:"7 PM","m":"Dinner: Kappo or kaiseki in Kanazawa","d":"Kanazawa is a serious food city — lesser known than Kyoto but equally refined. Zeniya (book ahead) or Miyoshian near Kenroku-en for a kaiseki dinner featuring Noto Peninsula ingredients."}
+     ],hack:"Kanazawa has a 100-yen flat-rate tourist bus (Hyaku-Maru bus) that stops at all major sights. Buy a 1-day pass for ¥500. Runs every 12–15 minutes.",etiquette:null},
+    {n:20,title:"Kenroku-en + Kanazawa Castle",sub:"Japan's finest garden, samurai district",tags:["nature","temple"],
+     slots:[
+      {t:"7:30 AM","m":"Kenroku-en Garden at opening","d":"One of Japan's three great gardens (alongside Koraku-en and Kairaku-en). 11 hectares, built over 180 years. Most famous for the kotoji-toro lantern in the lower pond. ¥320. In morning mist with no crowds it's ethereal."},
+      {t:"9:30 AM","m":"Kanazawa Castle Park","d":"Free entry to the park grounds. The palace-like castle was the Maeda clan's seat — the most powerful feudal lords outside the Tokugawa Shogunate. The Hishi Yagura tower has been restored to its original 17th-century appearance."},
+      {t:"11 AM","m":"Nagamachi Samurai District","d":"Well-preserved samurai quarter with earthen walls, narrow lanes, and the Nomura Family Residence museum (¥550) — exquisite tatami rooms, garden, and artifacts. Walking the lanes alone is meditative."},
+      {t:"1 PM","m":"Lunch: Gold leaf cuisine experience","d":"Kanazawa produces 99% of Japan's gold leaf. Try gold leaf ice cream at Hakuichi Higashiyama (a leaf of 24-karat gold on soft serve, ¥700) — it's real gold and edible."},
+      {t:"3 PM","m":"21st Century Museum of Contemporary Art","d":"Free to walk the exterior courtyard. Paid zone (¥1,000) has Leandro Erlich's 'Swimming Pool' — glass pool where people inside appear underwater to those above. Incredible concept."},
+      {t:"7 PM","m":"Dinner: Izakaya with Noto Peninsula specials","d":"Noto Peninsula (north of Kanazawa) produces Japan's finest salt and some extraordinary seafood. Kanazawa izakayas showcase it — try the smoked mackerel and sweet shrimp, paired with Tanzaku sake from the Noto brewery."}
+     ],hack:"Kanazawa gold leaf ice cream: yes, the gold is real 24-karat food-grade gold. It has no taste but an extraordinary shimmer. The Hakuichi shop on Higashiyama's main street is the original and best.",etiquette:null}
+  ]},
+  {color:"#6b6b7b",name:"Phase 6 — Takayama & The Japanese Alps",city:"Old Town / Morning Markets / Shirakawa-go",days:[
+    {n:21,title:"Kanazawa → Takayama — Mountain Town",sub:"Edo-period streets, sake breweries",tags:["transport","city"],
+     slots:[
+      {t:"9 AM","m":"Kanazawa → Takayama (express bus, 2.5 hrs)","d":"Nouhi Bus (¥3,200 one way). Book in advance at nouhibus.co.jp. Dramatically scenic mountain pass — the bus climbs through the Japanese Alps. JR Pass does NOT cover this bus — buy separately."},
+      {t:"11:30 AM","m":"Arrive Takayama — old town walk","d":"Takayama's Sanmachi Suji (three-street district) is Japan's most intact Edo-period merchant town. Sake breweries, miso shops, lacquerware stores, craft shops — all in original 18th-century wooden buildings."},
+      {t:"1 PM","m":"Lunch: Hida beef (Takayama's version of wagyu)","d":"Hida beef comes from the same black cattle as Kobe and Matsusaka but from this mountain region. Mitarashi-dango (rice dumplings, ¥200) as starter, then Hida beef skewer or sushi (¥800–1,200)."},
+      {t:"3 PM","m":"Sake brewery tasting tour","d":"Takayama has 6 sake breweries on one street. Look for the sugidama (cedar ball) hanging outside — it means fresh sake is ready. Funasaka, Hirase, and Ota breweries all offer free tasting. Budget ¥500–1,500 for a bottle."},
+      {t":"5 PM","m":"Higashiyama Walking Course","d":"Temple and shrine circuit through the hillside east of town. 11 temples and shrines connected by a forested path. The evening light turns the tiles golden. Rarely crowded."},
+      {t:"7:30 PM","m":"Dinner: Hida-style teishoku (set meal)","d":"Jinya-shita food area near the old government house: try hoba miso (miso paste on a magnolia leaf cooked over charcoal with mushrooms and Hida beef). ¥1,800."}
+     ],hack:"Book Nouhi Bus Kanazawa → Takayama weeks in advance in peak season (spring/autumn). The mountain views through the Hida pass are among the most beautiful in Japan.",etiquette:null},
+    {n:22,title:"Shirakawa-go UNESCO Village",sub:"Thatched roof farmhouses, mountain basin",tags:["nature","temple"],
+     slots:[
+      {t:"8:30 AM","m":"Takayama → Shirakawa-go (bus, 50 min)","d":"Nohi Bus from Takayama Bus Terminal. ¥2,600 return. Book online. Shirakawa-go is a UNESCO World Heritage village of gassho-zukuri (steep-thatched) farmhouses in a snow basin."},
+      {t":"9:30 AM","m":"Shirakawa-go village walk","d":"The whole village is the attraction. 114 traditional farmhouses. Wada House museum shows the interior structure — the steep 60° roof angles were designed to shed heavy mountain snow. ¥300 entry."},
+      {t:"11 AM","m":"Shiroyama Viewpoint — the postcard view","d":"10-minute walk up the hill (or shuttle bus) to the overlook. The entire village basin surrounded by forested mountains — iconic image especially in autumn leaves or winter snow. Go early before tour buses."},
+      {t:"1 PM","m":"Lunch in the village","d":"Irori-nabe: hearty mountain stew around an open sunken hearth (irori) inside a farmhouse restaurant. Perfect for mountain weather. ¥1,500–2,000."},
+      {t":"2:30 PM","m":"Return to Takayama","d":"Bus back. Late afternoon free to finish sake shopping or explore Takayama Jinya (Edo-period government house, ¥450)."},
+      {t:"7 PM","m":"Final Takayama dinner","d":"Suzuya restaurant near Sanmachi: their specialty is sansai (mountain wild vegetables) with Hida beef shabu-shabu. One of the finest meals on the route."}
+     ],hack:"Shirakawa-go in January–February is covered in deep snow — the village looks like a fairy tale. Worth rescheduling the itinerary around if you're traveling in winter.",etiquette:null}
+  ]},
+  {color:"#2980b9",name:"Phase 7 — Matsumoto & Final Tokyo",city:"Crow Castle / Japanese Alps / Shinjuku finale",days:[
+    {n:23,title:"Takayama → Matsumoto",sub:"Black castle, mountain backdrop, sake",tags:["transport","city"],
+     slots:[
+      {t:"9 AM","m":"Takayama → Matsumoto (JR Hida Limited Express, 2 hrs)","d":"JR Pass covers. Excellent mountain train route through Hida valleys. Matsumoto is a samurai castle town with the Japanese Alps as a backdrop."},
+      {t:"11 AM","m":"Matsumoto Castle (Crow Castle)","d":"Japan's oldest surviving original castle — meaning it was never destroyed or rebuilt. Black exterior earned it the 'Crow Castle' nickname. The views from the top floor over the Alps are spectacular. ¥700. Get there early — maximum 350 visitors inside at once."},
+      {t":"1 PM","m":"Nawate Street and Nakamachi Street","d":"Nawate: frog-themed covered market along the river with craft stalls and old-fashioned candy shops. Nakamachi: Edo-period storehouses converted to restaurants and galleries."},
+      {t:"2:30 PM","m":"Matsumoto City Museum of Art","d":"Houses a massive permanent collection of Yayoi Kusama works (she's from Matsumoto). The outdoor polka-dot sculptures and the infinity-mirror rooms are extraordinary. ¥410."},
+      {t:"5 PM","m":"Onsen near Matsumoto: Asama Onsen or Utsukushigahara","d":"Asama Onsen is a 30-minute bus ride and a classic mountain resort town. Public bath entry ¥550. The milky sulfurous water is different from Hakone's — equally restorative."},
+      {t:"8 PM","m":"Dinner: Shinshu cuisine","d":"Shinshu (Nagano region) is known for: buckwheat soba (grown locally), Shinshu miso, horsemeat (basashi) sashimi, and wild mushrooms. Kura soba restaurant in Nakamachi for hand-made soba (¥1,200)."}
+     ],hack:"Matsumoto Castle has a maximum occupancy — early arrivals avoid the slow zigzag queue. The wooden stairs inside are steep and narrow (original 16th-century dimensions). No heels.",etiquette:null},
+    {n:24,title:"Matsumoto → Tokyo — Final Chapter Begins",sub:"Return to Tokyo, Yanaka, Shinjuku",tags:["transport","city"],
+     slots:[
+      {t:"9 AM","m":"Matsumoto → Shinjuku (JR Azusa Limited Express, 2.5 hrs)","d":"JR Pass covers. Passes through Suwa Lake region — beautiful on clear days with snow-capped Alps behind the lake. Reserved seat required (free with JR Pass — book at any JR office)."},
+      {t:"12 PM","m":"Check in Tokyo, lighten bags","d":"Forward all non-essential bags to hotel storage. This is the home stretch — carry just what you need for 6 nights."},
+      {t:"2 PM","m":"Yanaka district — old Tokyo preserved","d":"Tokyo's most intact pre-war neighborhood. Narrow lanes, traditional craftsmen (umbrella maker, tofu shop, tatami store), old temples, and a wonderful cemetery with enormous old trees. The locals live normally here — it's not a tourist district."},
+      {t":"4 PM","m":"Yanaka Ginza shopping street","d":"Short retro covered shotengai with melon pan bakeries, yakitori stalls, cat figurine shops (cats are the neighborhood symbol), and old ladies selling homemade cakes."},
+      {t:"7 PM","m":"Dinner: Koenji neighborhood","d":"Koenji is Tokyo's bohemian, vintage-loving, music-playing neighborhood. Small music venues, Thai restaurants, ramen shops, and jazz bars all clustered around the station. Completely non-touristy."}
+     ],hack:null,etiquette:null},
+    {n:25,title:"Roppongi Arts & Shiodome",sub:"Mori Art Museum, teamLab, Tokyo Midtown",tags:["city"],
+     slots:[
+      {t:"10 AM","m":"Mori Art Museum (Roppongi Hills)","d":"Contemporary art in the clouds — 53rd floor of Mori Tower. Always interesting rotating exhibitions. ¥2,000 includes access to Tokyo City View observation floor (360° panoramic). "},
+      {t:"1 PM","m":"Lunch: Roppongi Hills food floor","d":"B2 floor of Mori Tower has excellent mid-range dining. Try the Japanese set lunch at Gonpachi (Ninja restaurant that inspired Kill Bill) or Sushi Saito if you can get a reservation."},
+      {t":"2:30 PM","m":"Zojoji Temple + Tokyo Tower","d":"Buddhist temple at the foot of Tokyo Tower. The contrast of orange temple gate with the red-and-white tower behind it is one of Tokyo's best photos. Best at dusk or blue hour."},
+      {t:"4 PM","m":"Shiodome / Shimbashi retro area","d":"Shimbashi is old-school Tokyo — salary-men, standing yakitori bars, smoky izakayas. Completely different from polished tourist Tokyo. The Caretta Shiodome illuminations (Dec–Feb) are spectacular."},
+      {t:"7 PM","m":"Dinner: Shiodome Italian or Yurakucho","d":"Yurakucho under the train tracks: longest-running yakitori alley in Tokyo, unchanged since the 1950s. Plastic seats, long tables, cheap beer, excellent chicken skewers. ¥2,500–4,000."}
+     ],hack:null,etiquette:null},
+    {n:26,title:"Tokyo Skytree + East Tokyo",sub:"New tower, Asakusa revisit, sumo district",tags:["city"],
+     slots:[
+      {t:"9 AM","m":"Tokyo Skytree — world's 2nd tallest tower","d":"Book Tembo Deck (350m) + Tembo Galleria (450m) online in advance — ¥3,400 combined. Views extend to Mt. Fuji on clear days. Go early for best visibility before afternoon haze builds."},
+      {t:"11 AM","m":"Sumida Aquarium (Skytree basement)","d":"Outstanding aquarium with Tokyo Bay species, jellyfish room, and the world's largest indoor open-form tank. ¥2,300. Worth 90 minutes."},
+      {t:"1 PM","m":"Lunch: Asakusa revisit","d":"Return to Asakusa for the unattempted. Try Kamiya Bar (Japan's oldest Western-style bar since 1880, famous Denki Bran cocktail ¥360) or Maison de la Neige for a matcha dessert."},
+      {t:"3 PM","m":"Ryogoku — Sumo district","d":"If sumo tournament is on (Jan, May, Sep at Ryogoku Kokugikan) — go. If not, visit the Sumo Museum (free), and walk past the stables in the morning when wrestlers do practice (public road, visible from outside)."},
+      {t:"6 PM","m":"Chanko-nabe dinner in Ryogoku","d":"Chanko-nabe is the protein-rich hot pot that sumo wrestlers eat to bulk up. Multiple restaurants in Ryogoku serve it — typically ¥2,500–3,500 for a full set with all the dumplings, vegetables, and tofu."}
+     ],hack:"Check the sumo tournament schedule at sumo.or.jp. Tickets sell out for top-division (Makuuchi) matches. Same-day tickets for the later afternoon bouts are released at the door from 8am.",etiquette:null},
+    {n:27,title:"Day Trip: Kamakura",sub:"Giant Buddha, Zen temples, coastal town",tags:["temple","nature"],
+     slots:[
+      {t:"8 AM","m":"Shinjuku → Kamakura (JR Shonan-Shinjuku Line, 1 hr)","d":"JR Pass covers. Direct trains run frequently. Kamakura was Japan's political capital 1185–1333 and has 65 temples and 19 shrines in a mountainous coastal setting."},
+      {t:"9:30 AM","m":"Kotoku-in: Great Buddha (Kamakura Daibutsu)","d":"13-meter bronze Buddha, built 1252, originally inside a temple that was swept away by a tsunami in 1498. It has sat outside ever since. You can enter the hollow statue for ¥20. ¥300 entry."},
+      {t:"11 AM","m":"Hase-dera Temple","d":"Hillside temple with a 9-meter gilded wooden Kannon statue (one of Japan's tallest) and cave passage with hundreds of small Kannon carvings. Sea views from the upper garden. ¥400."},
+      {t:"1 PM","m":"Lunch: Komachi Street or Yuigahama Beach area","d":"Kamakura's main shopping street for temple souvenir crackers (hato sablé pigeon cookies are the regional icon) and shirasu don (whitebait rice bowl) at any seafood restaurant near the beach. ¥1,200."},
+      {t:"3 PM","m":"Tsurugaoka Hachimangu Shrine + hike to Zeniarai Benten","d":"Main Kamakura shrine at the top of a grand staircase. Then 20-min walk to Zeniarai Benten — a cave shrine where you wash money to make it multiply (a very Japanese folk belief)."},
+      {t":"5 PM","m":"Enoden railway to Enoshima island","d":"Vintage 2-car tram from Kamakura to Enoshima (25 min, ¥260). The island has sea caves, a shrine complex, and lighthouse observatory. Evening light over the Pacific with Mt. Fuji on the horizon."},
+      {t:"7:30 PM","m":"Return to Tokyo","d":"Direct from Fujisawa to Shinjuku on Odakyu (55 min). Dinner near Shinjuku on return."}
+     ],hack:"The Enoden tram between Kamakura and Enoshima runs along the beach road so close to the sea that the tram practically touches the sand. Sit on the sea side for the view.",etiquette:null},
+    {n:28,title:"Tokyo Shopping Day",sub:"Shibuya, Shimokitazawa, final souvenirs",tags:["city"],
+     slots:[
+      {t:"10 AM","m":"Shimokitazawa — vintage shopping paradise","d":"Tokyo's most bohemian neighborhood. 50+ vintage clothing stores in a 15-minute walk radius. Rare Japanese denim, 90s streetwear, vintage Levi's, silk kimono. Prices are 30% lower than equivalent items in London or NYC."},
+      {t:"1 PM","m":"Lunch: Shimokitazawa curry","d":"The neighborhood is also famous for curry restaurants — Spice Kitchen Osaka or Koffee Mameya's nearby pour-over coffee (the best specialty coffee in Tokyo)."},
+      {t:"3 PM","m":"Shibuya Hikarie and Loft","d":"Loft department store: excellent Japanese stationery, home goods, and gifts. Masking tape (washi tape), pen sets, bento boxes. Not tourist trinkets — Japanese everyday-object design at its best."},
+      {t":"5 PM","m":"Last minute shopping: Tokyu Hands, Muji flagship","d":"Tokyu Hands Shibuya (8 floors of extraordinary Japanese products). Muji flagship in Aoyama for the full range unavailable overseas."},
+      {t:"7 PM","m":"Final big dinner: Sushi omakase","d":"Book Sushi Saito (almost impossible), Sushi Yoshitake (Michelin 3-star, book via Tableall app, ¥35,000+), or more accessible: Sushisho Masa in Roppongi (¥15,000 omakase, book 1 month ahead)."}
+     ],hack:"Shimokitazawa vintage prices are quoted in yen but remember: a ¥3,000 vintage Levi's jacket is £15. Japanese vintage is globally renowned — this is the best place in the world to buy it.",etiquette:null},
+    {n:29,title:"Final Full Day — Favorite Revisits",sub:"Your top picks, gifts, reflection",tags:["city"],
+     slots:[
+      {t:"Free","m":"Revisit your favorite place from the trip","d":"Everyone has one spot they want to return to. Use this day for that."},
+      {t:"Afternoon","m":"Last minute gift shopping","d":"Best food gifts: Tokyo Banana (Banana custard sponge, ¥850/6pcs, buy at Tokyo Station), Kit Kat matcha flavors (Narita Airport or any Kinokuniya), Yoku Moku cigare cookies (Omotesando main store), Kamakura hato sablé."},
+      {t:"Evening","m":"Shinjuku Department Store basement","d":"Isetan B2 food floor for the ultimate food gift shopping — carefully packaged Japanese confectionery, pickles, and tea. International shipping available."},
+      {t:"Night","m":"Final night in Tokyo","d":"Wherever feels right — Golden Gai for one last intimate bar crawl, or a rooftop cocktail at the Park Hyatt New York Bar (Lost in Translation setting), or quiet ramen alone at a counter."}
+     ],hack:"Tokyo Station B1 is arguably the single best place to buy omiyage (food souvenirs). Every major regional specialty from all over Japan is sold here in beautifully packaged form. Allow 1 hour.",etiquette:null},
+    {n:30,title:"Departure Day",sub:"Airport, duty free, final moments",tags:["transport"],
+     slots:[
+      {t:"Early AM","m":"Return Suica card at JR machine","d":"Get your ¥500 deposit back plus remaining balance at any JR machine or Midori-no-madoguchi office. Keep as a souvenir instead if preferred — it's valid for 10 years."},
+      {t:"Before leaving","m":"Final konbini breakfast ritual","d":"One last 7-Eleven onigiri, canned coffee, and melon pan for the road. This is now a meaningful ritual."},
+      {t:"3 hrs before flight","m":"Narita Express from Shinjuku or Haneda Keikyu","d":"N'EX: leaves Shinjuku every 30 minutes. 60 mins to Narita T1/T2. Add buffer — immigration out of Japan is faster than arrival but still allow 2.5–3 hours for Narita."},
+      {t:"Airport","m":"Duty-free shopping at Narita","d":"Narita has excellent duty-free: sake (the airport sake shop has premium Dassai and Kubota you can't find at home), cosmetics (Shiseido, SK-II at duty-free price), Japanese whisky (Nikka, Hibiki)."},
+      {t:"Gate","m":"Final Japan moment","d":"The konbini inside security. Buy one more coffee and a rice ball for the gate. Japan will have quietly, completely changed how you eat."}
+     ],hack:"If your flight is from Narita, the Airport Lounge (accessible with Priority Pass, Amex Platinum, or many travel credit cards) has hot food, showers, and beer — transforming a 3-hour airport wait into a pleasant experience.",etiquette:null}
+  ]}
+];
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
+let allOpen=false;
 
-        document.querySelectorAll(".feature-card").forEach(el => observer.observe(el));
-    </script>
-</body>
-</html>
+function showSection(id){
+  document.querySelectorAll('.section-content').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.snav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('s-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function togglePhase(el){
+  const grid=el.nextElementSibling;
+  const ch=el.querySelector('.chevron');
+  grid.classList.toggle('open');
+  ch.classList.toggle('open');
+}
+
+function toggleDay(el){
+  const body=el.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+function toggleAll(){
+  allOpen=!allOpen;
+  document.querySelectorAll('.days-grid').forEach(g=>{
+    if(allOpen)g.classList.add('open');else g.classList.remove('open');
+  });
+  document.querySelectorAll('.chevron').forEach(c=>{
+    if(allOpen)c.classList.add('open');else c.classList.remove('open');
+  });
+  document.querySelector('.expand-all').textContent=allOpen?'Collapse all phases':'Expand all phases';
+}
+
+function buildItinerary(){
+  const container=document.getElementById('phases-container');
+  phases.forEach(phase=>{
+    const ph=document.createElement('div');
+    const phH=document.createElement('div');
+    phH.className='phase-header';
+    phH.onclick=function(){togglePhase(this)};
+    phH.innerHTML=`<div class="phase-meta">
+      <div class="phase-dot" style="background:${phase.color}"></div>
+      <div>
+        <div class="phase-name">${phase.name}</div>
+        <div class="phase-city">${phase.city}</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="phase-days">${phase.days.length} days</div>
+      <div class="chevron">▾</div>
+    </div>`;
+    
+    const grid=document.createElement('div');
+    grid.className='days-grid';
+    
+    phase.days.forEach(day=>{
+      const card=document.createElement('div');
+      card.className='day-card';
+      
+      const tagHtml=(day.tags||[]).map(t=>{
+        const cls={food:'t-food',temple:'t-temple',nature:'t-nature',city:'t-city',hack:'t-hack',transport:'t-transport'}[t]||'t-city';
+        return `<span class="tag ${cls}">${t}</span>`;
+      }).join('');
+      
+      const hdr=document.createElement('div');
+      hdr.className='day-header';
+      hdr.onclick=function(){toggleDay(this)};
+      hdr.innerHTML=`<div class="day-num">${day.n}</div>
+        <div><div class="day-title">${day.title}</div><div class="day-sub">${day.sub}</div></div>
+        <div class="day-tags">${tagHtml}</div>`;
+      
+      const body=document.createElement('div');
+      body.className='day-body';
+      
+      const tl=document.createElement('div');
+      tl.className='timeline';
+      (day.slots||[]).forEach(slot=>{
+        const s=document.createElement('div');
+        s.className='slot';
+        s.innerHTML=`<div class="slot-dot"></div>
+          <div class="slot-time">${slot.t}</div>
+          <div class="slot-main">${slot.m}</div>
+          <div class="slot-detail">${slot.d}</div>`;
+        tl.appendChild(s);
+      });
+      body.appendChild(tl);
+      
+      if(day.hack){
+        const h=document.createElement('div');
+        h.className='hack-box';
+        h.innerHTML=`<span class="hack-icon">💡</span><span class="hack-text">${day.hack}</span>`;
+        body.appendChild(h);
+      }
+      if(day.etiquette){
+        const e=document.createElement('div');
+        e.className='etiquette-box';
+        e.innerHTML=`<span class="hack-icon">🫱</span><span class="etiquette-text">${day.etiquette}</span>`;
+        body.appendChild(e);
+      }
+      
+      card.appendChild(hdr);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+    
+    ph.appendChild(phH);
+    ph.appendChild(grid);
+    container.appendChild(ph);
+  });
+}
+
+buildItinerary();
+</script>
