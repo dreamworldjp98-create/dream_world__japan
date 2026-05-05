@@ -827,7 +827,11 @@ footer a:hover{color:var(--torii-light)}
 <nav>
   <div class="nav-logo">
     <span>Dream World</span> Japan
-    <div style="font-size:0.65rem;font-weight:400;color:var(--stone);letter-spacing:0.12em;text-transform:uppercase;margin-top:1px">Mahesh</div>
+    <div style="display:flex;align-items:center;gap:0.4rem;margin-top:2px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:0.78rem;font-weight:400;color:var(--gold);letter-spacing:0.05em">マヘシュ</span>
+      <span style="font-size:0.55rem;color:var(--border)">·</span>
+      <span style="font-size:0.6rem;font-weight:700;color:var(--stone);letter-spacing:0.18em;text-transform:uppercase">MAHESH</span>
+    </div>
   </div>
   <div class="nav-links">
     <a href="#destinations">Destinations</a>
@@ -1850,149 +1854,529 @@ function openCityDetail(cityKey){
 }
 
 // ============================================================
-// THREE.JS 3D BOOK
+// THREE.JS 3D BOOK — matches real cover photo
 // ============================================================
 let threeScene=null,threeRenderer=null,threeAnimFrame=null;
+
+function buildCoverTexture(){
+  const c=document.createElement('canvas');
+  c.width=512;c.height=720;
+  const ctx=c.getContext('2d');
+
+  // Sky gradient — deep blue like the book
+  const sky=ctx.createLinearGradient(0,0,0,480);
+  sky.addColorStop(0,'#0d1b3e');
+  sky.addColorStop(0.35,'#1a3a6e');
+  sky.addColorStop(0.65,'#2d6fa8');
+  sky.addColorStop(1,'#4a8fc0');
+  ctx.fillStyle=sky;
+  ctx.fillRect(0,0,512,520);
+
+  // Horizon warm glow
+  const glow=ctx.createRadialGradient(180,320,10,180,320,280);
+  glow.addColorStop(0,'rgba(255,180,80,0.45)');
+  glow.addColorStop(1,'rgba(255,180,80,0)');
+  ctx.fillStyle=glow;
+  ctx.fillRect(0,0,512,520);
+
+  // Ground / city silhouette
+  ctx.fillStyle='#1a2d50';
+  ctx.fillRect(0,390,512,130);
+
+  // City lights (tiny dots)
+  for(let i=0;i<120;i++){
+    const x=20+Math.random()*470, y=400+Math.random()*60;
+    const r=Math.random()*1.5+0.5;
+    ctx.fillStyle=`rgba(255,220,100,${0.3+Math.random()*0.5})`;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  }
+
+  // Mt. Fuji — left center
+  ctx.fillStyle='#d8e8f5';
+  ctx.beginPath();
+  ctx.moveTo(60,390);
+  ctx.lineTo(195,195);
+  ctx.lineTo(330,390);
+  ctx.closePath();
+  ctx.fill();
+  // Snow cap
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath();
+  ctx.moveTo(195,195);
+  ctx.lineTo(155,270);
+  ctx.lineTo(235,270);
+  ctx.closePath();
+  ctx.fill();
+  // Fuji shadow
+  const fjShadow=ctx.createLinearGradient(60,390,330,390);
+  fjShadow.addColorStop(0,'rgba(20,40,90,0.4)');
+  fjShadow.addColorStop(0.5,'rgba(20,40,90,0)');
+  fjShadow.addColorStop(1,'rgba(20,40,90,0.4)');
+  ctx.fillStyle=fjShadow;
+  ctx.beginPath();ctx.moveTo(60,390);ctx.lineTo(195,195);ctx.lineTo(330,390);ctx.closePath();ctx.fill();
+
+  // Cloud streaks
+  ctx.strokeStyle='rgba(255,255,255,0.18)';
+  ctx.lineWidth=12;ctx.lineCap='round';
+  [[30,160,220,155],[60,190,250,185],[280,145,460,140]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  });
+
+  // Pagoda — right side, multi-tier
+  const drawPagodaTier=(x,y,w,h,col)=>{
+    // Body
+    ctx.fillStyle=col;
+    ctx.fillRect(x-w/2,y-h,w,h);
+    // Roof
+    ctx.fillStyle='#2a4a3a';
+    ctx.beginPath();
+    ctx.moveTo(x-w*0.75,y-h);
+    ctx.lineTo(x,y-h-w*0.4);
+    ctx.lineTo(x+w*0.75,y-h);
+    ctx.closePath();ctx.fill();
+    // Roof highlight
+    ctx.fillStyle='rgba(255,255,255,0.08)';
+    ctx.beginPath();
+    ctx.moveTo(x-w*0.75,y-h);
+    ctx.lineTo(x,y-h-w*0.4);
+    ctx.lineTo(x+w*0.1,y-h);
+    ctx.closePath();ctx.fill();
+  };
+  const pgX=380,pgBaseY=400;
+  drawPagodaTier(pgX,pgBaseY,100,90,'#8b2020');
+  drawPagodaTier(pgX,pgBaseY-90,80,70,'#9b2525');
+  drawPagodaTier(pgX,pgBaseY-160,60,55,'#8b2020');
+  drawPagodaTier(pgX,pgBaseY-215,45,40,'#9b2525');
+  // Spire
+  ctx.strokeStyle='#555';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(pgX,pgBaseY-255);ctx.lineTo(pgX,pgBaseY-310);ctx.stroke();
+  // Spire rings
+  [pgBaseY-265,pgBaseY-275,pgBaseY-285,pgBaseY-295].forEach(y=>{
+    ctx.fillStyle='rgba(180,180,180,0.7)';
+    ctx.beginPath();ctx.arc(pgX,y,4,0,Math.PI*2);ctx.fill();
+  });
+  // Red detail on pagoda
+  ctx.fillStyle='rgba(200,60,40,0.6)';
+  ctx.fillRect(pgX-50,pgBaseY-84,100,5);
+  ctx.fillRect(pgX-40,pgBaseY-154,80,5);
+
+  // Cherry blossom trees — bottom left
+  const drawBlossoms=(tx,ty,size)=>{
+    // Trunk
+    ctx.strokeStyle='#5a3a1a';ctx.lineWidth=4;
+    ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(tx,ty-size*1.4);ctx.stroke();
+    // Branches
+    const branches=[[tx,ty-size*0.8,tx-size*0.8,ty-size*1.6],[tx,ty-size*0.9,tx+size*0.7,ty-size*1.5],[tx,ty-size*1.2,tx-size*0.5,ty-size*2],[tx,ty-size*1.3,tx+size*0.4,ty-size*1.9]];
+    branches.forEach(([x1,y1,x2,y2])=>{
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    });
+    // Blossoms cloud
+    const blossomCenters=[[tx-size*0.5,ty-size*1.7],[tx+size*0.4,ty-size*1.6],[tx,ty-size*2.0],[tx-size*0.3,ty-size*2.2],[tx+size*0.2,ty-size*2.1]];
+    blossomCenters.forEach(([bx,by])=>{
+      const bg=ctx.createRadialGradient(bx,by,0,bx,by,size*0.55);
+      bg.addColorStop(0,'rgba(255,200,220,0.85)');
+      bg.addColorStop(0.5,'rgba(240,170,195,0.6)');
+      bg.addColorStop(1,'rgba(220,150,180,0)');
+      ctx.fillStyle=bg;
+      ctx.beginPath();ctx.arc(bx,by,size*0.55,0,Math.PI*2);ctx.fill();
+    });
+    // Individual petals
+    for(let i=0;i<30;i++){
+      const angle=Math.random()*Math.PI*2;
+      const dist=Math.random()*size*0.9;
+      const px=tx+Math.cos(angle)*dist;
+      const py=(ty-size*1.9)+Math.sin(angle)*dist*0.6;
+      ctx.fillStyle=`rgba(255,${170+Math.random()*50},${200+Math.random()*30},${0.5+Math.random()*0.4})`;
+      ctx.beginPath();ctx.arc(px,py,size*0.08,0,Math.PI*2);ctx.fill();
+    }
+  };
+  drawBlossoms(60,430,40);
+  drawBlossoms(120,440,32);
+  drawBlossoms(20,450,28);
+
+  // Fallen petals in foreground
+  for(let i=0;i<25;i++){
+    const px=Math.random()*512, py=470+Math.random()*50;
+    ctx.fillStyle=`rgba(255,180,200,${0.3+Math.random()*0.4})`;
+    ctx.beginPath();ctx.arc(px,py,2+Math.random()*2,0,Math.PI*2);ctx.fill();
+  }
+
+  // Dark overlay bottom (for text readability)
+  const darkBase=ctx.createLinearGradient(0,440,0,520);
+  darkBase.addColorStop(0,'rgba(5,10,25,0)');
+  darkBase.addColorStop(1,'rgba(5,10,25,0.85)');
+  ctx.fillStyle=darkBase;
+  ctx.fillRect(0,440,512,280);
+
+  // ── TOP LABEL "Dream World Japan" ──
+  ctx.fillStyle='rgba(255,255,255,0.9)';
+  ctx.font='bold 18px sans-serif';
+  ctx.textAlign='center';
+  ctx.letterSpacing='2px';
+  ctx.fillText('Dream World Japan',256,48);
+  // Decorative lines beside it
+  ctx.strokeStyle='rgba(255,255,255,0.5)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(50,44);ctx.lineTo(130,44);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(382,44);ctx.lineTo(462,44);ctx.stroke();
+
+  // ── MAIN TITLE ──
+  ctx.shadowColor='rgba(0,0,0,0.8)';ctx.shadowBlur=20;
+  ctx.fillStyle='#ffffff';
+  ctx.font='bold 72px sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('Ultimate',256,580);
+  ctx.fillText('Master',256,650);
+  ctx.font='bold 88px sans-serif';
+  ctx.fillText('Guide',256,740);
+  ctx.shadowBlur=0;
+
+  // ── BOTTOM BAR ──
+  ctx.fillStyle='rgba(0,0,0,0.82)';
+  ctx.roundRect(20,665,472,50,8);
+  ctx.fill();
+  // Email
+  ctx.fillStyle='#cccccc';
+  ctx.font='14px sans-serif';
+  ctx.textAlign='left';
+  ctx.fillText('✉  Dreamworld.jp98@gmail.com',36,696);
+  // Divider
+  ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(330,672);ctx.lineTo(330,710);ctx.stroke();
+  // Japanese name
+  ctx.fillStyle='#ffcc00';
+  ctx.font='bold 18px serif';
+  ctx.textAlign='center';
+  ctx.fillText('マヘシュ',390,690);
+  ctx.fillStyle='#ffffff';
+  ctx.font='13px sans-serif';
+  ctx.fillText('Mahesh',390,707);
+
+  const tex=new THREE.CanvasTexture(c);
+  return tex;
+}
+
+function buildSpineTexture(){
+  const c=document.createElement('canvas');
+  c.width=128;c.height=720;
+  const ctx=c.getContext('2d');
+  // Dark spine gradient
+  const g=ctx.createLinearGradient(0,0,128,0);
+  g.addColorStop(0,'#0d1b3e');g.addColorStop(0.5,'#1a3a6e');g.addColorStop(1,'#0d1b3e');
+  ctx.fillStyle=g;ctx.fillRect(0,0,128,720);
+  // Torii red strip
+  ctx.fillStyle='#c0392b';ctx.fillRect(0,0,12,720);
+  // Text rotated
+  ctx.save();ctx.translate(64,360);ctx.rotate(-Math.PI/2);
+  ctx.fillStyle='#fff';ctx.font='bold 22px sans-serif';ctx.textAlign='center';
+  ctx.fillText('Dream World Japan',0,0);ctx.restore();
+  // Gold line
+  ctx.strokeStyle='#c9962a';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(20,40);ctx.lineTo(20,680);ctx.stroke();
+  return new THREE.CanvasTexture(c);
+}
+
+function buildBackTexture(){
+  const c=document.createElement('canvas');
+  c.width=512;c.height=720;
+  const ctx=c.getContext('2d');
+  // Same blue gradient
+  const g=ctx.createLinearGradient(0,0,0,720);
+  g.addColorStop(0,'#0d1b3e');g.addColorStop(1,'#1a3a6e');
+  ctx.fillStyle=g;ctx.fillRect(0,0,512,720);
+  // Faint Japanese pattern (seigaiha wave)
+  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+  for(let row=0;row<18;row++){for(let col=0;col<8;col++){
+    const x=col*70+(row%2)*35,y=row*45;
+    ctx.beginPath();ctx.arc(x,y,35,Math.PI,0);ctx.stroke();
+  }}
+  // Large kanji watermark
+  ctx.fillStyle='rgba(255,255,255,0.04)';
+  ctx.font='bold 180px serif';ctx.textAlign='center';
+  ctx.fillText('日本',256,420);
+  return new THREE.CanvasTexture(c);
+}
+
+function buildJapaneseBG(scene){
+  // ── BACKGROUND PLANE with Japanese style ──
+  // Draw onto a canvas: night sky, torii silhouette, stars, lanterns
+  const bgC=document.createElement('canvas');
+  bgC.width=1024;bgC.height=512;
+  const ctx=bgC.getContext('2d');
+
+  // Deep night sky
+  const nightSky=ctx.createLinearGradient(0,0,0,512);
+  nightSky.addColorStop(0,'#020a1a');
+  nightSky.addColorStop(0.5,'#0a1530');
+  nightSky.addColorStop(1,'#1a0a0a');
+  ctx.fillStyle=nightSky;ctx.fillRect(0,0,1024,512);
+
+  // Stars
+  for(let i=0;i<200;i++){
+    const sx=Math.random()*1024,sy=Math.random()*300;
+    const sr=Math.random()*1.5+0.3;
+    const sa=0.4+Math.random()*0.6;
+    ctx.fillStyle=`rgba(255,255,240,${sa})`;
+    ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fill();
+  }
+  // Moon
+  const moonGlow=ctx.createRadialGradient(820,80,5,820,80,70);
+  moonGlow.addColorStop(0,'rgba(255,245,200,0.3)');
+  moonGlow.addColorStop(1,'rgba(255,245,200,0)');
+  ctx.fillStyle=moonGlow;ctx.fillRect(750,10,140,140);
+  ctx.fillStyle='#fffde0';
+  ctx.beginPath();ctx.arc(820,80,35,0,Math.PI*2);ctx.fill();
+  // Moon crater shade
+  ctx.fillStyle='rgba(200,190,150,0.3)';
+  ctx.beginPath();ctx.arc(832,72,10,0,Math.PI*2);ctx.fill();
+
+  // Torii gate silhouette — center
+  const tx=512;
+  ctx.fillStyle='rgba(180,30,20,0.85)';
+  // Columns
+  ctx.fillRect(tx-140,120,22,392);
+  ctx.fillRect(tx+118,120,22,392);
+  // Top cross beam
+  ctx.fillRect(tx-175,105,350,30);
+  // Second crossbeam
+  ctx.fillRect(tx-140,155,280,18);
+  // Top cap
+  ctx.fillRect(tx-185,90,370,18);
+  // Cap ends upturn
+  ctx.fillStyle='rgba(160,25,15,0.85)';
+  ctx.beginPath();ctx.moveTo(tx-185,90);ctx.quadraticCurveTo(tx-200,75,tx-195,60);ctx.lineTo(tx-175,90);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(tx+185,90);ctx.quadraticCurveTo(tx+200,75,tx+195,60);ctx.lineTo(tx+175,90);ctx.closePath();ctx.fill();
+
+  // Path (stone)
+  const pathG=ctx.createLinearGradient(0,380,0,512);
+  pathG.addColorStop(0,'rgba(60,40,30,0.6)');
+  pathG.addColorStop(1,'rgba(60,40,30,0.9)');
+  ctx.fillStyle=pathG;
+  ctx.beginPath();
+  ctx.moveTo(tx-80,350);ctx.lineTo(tx+80,350);
+  ctx.lineTo(tx+180,512);ctx.lineTo(tx-180,512);
+  ctx.closePath();ctx.fill();
+  // Stone tiles
+  for(let i=0;i<6;i++){
+    ctx.strokeStyle='rgba(100,80,60,0.4)';ctx.lineWidth=1;
+    const y=370+i*25;
+    const ww=80+i*18;
+    ctx.beginPath();ctx.moveTo(tx-ww,y);ctx.lineTo(tx+ww,y);ctx.stroke();
+  }
+
+  // Stone lanterns
+  const drawLantern=(lx,ly,h)=>{
+    ctx.fillStyle='rgba(60,50,40,0.9)';
+    ctx.fillRect(lx-h*0.08,ly-h,h*0.16,h*0.6);// post
+    ctx.fillRect(lx-h*0.3,ly-h*1.05,h*0.6,h*0.05);// cap support
+    // Lantern box
+    ctx.fillStyle='rgba(40,35,30,0.95)';
+    ctx.fillRect(lx-h*0.22,ly-h*1.6,h*0.44,h*0.55);
+    // Glow inside
+    const lg=ctx.createRadialGradient(lx,ly-h*1.3,1,lx,ly-h*1.3,h*0.2);
+    lg.addColorStop(0,'rgba(255,180,50,0.9)');
+    lg.addColorStop(1,'rgba(255,120,20,0)');
+    ctx.fillStyle=lg;
+    ctx.beginPath();ctx.arc(lx,ly-h*1.3,h*0.2,0,Math.PI*2);ctx.fill();
+    // Cap
+    ctx.fillStyle='rgba(50,40,35,0.95)';
+    ctx.beginPath();ctx.moveTo(lx-h*0.28,ly-h*1.6);ctx.lineTo(lx,ly-h*1.85);ctx.lineTo(lx+h*0.28,ly-h*1.6);ctx.closePath();ctx.fill();
+  };
+  drawLantern(tx-220,420,55);drawLantern(tx+220,420,55);
+  drawLantern(tx-310,440,45);drawLantern(tx+310,440,45);
+
+  // Cherry blossom trees sides
+  const drawBG_Tree=(bx,by,size)=>{
+    ctx.strokeStyle='rgba(60,35,15,0.7)';ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx-size*0.3,by-size);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+size*0.2,by-size*0.8);ctx.stroke();
+    for(let i=0;i<20;i++){
+      const angle=Math.random()*Math.PI*2;
+      const dist=Math.random()*size*0.7;
+      const px=bx+Math.cos(angle)*dist-size*0.1;
+      const py=by-size*0.8+Math.sin(angle)*dist*0.5;
+      ctx.fillStyle=`rgba(220,150,180,${0.2+Math.random()*0.35})`;
+      ctx.beginPath();ctx.arc(px,py,size*0.1,0,Math.PI*2);ctx.fill();
+    }
+  };
+  drawBG_Tree(80,450,90);drawBG_Tree(150,470,70);
+  drawBG_Tree(950,450,90);drawBG_Tree(870,460,75);
+
+  // Floating petals in BG
+  for(let i=0;i<50;i++){
+    ctx.fillStyle=`rgba(230,160,190,${0.15+Math.random()*0.25})`;
+    ctx.beginPath();ctx.arc(Math.random()*1024,Math.random()*512,2+Math.random()*2,0,Math.PI*2);ctx.fill();
+  }
+
+  const bgTex=new THREE.CanvasTexture(bgC);
+  const bgGeo=new THREE.PlaneGeometry(14,7);
+  const bgMat=new THREE.MeshBasicMaterial({map:bgTex});
+  const bgMesh=new THREE.Mesh(bgGeo,bgMat);
+  bgMesh.position.z=-3.5;
+  scene.add(bgMesh);
+
+  // Subtle floor reflection
+  const floorGeo=new THREE.PlaneGeometry(14,4);
+  const floorMat=new THREE.MeshBasicMaterial({color:0x0a0a18,transparent:true,opacity:0.6});
+  const floor=new THREE.Mesh(floorGeo,floorMat);
+  floor.rotation.x=-Math.PI/2;
+  floor.position.y=-2;
+  scene.add(floor);
+}
 
 function init3D(){
   const canvas=document.getElementById('threeCanvas');
   if(!canvas||threeScene)return;
-  const W=canvas.parentElement.offsetWidth,H=320;
+  const W=canvas.parentElement.offsetWidth,H=360;
+  canvas.style.height=H+'px';
   const scene=new THREE.Scene();
   threeScene=scene;
-  scene.background=new THREE.Color(0x0a0a1a);
 
-  const camera=new THREE.PerspectiveCamera(45,W/H,0.1,100);
-  camera.position.set(0,0,4.5);
+  const camera=new THREE.PerspectiveCamera(42,W/H,0.1,100);
+  camera.position.set(0,0.3,5);
 
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setSize(W,H);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.shadowMap.enabled=true;
   threeRenderer=renderer;
 
-  // Lighting
-  const amb=new THREE.AmbientLight(0xffffff,0.5);
+  // Build Japanese background
+  buildJapaneseBG(scene);
+
+  // Lighting — warm Japanese lantern tones
+  const amb=new THREE.AmbientLight(0xfff0e0,0.6);
   scene.add(amb);
-  const dir=new THREE.DirectionalLight(0xfff4e0,1.5);
-  dir.position.set(3,4,5);
+  const dir=new THREE.DirectionalLight(0xffe8c0,2.0);
+  dir.position.set(3,5,5);
+  dir.castShadow=true;
   scene.add(dir);
-  const dir2=new THREE.DirectionalLight(0xe8a0b0,0.4);
-  dir2.position.set(-3,-2,-4);
+  const dir2=new THREE.DirectionalLight(0xffaaaa,0.4);
+  dir2.position.set(-4,-2,-3);
   scene.add(dir2);
-  const pt=new THREE.PointLight(0xd4472a,1,10);
-  pt.position.set(-2,2,2);
+  const pt=new THREE.PointLight(0xff6020,1.2,12);
+  pt.position.set(-2,1,3);
   scene.add(pt);
+  const pt2=new THREE.PointLight(0xffcc44,0.8,10);
+  pt2.position.set(2,-1,2);
+  scene.add(pt2);
+
+  // Build textures
+  const coverTex=buildCoverTexture();
+  const spineTex=buildSpineTexture();
+  const backTex=buildBackTexture();
+  const pageMat=new THREE.MeshStandardMaterial({color:0xfaf5e8,roughness:0.9,metalness:0.0});
 
   // Book group
   const book=new THREE.Group();
   scene.add(book);
 
-  // Cover material (dark rich cover)
-  const coverMat=new THREE.MeshStandardMaterial({color:0x1a1a2e,roughness:0.3,metalness:0.2});
-  const spineMat=new THREE.MeshStandardMaterial({color:0xd4472a,roughness:0.4,metalness:0.1});
-  const pageMat=new THREE.MeshStandardMaterial({color:0xfaf7f0,roughness:0.8,metalness:0.0});
-  const goldMat=new THREE.MeshStandardMaterial({color:0xc9962a,roughness:0.2,metalness:0.8,emissive:0x3a2a00,emissiveIntensity:0.3});
+  const THICKNESS=0.42;
+  const W_BOOK=2.4, H_BOOK=3.3;
 
-  // Front cover
-  const frontCover=new THREE.Mesh(new THREE.BoxGeometry(2.2,3,0.06),coverMat);
-  frontCover.position.set(0,0,0.2);
-  book.add(frontCover);
+  // Front cover — use canvas texture
+  const frontMat=new THREE.MeshStandardMaterial({map:coverTex,roughness:0.25,metalness:0.08});
+  const front=new THREE.Mesh(new THREE.BoxGeometry(W_BOOK,H_BOOK,0.07),frontMat);
+  front.position.z=THICKNESS/2;
+  book.add(front);
 
   // Back cover
-  const backCover=new THREE.Mesh(new THREE.BoxGeometry(2.2,3,0.06),coverMat);
-  backCover.position.set(0,0,-0.2);
-  book.add(backCover);
+  const backMat=new THREE.MeshStandardMaterial({map:backTex,roughness:0.3,metalness:0.05});
+  const back=new THREE.Mesh(new THREE.BoxGeometry(W_BOOK,H_BOOK,0.07),backMat);
+  back.position.z=-THICKNESS/2;
+  book.add(back);
 
   // Spine
-  const spine=new THREE.Mesh(new THREE.BoxGeometry(0.4,3,0.4),spineMat);
-  spine.position.set(-1.1,0,0);
+  const spineMat2=new THREE.MeshStandardMaterial({map:spineTex,roughness:0.35,metalness:0.1});
+  const spine=new THREE.Mesh(new THREE.BoxGeometry(THICKNESS+0.07,H_BOOK,0.07),spineMat2);
+  spine.rotation.y=Math.PI/2;
+  spine.position.x=-(W_BOOK/2+THICKNESS/2+0.035);
   book.add(spine);
 
-  // Pages
-  const pages=new THREE.Mesh(new THREE.BoxGeometry(1.8,2.85,0.35),pageMat);
-  pages.position.set(0.1,0,0);
+  // Pages block
+  const pages=new THREE.Mesh(new THREE.BoxGeometry(W_BOOK-0.06,H_BOOK-0.12,THICKNESS),pageMat);
+  pages.position.x=0.04;
   book.add(pages);
 
-  // Gold strip decoration on cover
-  const strip=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.06,0.07),goldMat);
-  strip.position.set(0,0.9,0.24);
-  book.add(strip);
-  const strip2=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.06,0.07),goldMat);
-  strip2.position.set(0,-0.9,0.24);
-  book.add(strip2);
+  // Page edge gold tint
+  const goldEdgeMat=new THREE.MeshStandardMaterial({color:0xe8c86a,roughness:0.3,metalness:0.7,emissive:0x2a1a00,emissiveIntensity:0.2});
+  const topEdge=new THREE.Mesh(new THREE.BoxGeometry(W_BOOK,0.04,THICKNESS+0.08),goldEdgeMat);
+  topEdge.position.y=H_BOOK/2-0.02;
+  book.add(topEdge);
+  const botEdge=new THREE.Mesh(new THREE.BoxGeometry(W_BOOK,0.04,THICKNESS+0.08),goldEdgeMat);
+  botEdge.position.y=-(H_BOOK/2-0.02);
+  book.add(botEdge);
 
-  // Gold corner decorations
-  const corners=[[0.9,1.35],[0.9,-1.35],[-0.9,1.35],[-0.9,-1.35]];
-  corners.forEach(([x,y])=>{
-    const corner=new THREE.Mesh(new THREE.BoxGeometry(0.2,0.2,0.07),goldMat);
-    corner.position.set(x,y,0.24);
-    book.add(corner);
-  });
+  // Shadow under book
+  const shadowGeo=new THREE.PlaneGeometry(3.5,1.2);
+  const shadowMat=new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0.35});
+  const shadow=new THREE.Mesh(shadowGeo,shadowMat);
+  shadow.rotation.x=-Math.PI/2;
+  shadow.position.set(0,-H_BOOK/2-0.01,0);
+  book.add(shadow);
 
-  // Small floating particles (sakura petals)
-  const petalGeo=new THREE.PlaneGeometry(0.05,0.05);
-  const petalMat=new THREE.MeshBasicMaterial({color:0xe8a0b0,transparent:true,opacity:0.7,side:THREE.DoubleSide});
+  // Floating sakura petals (3D planes)
+  const petalC=document.createElement('canvas');
+  petalC.width=32;petalC.height=32;
+  const pc=petalC.getContext('2d');
+  pc.fillStyle='rgba(240,160,185,0.85)';
+  pc.beginPath();pc.ellipse(16,12,10,8,0,0,Math.PI*2);pc.fill();
+  pc.beginPath();pc.ellipse(12,20,8,7,Math.PI/3,0,Math.PI*2);pc.fill();
+  pc.beginPath();pc.ellipse(20,20,8,7,-Math.PI/3,0,Math.PI*2);pc.fill();
+  const petalTex=new THREE.CanvasTexture(petalC);
   const petals=[];
-  for(let i=0;i<40;i++){
-    const p=new THREE.Mesh(petalGeo,petalMat.clone());
-    p.position.set((Math.random()-0.5)*6,(Math.random()-0.5)*4,(Math.random()-0.5)*3);
-    p.userData.speed={x:(Math.random()-0.5)*0.003,y:-Math.random()*0.004-0.001,r:Math.random()*0.02};
-    p.userData.opacity=0.3+Math.random()*0.6;
-    scene.add(p);
-    petals.push(p);
+  for(let i=0;i<55;i++){
+    const pm=new THREE.MeshBasicMaterial({map:petalTex,transparent:true,opacity:0.55+Math.random()*0.35,side:THREE.DoubleSide,depthWrite:false});
+    const p=new THREE.Mesh(new THREE.PlaneGeometry(0.12,0.12),pm);
+    p.position.set((Math.random()-0.5)*11,(Math.random()-0.5)*6,(Math.random()-0.5)*4-1);
+    p.userData={vx:(Math.random()-0.5)*0.006,vy:-0.004-Math.random()*0.005,vz:(Math.random()-0.5)*0.002,rx:Math.random()*0.03,ry:Math.random()*0.02};
+    scene.add(p);petals.push(p);
   }
 
-  // Mouse/touch drag
+  // Drag rotation
   let isDragging=false,prevMouse={x:0,y:0};
-  let rotX=0.3,rotY=0.4;
-  let autoRotate=true;
-
+  let rotX=0.15,rotY=0.5,autoRotate=true;
   canvas.addEventListener('mousedown',e=>{isDragging=true;prevMouse={x:e.clientX,y:e.clientY};autoRotate=false});
   canvas.addEventListener('mousemove',e=>{
     if(!isDragging)return;
-    const dx=(e.clientX-prevMouse.x)*0.01;
-    const dy=(e.clientY-prevMouse.y)*0.01;
-    rotY+=dx;rotX+=dy;
+    rotY+=(e.clientX-prevMouse.x)*0.012;
+    rotX+=(e.clientY-prevMouse.y)*0.012;
     prevMouse={x:e.clientX,y:e.clientY};
   });
-  canvas.addEventListener('mouseup',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
-  canvas.addEventListener('mouseleave',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
-
-  // Touch
+  canvas.addEventListener('mouseup',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2500)});
+  canvas.addEventListener('mouseleave',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2500)});
   canvas.addEventListener('touchstart',e=>{isDragging=true;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};autoRotate=false});
   canvas.addEventListener('touchmove',e=>{
-    if(!isDragging)return;
     e.preventDefault();
-    const dx=(e.touches[0].clientX-prevMouse.x)*0.01;
-    const dy=(e.touches[0].clientY-prevMouse.y)*0.01;
-    rotY+=dx;rotX+=dy;
+    rotY+=(e.touches[0].clientX-prevMouse.x)*0.012;
+    rotX+=(e.touches[0].clientY-prevMouse.y)*0.012;
     prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};
   },{passive:false});
-  canvas.addEventListener('touchend',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
-
-  // Zoom
-  canvas.addEventListener('wheel',e=>{
-    camera.position.z=Math.max(2.5,Math.min(8,camera.position.z+e.deltaY*0.005));
-  },{passive:true});
+  canvas.addEventListener('touchend',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2500)});
+  canvas.addEventListener('wheel',e=>{camera.position.z=Math.max(2.5,Math.min(8,camera.position.z+e.deltaY*0.005));},{passive:true});
 
   let t=0;
   function animate(){
     threeAnimFrame=requestAnimationFrame(animate);
     t+=0.01;
-    if(autoRotate)rotY+=0.005;
+    if(autoRotate)rotY+=0.004;
+    rotX=Math.max(-0.6,Math.min(0.6,rotX));
     book.rotation.x=rotX;
     book.rotation.y=rotY;
-    // Floating bob
-    book.position.y=Math.sin(t*0.5)*0.1;
-    // Petals animation
+    book.position.y=Math.sin(t*0.45)*0.08;
+    // Lantern light flicker
+    pt.intensity=1.0+Math.sin(t*1.8)*0.25;
+    pt2.intensity=0.7+Math.cos(t*2.3)*0.2;
+    // Petals
     petals.forEach(p=>{
-      p.position.x+=p.userData.speed.x;
-      p.position.y+=p.userData.speed.y;
-      p.rotation.z+=p.userData.speed.r;
-      if(p.position.y<-2.5)p.position.y=2.5;
+      p.position.x+=p.userData.vx;
+      p.position.y+=p.userData.vy;
+      p.position.z+=p.userData.vz;
+      p.rotation.x+=p.userData.rx;
+      p.rotation.y+=p.userData.ry;
+      if(p.position.y<-3.5){p.position.y=3.5;p.position.x=(Math.random()-0.5)*11;}
+      if(p.position.x>6)p.position.x=-6;
+      if(p.position.x<-6)p.position.x=6;
     });
-    // Dynamic lighting
-    pt.intensity=0.8+Math.sin(t*0.7)*0.3;
     renderer.render(scene,camera);
   }
   animate();
