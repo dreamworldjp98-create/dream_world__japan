@@ -730,19 +730,111 @@ footer a:hover{color:var(--torii-light)}
 /* ROUTE PILLS */
 .route-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem}
 .pill{background:rgba(212,71,42,0.08);border:1px solid rgba(212,71,42,0.2);color:var(--torii);font-size:0.72rem;padding:4px 10px;border-radius:20px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:0.05em}
+
+/* SOCIAL SIDEBAR */
+.social-sidebar{
+  position:fixed;right:1.25rem;top:50%;transform:translateY(-50%);
+  z-index:90;
+  display:flex;flex-direction:column;gap:0.75rem;
+  align-items:center;
+}
+.social-sidebar a{
+  width:42px;height:42px;
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;
+  text-decoration:none;
+  transition:all 0.2s;
+  box-shadow:0 2px 12px rgba(28,20,16,0.12);
+  border:1px solid var(--border);
+}
+.social-sidebar a:hover{transform:scale(1.12) translateX(-3px);box-shadow:0 4px 20px rgba(28,20,16,0.18)}
+.social-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff!important;border-color:transparent!important}
+.social-fb{background:#1877f2;color:#fff!important;border-color:transparent!important}
+.social-yt{background:#ff0000;color:#fff!important;border-color:transparent!important}
+.social-tt{background:#000;color:#fff!important;border-color:transparent!important}
+@media(max-width:768px){.social-sidebar{display:none}}
+
+/* HERO TITLE SPACING */
+.hero-title-word{display:block;margin-bottom:0.15em}
+
+/* DEST CITY PILLS */
+.dest-city-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:0.75rem}
+.city-pill{
+  font-size:0.7rem;font-weight:600;
+  font-family:'Syne',sans-serif;letter-spacing:0.03em;
+  padding:3px 10px;border-radius:20px;
+  background:rgba(212,71,42,0.08);
+  border:1px solid rgba(212,71,42,0.2);
+  color:var(--torii);
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.18s;
+  display:inline-block;
+}
+.city-pill:hover{background:var(--torii);color:#fff;border-color:var(--torii)}
+
+/* 3D GUIDE PAGE */
+.guide3d-page{min-height:400px;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.canvas-3d{width:100%;height:320px;border-radius:16px;overflow:hidden;background:#0a0a1a;position:relative}
+#threeCanvas{width:100%!important;height:100%!important;display:block}
+.guide3d-info{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:0.75rem;width:100%;
+}
+.g3d-card{
+  background:var(--cream);border:1px solid var(--border);
+  border-radius:12px;padding:1rem;text-align:center;
+}
+.g3d-icon{font-size:1.5rem;margin-bottom:0.4rem}
+.g3d-title{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--ink);margin-bottom:0.2rem}
+.g3d-sub{font-size:0.75rem;color:var(--stone)}
+
+/* CITY DETAIL MODAL CONTENT */
+.city-hero{
+  border-radius:16px;padding:2rem;
+  color:#fff;margin-bottom:1.5rem;
+  position:relative;overflow:hidden;
+}
+.city-hero h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:0.3rem}
+.city-hero p{font-size:0.9rem;opacity:0.8;margin-bottom:1rem}
+.city-highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;margin-bottom:1.5rem}
+.ch-card{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:1rem}
+.ch-card h4{font-family:'Syne',sans-serif;font-size:0.82rem;font-weight:700;color:var(--ink);margin-bottom:0.4rem}
+.ch-card p{font-size:0.78rem;color:var(--stone);line-height:1.5}
+.ch-badge{display:inline-block;font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:0.4rem;background:#e0e7ff;color:#3730a3}
 </style>
 </head>
 <body>
 
+<!-- SOCIAL SIDEBAR -->
+<div class="social-sidebar">
+  <a class="social-ig" href="https://instagram.com" target="_blank" title="Instagram">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+  </a>
+  <a class="social-fb" href="https://facebook.com" target="_blank" title="Facebook">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+  </a>
+  <a class="social-yt" href="https://youtube.com" target="_blank" title="YouTube">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+  </a>
+  <a class="social-tt" href="https://tiktok.com" target="_blank" title="TikTok">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.2 8.2 0 004.79 1.52V6.76a4.85 4.85 0 01-1.02-.07z"/></svg>
+  </a>
+</div>
+
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span>Dream World</span> Japan</div>
+  <div class="nav-logo">
+    <span>Dream World</span> Japan
+    <div style="font-size:0.65rem;font-weight:400;color:var(--stone);letter-spacing:0.12em;text-transform:uppercase;margin-top:1px">Mahesh</div>
+  </div>
   <div class="nav-links">
     <a href="#destinations">Destinations</a>
     <a href="#guide">30-Day Guide</a>
     <a href="#tenday">10-Day Plan</a>
     <a href="#community">Community</a>
-    <a href="#" class="nav-btn" onclick="openModal('xplore')">Xplore ✦</a>
+    <a href="#" class="nav-btn" onclick="openModal('xplore')">Explore ✦</a>
   </div>
 </nav>
 
@@ -751,16 +843,18 @@ footer a:hover{color:var(--torii-light)}
   <div class="hero-bg-text">日本</div>
   <div class="container">
     <div class="hero-tag">Dream World Japan — Your Complete Journey</div>
-    <h1 class="hero-title">
-      <span class="kanji">日本 • 夢の旅</span>
-      Discover <span class="accent">Japan</span><br>Like Never Before
+    <h1 class="hero-title" style="line-height:1.15;letter-spacing:-0.02em">
+      <span class="kanji" style="margin-bottom:0.6rem;display:block">日本 • 夢の旅</span>
+      <span class="hero-title-word" style="display:block;margin-bottom:0.1em">Discover</span>
+      <span class="hero-title-word accent" style="display:block;font-style:italic;margin-bottom:0.1em">Japan</span>
+      <span class="hero-title-word" style="display:block;font-size:0.65em;color:var(--stone);font-weight:600;letter-spacing:0.05em;font-style:normal;margin-top:0.3em">Like Never Before</span>
     </h1>
-    <p class="hero-tagline">Explore the Dreamful Czech World with Mahesh</p>
+    <p class="hero-tagline" style="margin-top:1.5rem">Explore the Dreamful Czech World with Mahesh</p>
     <p class="hero-subtitle">
       From the neon-lit streets of Tokyo to the ancient temples of Kyoto — your perfectly crafted guide to Japan's most breathtaking experiences. Smart transport, cultural secrets, and day-by-day itineraries.
     </p>
     <div class="hero-btns">
-      <a href="#" class="btn-primary" onclick="openModal('xplore');return false;">✦ Xplore Japan</a>
+      <a href="#" class="btn-primary" onclick="openModal('xplore');return false;">✦ Explore Japan</a>
       <a href="#" class="btn-gold" onclick="openModal('guide3d');return false;">📖 3D Guide</a>
       <a href="#guide" class="btn-secondary">30-Day Master Plan →</a>
     </div>
@@ -789,18 +883,13 @@ footer a:hover{color:var(--torii-light)}
 <section class="features-section" id="features">
   <div class="container">
     <div class="section-tag reveal">What's Inside</div>
-    <h2 class="section-title reveal">Japan Travel. <em>Simplified.</em></h2>
+    <h2 class="section-title reveal" style="cursor:pointer" onclick="openModal('xplore')" title="Click to explore all guides">Japan Travel. <em>Simplified.</em> <span style="font-size:0.5em;color:var(--torii);vertical-align:middle">↗</span></h2>
     <p class="section-sub reveal">Traveling to Japan doesn't have to be complicated. We break down the most complex cultural and logistical nuances into simple, actionable steps for your perfect journey.</p>
     <div class="features-grid">
       <div class="feature-card reveal" onclick="openModal('xplore')">
         <div class="feature-icon">🚄</div>
         <div class="feature-title">Smart Transport Guide</div>
         <div class="feature-desc">Airport arrivals, IC card secrets, JR Pass hacks, and city-by-city train strategies to navigate like a local.</div>
-      </div>
-      <div class="feature-card reveal" onclick="openModal('guide3d')">
-        <div class="feature-icon">📅</div>
-        <div class="feature-title">10-Day Expert Execution</div>
-        <div class="feature-desc">A perfectly optimized day-by-day itinerary from Tokyo to Osaka, timed for minimal crowds and maximum experiences.</div>
       </div>
       <div class="feature-card reveal" onclick="openModal('xplore')">
         <div class="feature-icon">🍜</div>
@@ -833,67 +922,100 @@ footer a:hover{color:var(--torii-light)}
     <h2 class="section-title reveal">7 Phases.<br><em>11 Extraordinary Cities.</em></h2>
     <p class="section-sub reveal">Every destination handpicked for its unique culture, food, and atmosphere — connected by Japan's legendary rail network.</p>
     <div class="dest-grid">
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('tokyo')">
         <div class="dest-img" style="background:linear-gradient(135deg,#1a1a2e,#2d1b4e)">🗼</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 1 • Days 1–7</div>
           <div class="dest-name">Tokyo Foundations</div>
           <div class="dest-desc">Seven days immersed in the world's greatest metropolis — from dawn at Senso-ji to neon nights in Shinjuku's Golden Gai.</div>
-          <span class="dest-days">7 days · Shinjuku, Harajuku, Akihabara, Odaiba</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('shinjuku')">Shinjuku</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('harajuku')">Harajuku</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('akihabara')">Akihabara</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('odaiba')">Odaiba</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('asakusa')">Asakusa</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('kyoto')">
         <div class="dest-img" style="background:linear-gradient(135deg,#2d1b4e,#3a2060)">⛩</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 2 • Days 8–12</div>
           <div class="dest-name">Kyoto Deep Dive</div>
           <div class="dest-desc">Ancient Japan preserved — 10,000 torii gates at dawn, bamboo groves before the crowds, and the finest kaiseki of your life.</div>
-          <span class="dest-days">5 days · Gion, Arashiyama, Fushimi Inari, Uji</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('gion')">Gion</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('arashiyama')">Arashiyama</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('fushimi')">Fushimi Inari</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('uji')">Uji</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('osaka')">
         <div class="dest-img" style="background:linear-gradient(135deg,#1a3a2e,#264d3a)">🦌</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 3 • Days 13–16</div>
           <div class="dest-name">Nara, Osaka & Kobe</div>
           <div class="dest-desc">Sacred deer in ancient parks, Osaka's legendary street food culture, and the world-renowned Kobe beef experience.</div>
-          <span class="dest-days">4 days · Nara, Dotonbori, Kobe waterfront</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('nara')">Nara</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('dotonbori')">Dotonbori</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('kobe')">Kobe</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('shinsekai')">Shinsekai</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('hiroshima')">
         <div class="dest-img" style="background:linear-gradient(135deg,#3a1a1a,#5c2020)">☮</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 4 • Days 17–18</div>
           <div class="dest-name">Hiroshima & Miyajima</div>
           <div class="dest-desc">One of the world's most important peace memorials, and the iconic floating torii gate of Itsukushima island.</div>
-          <span class="dest-days">2 days · Peace Park, floating torii, Mt. Misen</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('hiroshima')">Peace Park</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('miyajima')">Miyajima</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('miyajima')">Mt. Misen</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('kanazawa')">
         <div class="dest-img" style="background:linear-gradient(135deg,#1a2d3a,#243d4e)">🥢</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 5 • Days 19–20</div>
           <div class="dest-name">Kanazawa Secrets</div>
           <div class="dest-desc">Japan's hidden gem — pristine geisha districts, the country's finest garden, gold leaf ice cream, and Michelin-level seafood.</div>
-          <span class="dest-days">2 days · Kenroku-en, Higashi Chaya, Omicho</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('kenrokuen')">Kenroku-en</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('kanazawa')">Higashi Chaya</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('kanazawa')">Omicho Market</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('takayama')">
         <div class="dest-img" style="background:linear-gradient(135deg,#2a2a1a,#3d3d20)">🏔</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 6 • Days 21–22</div>
           <div class="dest-name">Takayama & Shirakawa-go</div>
           <div class="dest-desc">Japan's most intact Edo-period merchant town and UNESCO-listed thatched-roof farmhouses in a snow-capped mountain valley.</div>
-          <span class="dest-days">2 days · Sanmachi Suji, sake breweries, UNESCO village</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('takayama')">Sanmachi Suji</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('shirakawago')">Shirakawa-go</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('takayama')">Sake Breweries</a>
+          </div>
         </div>
       </div>
-      <div class="dest-card reveal">
+      <div class="dest-card reveal" style="cursor:pointer" onclick="openCityDetail('matsumoto')">
         <div class="dest-img" style="background:linear-gradient(135deg,#1a1a3a,#202055)">🏯</div>
         <div class="dest-body">
           <div class="dest-phase">Phase 7 • Days 23–30</div>
           <div class="dest-name">Matsumoto & Final Tokyo</div>
           <div class="dest-desc">Japan's oldest surviving castle, the Japanese Alps backdrop, and a final week in Tokyo for all the experiences you saved for last.</div>
-          <span class="dest-days">8 days · Crow Castle, Kamakura, Shibuya, vintage Tokyo</span>
+          <div class="dest-city-pills">
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('matsumoto')">Crow Castle</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('kamakura')">Kamakura</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('shibuya')">Shibuya</a>
+            <a class="city-pill" onclick="event.stopPropagation();openCityDetail('yanaka')">Yanaka</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1202,50 +1324,39 @@ footer a:hover{color:var(--torii-light)}
 
 <!-- 3D GUIDE MODAL -->
 <div class="modal-overlay" id="modal-guide3d">
-  <div class="modal-box">
+  <div class="modal-box" style="max-width:700px">
     <div class="modal-header">
       <h2>📖 3D Interactive Japan Guide</h2>
-      <button class="modal-close" onclick="closeModal('guide3d')">✕</button>
+      <button class="modal-close" onclick="closeModal('guide3d');stop3D()">✕</button>
     </div>
     <div class="modal-body">
-      <div style="background:linear-gradient(145deg,#1a1a2e,#2d1b4e,#1a3a2e);border-radius:20px;padding:2.5rem;color:#fff;margin-bottom:1.5rem;text-align:center">
-        <div style="font-family:'Noto Serif JP',serif;font-size:3rem;font-weight:300;opacity:0.3;margin-bottom:0.5rem">日本</div>
-        <div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:0.5rem">Ultimate Master Guide</div>
-        <div style="font-size:0.85rem;opacity:0.7;margin-bottom:1.5rem">The complete visual guide with 4K locations, transport maps, and cultural secrets</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
-          <span style="background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:0.7rem;padding:3px 10px;border-radius:20px">30 Days</span>
-          <span style="background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:0.7rem;padding:3px 10px;border-radius:20px">11 Cities</span>
-          <span style="background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:0.7rem;padding:3px 10px;border-radius:20px">150+ Tips</span>
-          <span style="background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:0.7rem;padding:3px 10px;border-radius:20px">4K Photos</span>
-          <span style="background:rgba(255,255,255,0.12);border:0.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);font-size:0.7rem;padding:3px 10px;border-radius:20px">Transport Maps</span>
+      <div class="guide3d-page">
+        <div class="canvas-3d">
+          <canvas id="threeCanvas"></canvas>
         </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
-        <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.25rem">
-          <div style="font-size:1.5rem;margin-bottom:0.5rem">🗺</div>
-          <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem">Interactive Route Maps</div>
-          <div style="font-size:0.78rem;color:var(--stone)">City-by-city navigation with train lines, walking routes, and key landmarks.</div>
+        <p style="font-size:0.8rem;color:var(--stone);text-align:center;margin-top:-0.5rem">🖱 Drag to rotate · Scroll to zoom</p>
+        <div class="guide3d-info">
+          <div class="g3d-card"><div class="g3d-icon">🗓</div><div class="g3d-title">30 Full Days</div><div class="g3d-sub">Morning-to-night coverage across 11 cities</div></div>
+          <div class="g3d-card"><div class="g3d-icon">📸</div><div class="g3d-title">4K Photo Spots</div><div class="g3d-sub">GPS-tagged with timing & camera tips</div></div>
+          <div class="g3d-card"><div class="g3d-icon">🚄</div><div class="g3d-title">Transport Maps</div><div class="g3d-sub">Every train, bus, and ferry route</div></div>
+          <div class="g3d-card"><div class="g3d-icon">🍜</div><div class="g3d-title">Food Bible</div><div class="g3d-sub">150+ restaurants, markets & street food</div></div>
         </div>
-        <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.25rem">
-          <div style="font-size:1.5rem;margin-bottom:0.5rem">📸</div>
-          <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem">4K Photo Locations</div>
-          <div style="font-size:0.78rem;color:var(--stone)">GPS-tagged shooting spots with timing and camera settings for perfect shots.</div>
+        <div style="text-align:center;margin-top:0.5rem">
+          <a href="#" class="btn-gold" onclick="return false;" style="display:inline-flex">🚀 Download the Full 3D Guide — Free</a>
         </div>
-        <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.25rem">
-          <div style="font-size:1.5rem;margin-bottom:0.5rem">🎌</div>
-          <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem">Cultural Deep Dives</div>
-          <div style="font-size:0.78rem;color:var(--stone)">Temple rituals, tea ceremony guides, and etiquette tutorials in video format.</div>
-        </div>
-        <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.25rem">
-          <div style="font-size:1.5rem;margin-bottom:0.5rem">🍱</div>
-          <div style="font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem">Menu Translation Cards</div>
-          <div style="font-size:0.78rem;color:var(--stone)">Printable Japanese menu guides for every food category with pronunciation.</div>
-        </div>
-      </div>
-      <div style="margin-top:1.5rem;text-align:center">
-        <a href="#" class="btn-gold" style="display:inline-flex" onclick="alert('The 3D Guide is coming soon! Join our community to be notified. 🎌');return false;">🚀 Get Early Access to the 3D Guide</a>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- CITY DETAIL MODAL -->
+<div class="modal-overlay" id="modal-citydetail">
+  <div class="modal-box" style="max-width:800px">
+    <div class="modal-header">
+      <h2 id="citydetail-title">City Guide</h2>
+      <button class="modal-close" onclick="closeModal('citydetail')">✕</button>
+    </div>
+    <div class="modal-body" id="citydetail-body"></div>
   </div>
 </div>
 
@@ -1534,6 +1645,382 @@ function revealOnScroll(){
   });
 }
 window.addEventListener('scroll',revealOnScroll,{passive:true});
+
+// ============================================================
+// CITY DETAIL DATA
+// ============================================================
+const cityData={
+  tokyo:{name:'Tokyo',emoji:'🗼',color:'linear-gradient(135deg,#1a1a2e,#2d1b4e)',days:'Days 1–7',tagline:'The World\'s Greatest City — Neon, Culture & Chaos',highlights:[
+    {badge:'Must See',title:'Senso-ji Temple at Dawn',desc:'Tokyo\'s oldest temple. Arrive at 7am before the crowds. The giant Kaminarimon lantern glows in morning mist. Buy an o-mikuji fortune for ¥100.'},
+    {badge:'Food',title:'Tsukiji Outer Market',desc:'Tuna sashimi breakfast by 7am, fresh oysters, tamagoyaki egg rolls. The best ¥1,200 breakfast in the world.'},
+    {badge:'Nightlife',title:'Golden Gai, Shinjuku',desc:'200 tiny bars packed into 6 alleys. Each holds 6–8 people. Most famous bar district in the world. Best after 9pm.'},
+    {badge:'Art',title:'TeamLab Borderless',desc:'Full-immersive digital art museum in Azabudai Hills. Book 2–3 months ahead — absolutely no walk-ins. Allow 3 hours.'},
+    {badge:'Shopping',title:'Akihabara Electric Town',desc:'Multi-floor anime, manga, retro games, electronics. Super Potato for retro video games. Yodobashi Camera for electronics.'},
+    {badge:'Nature',title:'Shinjuku Gyoen Garden',desc:'Best garden in Tokyo. 58 hectares. Mix of Japanese, French, and English landscape gardens. Stunning in cherry blossom season.'},
+  ],tip:'Best crowd hack: Senso-ji at 7am and Shibuya Sky at 5:30pm sunset — book both online in advance.'},
+  shinjuku:{name:'Shinjuku',emoji:'🌃',color:'linear-gradient(135deg,#1a1a2e,#3a1a3a)',days:'Day 1 Base',tagline:'Tokyo\'s Most Electric District',highlights:[
+    {badge:'Iconic',title:'Kabukicho Entertainment District',desc:'Tokyo\'s red-light and entertainment hub. Neon signs, pachinko parlors, Robot Restaurant area. Most alive after 8pm.'},
+    {badge:'Must Do',title:'Golden Gai',desc:'200 tiny bars in 6 alleys under 100 meters. Each bar holds 6–8 people. Cover charge ¥500–1,000. Legendary atmosphere.'},
+    {badge:'Nature',title:'Shinjuku Gyoen',desc:'58-hectare national garden. Japanese, French, and English sections. Cherry blossom season is extraordinary. ¥500 entry.'},
+    {badge:'Views',title:'Tokyo Metropolitan Government Building',desc:'Free observation deck on the 45th floor. Open until 10:30pm. Best free city view in Tokyo.'},
+  ],tip:'Stay in Shinjuku as your Tokyo base — central access to all major lines.'},
+  harajuku:{name:'Harajuku',emoji:'🌸',color:'linear-gradient(135deg,#4a1a3a,#2a0a2a)',days:'Day 2',tagline:'Fashion, Youth Culture & Meiji Jingu',highlights:[
+    {badge:'Shopping',title:'Takeshita Street',desc:'Japan\'s most famous youth fashion street. Crepe shops, UFO catcher arcades, colorful streetwear. Busy on weekends.'},
+    {badge:'Luxury',title:'Omotesando Boulevard',desc:'Tree-lined luxury shopping boulevard. Hermès, Louis Vuitton, and Issey Miyake. Beautiful zelkova trees overhead.'},
+    {badge:'Shrine',title:'Meiji Jingu Shrine',desc:'Tokyo\'s most important Shinto shrine. 70-hectare forested park in the middle of the city. Morning light through the forest path.'},
+    {badge:'Vintage',title:'Cat Street',desc:'Narrow street parallel to Omotesando. Independent boutiques, vintage stores, specialty coffee. Best browsing in Tokyo.'},
+  ],tip:'Meiji Jingu is 20 minutes from Harajuku station. Arrive early for peaceful forest atmosphere.'},
+  akihabara:{name:'Akihabara',emoji:'🎮',color:'linear-gradient(135deg,#0a1a3a,#1a2a5a)',days:'Day 4',tagline:'Electronics, Anime & Japan\'s Otaku Capital',highlights:[
+    {badge:'Retro Gaming',title:'Super Potato',desc:'Multi-floor retro video game store. Famicom, Super Famicom, old consoles and cartridges at collector prices.'},
+    {badge:'Electronics',title:'Yodobashi Camera',desc:'8-floor electronics megastore. Everything from cameras to robots to hair dryers. Tax-free for tourists with passport.'},
+    {badge:'Anime',title:'Kotobukiya Multi-Kotobukiya',desc:'High-quality anime figures and collectibles. Multiple floors of figurines, model kits, and limited editions.'},
+    {badge:'Shrine',title:'Kanda Myojin Shrine',desc:'One of Tokyo\'s oldest shrines. Famous for blessings on electronics and computers. Tech companies send offerings here.'},
+  ],tip:'Akihabara is best on Sunday afternoon when Chuo-dori street closes to traffic — pedestrian paradise.'},
+  odaiba:{name:'Odaiba',emoji:'🌉',color:'linear-gradient(135deg,#0a2a3a,#1a3a4a)',days:'Day 5',tagline:'Futuristic Waterfront Island',highlights:[
+    {badge:'Digital Art',title:'TeamLab Borderless',desc:'Azabudai Hills location (opened 2024). The world\'s most immersive digital art museum. Book months ahead at borderless.teamlab.art.'},
+    {badge:'Views',title:'Odaiba Beach Sunset',desc:'Artificial beach facing the Rainbow Bridge with the Tokyo skyline behind it. Best golden hour photo spot in Tokyo.'},
+    {badge:'Landmark',title:'Unicorn Gundam Statue',desc:'Real-scale (19.7m) mobile suit Gundam robot outside DiverCity Tokyo Plaza. Transforms and lights up at night. Free.'},
+    {badge:'Transit',title:'Yurikamome Monorail',desc:'Driverless automated monorail from Shimbashi. Great views of Rainbow Bridge. Passes through the center of Odaiba.'},
+  ],tip:'Ride the Yurikamome monorail at night for the best views of Rainbow Bridge lit up.'},
+  asakusa:{name:'Asakusa',emoji:'⛩',color:'linear-gradient(135deg,#3a1a0a,#5a2a0a)',days:'Day 4',tagline:'Old Tokyo — History & Temples',highlights:[
+    {badge:'Temple',title:'Senso-ji',desc:'Tokyo\'s oldest temple (628 AD). The Kaminarimon gate and Nakamise shopping street are Tokyo\'s most iconic sights.'},
+    {badge:'Shopping',title:'Nakamise Dori',desc:'Traditional souvenir shopping. Try ningyo-yaki cakes (¥100 each), kaminari-okoshi rice crackers, and decorative hagoita paddles.'},
+    {badge:'History',title:'Tokyo Skytree',desc:'World\'s second-tallest structure at 634 meters. Tembo Deck (350m) + Tembo Galleria (450m) for ¥3,400 combined.'},
+    {badge:'Bar',title:'Kamiya Bar',desc:'Japan\'s oldest Western-style bar since 1880. Famous Denki Bran cocktail for ¥360. Still serves it the same way.'},
+  ],tip:'Arrive at Senso-ji at 7am — vendors haven\'t set up yet and the temple is peaceful and perfectly lit.'},
+  kyoto:{name:'Kyoto',emoji:'⛩',color:'linear-gradient(135deg,#2d1b4e,#3a2060)',days:'Days 8–12',tagline:'Ancient Capital — The Soul of Japan',highlights:[
+    {badge:'Must See',title:'Fushimi Inari at Dawn',desc:'The 10,000 torii gate tunnel. Arrive at 6am sharp — empty and ethereal. By 9am it\'s a wall of tourists. First trains from 5:50am.'},
+    {badge:'Bamboo',title:'Arashiyama Bamboo Grove',desc:'Best at 7am when morning light filters through the canopy. By 10am it\'s Instagram influencer traffic. Tenryuji Zen garden nearby.'},
+    {badge:'Temple',title:'Kinkakuji — Golden Pavilion',desc:'Third floor covered in pure gold leaf. The reflection in Kyoko-chi mirror pond is Japan\'s most iconic image. Arrive before 9am. ¥500.'},
+    {badge:'Food',title:'Nishiki Market',desc:'400m covered market. Try fresh yuba, tsukemono pickles, skewered octopus, and matcha soft serve at Tsujiri.'},
+    {badge:'District',title:'Gion — Geisha Quarter',desc:'Hanamikoji Street: stone-paved, wooden teahouses. Most active at dusk. Geiko and maiko are real working professionals — photograph with respect.'},
+    {badge:'Temple',title:'Philosopher\'s Path',desc:'2km canal-side stone path connecting Nanzenji to Ginkakuji. Lined with cherry trees. Stunning in blossom season.'},
+  ],tip:'Kyoto tip: the Starbucks in a 100-year-old machiya townhouse on Ninenzaka has the best views. Worth the queue.'},
+  gion:{name:'Gion',emoji:'🏮',color:'linear-gradient(135deg,#3a1a2e,#4a2040)',days:'Days 8, 9',tagline:'Kyoto\'s Legendary Geisha District',highlights:[
+    {badge:'Street',title:'Hanamikoji-dori',desc:'The most atmospheric street in Japan. Stone-paved, wooden ochaya teahouses, lanterns. Most active between 5–8pm.'},
+    {badge:'District',title:'Gion Shirakawa Canal',desc:'Cherry trees overhang the canal. The small streets beside it are lined with traditional machiya townhouses.'},
+    {badge:'Shrine',title:'Yasaka Shrine',desc:'Illuminated all night. The large torii gate at the top of Shijo-dori is one of Kyoto\'s most recognizable landmarks.'},
+    {badge:'Food',title:'Pontocho Alley',desc:'Narrow lantern-lit alley parallel to the Kamo River. Restaurants with riverside terraces in summer. Best at dusk.'},
+  ],tip:'Do not block, photograph aggressively, or touch geiko and maiko. They are working professionals going to appointments.'},
+  arashiyama:{name:'Arashiyama',emoji:'🎋',color:'linear-gradient(135deg,#1a3a2e,#2a4a3a)',days:'Day 10',tagline:'Bamboo, Monkeys & Mountain Temples',highlights:[
+    {badge:'Must Do',title:'Bamboo Grove at 7am',desc:'Walk from Tenryuji temple north entrance. Low morning light through 20-meter bamboo. By 10am it\'s a selfie traffic jam.'},
+    {badge:'Garden',title:'Tenryuji Zen Garden',desc:'UNESCO World Heritage. The Sogenchi pond garden is one of Japan\'s best preserved medieval Zen gardens. ¥500.'},
+    {badge:'Wildlife',title:'Iwatayama Monkey Park',desc:'Steep 20-min hike. 120 Japanese macaques roam free at the summit. Feed them through wire from inside a cage.'},
+    {badge:'Train',title:'Sagano Torokko Scenic Railway',desc:'7km narrow-gauge train through the Hozu River gorge. 25 minutes of stunning mountain scenery. Book ahead at torokko.sagano.jp.'},
+  ],tip:'The Randen tram is the most atmospheric way back from Arashiyama to central Kyoto. Old-fashioned 1-car tram.'},
+  fushimi:{name:'Fushimi Inari',emoji:'⛩',color:'linear-gradient(135deg,#3a1a0a,#5c2a0a)',days:'Day 9',tagline:'10,000 Torii Gates — The Most Iconic Walk in Japan',highlights:[
+    {badge:'Dawn Walk',title:'6am Entry — The Secret',desc:'The famous torii tunnel is completely empty at 6am. First trains run 5:50am from Kyoto. By 9am it\'s packed solid — no exceptions.'},
+    {badge:'Hike',title:'Full Summit Circuit',desc:'The complete circuit to the summit (233m) takes 2–3 hours round trip. Upper trails are much less crowded than the main tunnel.'},
+    {badge:'Sake',title:'Gekkeikan Sake Museum',desc:'Fushimi is Japan\'s sake brewing district. Gekkeikan brewery museum opens 9am. Sake tasting included. ¥600.'},
+    {badge:'Food',title:'Inari-zushi',desc:'Fox-shaped sushi (sweet fried tofu) is the shrine\'s symbolic food. Stalls near the entrance sell it from 8am.'},
+  ],tip:'Walk on the LEFT side of the torii tunnels. Follow the arrows. The shrine requests no eating/drinking in the gates.'},
+  uji:{name:'Uji',emoji:'🍵',color:'linear-gradient(135deg,#1a3a1a,#2a4a2a)',days:'Day 12',tagline:'Japan\'s Matcha Capital — 30 Minutes from Kyoto',highlights:[
+    {badge:'Temple',title:'Byodoin Phoenix Hall',desc:'Built 1053 AD. Appears on the 10-yen coin. Perfectly reflected in Aji-ike pond. ¥600 + ¥300 Phoenix Hall interior.'},
+    {badge:'Tea',title:'Matcha Parfait at Tsujiri',desc:'Seven layers of matcha perfection. The original matcha dessert shop in Uji. Queue forms early. ¥1,200.'},
+    {badge:'Experience',title:'Tea Ceremony',desc:'30-minute ceremony for ¥1,000–1,500 in any of the tea houses on the main street. Make your own matcha bowl.'},
+    {badge:'Shrine',title:'Ujigami Shrine',desc:'Japan\'s oldest surviving Shinto shrine (994 AD). UNESCO World Heritage. Quiet, mossy, serene.'},
+  ],tip:'Uji is Japan\'s finest matcha source — better than Kyoto tourist shops. Buy premium ceremonial-grade matcha to take home.'},
+  osaka:{name:'Osaka',emoji:'🦑',color:'linear-gradient(135deg,#1a3a2e,#264d3a)',days:'Days 13–16',tagline:'Japan\'s Kitchen — Street Food Capital of the World',highlights:[
+    {badge:'Must Eat',title:'Takoyaki at Wanaka',desc:'The original octopus balls near Dotonbori. Crispy outside, gooey inside, bonito flakes dancing. ¥600 for 8. Don\'t bite immediately — 80°C inside.'},
+    {badge:'Must Eat',title:'Okonomiyaki at Mizuno',desc:'Since 1945 on Dotonbori. Osaka-style savory pancake with toppings mixed INTO the batter. Get the yam version. ¥1,500.'},
+    {badge:'Market',title:'Kuromon Market at 8am',desc:'Osaka\'s professional kitchen market since 1922. Sea urchin on rice (¥400), king crab legs (¥800), wagyu skewers.'},
+    {badge:'Nightlife',title:'Dotonbori Canal',desc:'The neon canal district. Glico running man, giant crab sign at Kani Doraku. Lively until midnight every night.'},
+    {badge:'Historic',title:'Osaka Castle',desc:'The castle is a 1997 reconstruction, but the original stone walls (500,000 stones) and park grounds are genuinely historic. ¥600.'},
+    {badge:'Culture',title:'Shinsekai District',desc:'Retro-futuristic district from the 1912 World Expo. Kushikatsu (deep-fried skewers) everywhere. ONE DIP rule strictly enforced!'},
+  ],tip:'Osaka ONE DIP rule: you get exactly one dip of kushikatsu into the communal sauce. Use shredded cabbage for more sauce. Double-dipping is a serious social offense.'},
+  nara:{name:'Nara',emoji:'🦌',color:'linear-gradient(135deg,#1a2a1a,#2a3a2a)',days:'Day 13',tagline:'Sacred Deer, Ancient Temples & Japan\'s First Capital',highlights:[
+    {badge:'Wildlife',title:'1,200 Free-Roaming Deer',desc:'The deer are genuinely sacred and free. Buy shika-senbei crackers (¥200). They bow to ask, and headbutt if you tease. Brilliant comedy.'},
+    {badge:'Temple',title:'Todai-ji — World\'s Largest Wooden Building',desc:'Houses a 15-meter bronze Buddha (Daibutsu). Try to squeeze through the wooden pillar — legend says it grants enlightenment. ¥600.'},
+    {badge:'Shrine',title:'Kasuga Taisha Shrine',desc:'3,000 stone and bronze lanterns lining a forested approach. The mossy stone lantern path is photogenic in all seasons.'},
+    {badge:'History',title:'Nara Park',desc:'The entire center of Nara is a park. Walk between Todai-ji, Kasuga Taisha, and Kofuku-ji all on foot through the deer.'},
+  ],tip:'Nara is a perfect 3-hour transit stop between Kyoto and Osaka. Forward your luggage and travel light with just a day bag.'},
+  dotonbori:{name:'Dotonbori',emoji:'🌃',color:'linear-gradient(135deg,#2a0a0a,#4a1a0a)',days:'Days 13–15',tagline:'Osaka\'s Neon Heart',highlights:[
+    {badge:'Landmark',title:'Glico Running Man',desc:'The most photographed sign in Osaka. Located at the Ebisubashi Bridge. Best photos at night when it\'s fully illuminated.'},
+    {badge:'Landmark',title:'Kani Doraku Crab Sign',desc:'The giant mechanically-moving crab. The restaurant itself is famous for all-crab courses (¥5,000–12,000).'},
+    {badge:'Nightlife',title:'Canal Promenade',desc:'Walk the canal from Nipponbashi to Shinsaibashisuji. Street food vendors, entertainers, and neon reflections in the water.'},
+    {badge:'Food',title:'Kushikatsu in Shinsekai',desc:'Only 10 minutes from Dotonbori. Deep-fried skewers of everything imaginable. ONE DIP in communal sauce — strictly enforced.'},
+  ],tip:'Best photo of Dotonbori: stand on Ebisubashi bridge at 10pm when all the neon signs are fully lit and reflected in the canal.'},
+  kobe:{name:'Kobe',emoji:'🥩',color:'linear-gradient(135deg,#1a1a2e,#2a2a4e)',days:'Day 15',tagline:'Wagyu Beef, European Architecture & Harbour Views',highlights:[
+    {badge:'Must Eat',title:'Kobe Beef at Misono',desc:'Japan\'s first teppanyaki restaurant. Kobe beef lunch set: ¥6,000–12,000 depending on grade. The beef literally melts on your tongue.'},
+    {badge:'History',title:'Kitano-cho Foreign Settlement',desc:'Well-preserved late 19th-century Western mansions from Kobe\'s treaty port era. Cobblestone streets, European architecture.'},
+    {badge:'Memorial',title:'1995 Earthquake Memorial',desc:'At Meriken Park, the original earthquake-damaged pier has been preserved exactly as found. One of Japan\'s most powerful memorials.'},
+    {badge:'Views',title:'Nunobiki Herb Garden',desc:'Cable car up to a hillside herb garden with views over Kobe and Osaka Bay. Herb soft-serve at the top. ¥1,800 return.'},
+  ],tip:'Kobe beef certification: ask for the official certification number. Genuine Kobe beef starts at ¥5,000–6,000. Anything cheaper is regular wagyu.'},
+  shinsekai:{name:'Shinsekai',emoji:'🍢',color:'linear-gradient(135deg,#2a1a0a,#4a2a0a)',days:'Day 14',tagline:'Retro-Futuristic Osaka — Kushikatsu Capital',highlights:[
+    {badge:'Food',title:'Kushikatsu — The Local Specialty',desc:'Deep-fried skewers of everything: beef, pork, shrimp, vegetables, cheese. Each piece dipped ONCE in the communal sauce. ¥100–300 per skewer.'},
+    {badge:'Landmark',title:'Tsutenkaku Tower',desc:'Original 1912 Expo tower. The retro-style 103-meter tower is Shinsekai\'s symbol. Views over Osaka. ¥1,000.'},
+    {badge:'Culture',title:'Billiken Statue',desc:'The "God of Things as They Ought to Be." Rub the soles of his feet for good luck. Located inside Tsutenkaku Tower.'},
+    {badge:'Atmosphere',title:'Janjan横丁 Alley',desc:'Narrow alley of old-fashioned shogi parlors, standing bars, and nostalgic shops. The most unchanged street in modern Osaka.'},
+  ],tip:'Shinsekai ONE DIP law is serious — use the shredded cabbage provided as a ladle to get extra sauce rather than double dipping.'},
+  hiroshima:{name:'Hiroshima',emoji:'☮',color:'linear-gradient(135deg,#3a1a1a,#5c2020)',days:'Days 17–18',tagline:'Peace, Resilience & Japan\'s Most Important Story',highlights:[
+    {badge:'Must Visit',title:'Peace Memorial Museum',desc:'One of the most important museums in the world. Allow 2 full hours minimum. The melted watches stopped at 8:15am. ¥200. Deeply moving.'},
+    {badge:'UNESCO',title:'Atomic Bomb Dome',desc:'The only structure left standing near the hypocenter, preserved exactly as it was after August 6, 1945. UNESCO World Heritage Site.'},
+    {badge:'Memorial',title:'Children\'s Peace Monument',desc:'Paper crane memorial for Sadako Sasaki. Visitors leave origami cranes from around the world. The main arch frames the A-bomb dome.'},
+    {badge:'Food',title:'Hiroshima Okonomiyaki',desc:'Different from Osaka-style — layered (not mixed), with yakisoba noodles inside. Okonomi-mura building has 3 floors of restaurants. ¥1,100–1,500.'},
+  ],tip:'The Peace Memorial Museum sells out timed entry on weekends. Book at pcf.city.hiroshima.jp before your trip.'},
+  miyajima:{name:'Miyajima',emoji:'⛩',color:'linear-gradient(135deg,#1a2a3a,#2a3a5a)',days:'Day 18',tagline:'The Floating Torii Gate — Most Beautiful Island in Japan',highlights:[
+    {badge:'Iconic',title:'Itsukushima Shrine at High Tide',desc:'Check tide times in advance. At high tide, the great torii appears to float on the Seto Inland Sea. ¥300 entry. The defining image of Japan.'},
+    {badge:'Hike',title:'Mt. Misen Summit',desc:'Ropeway to Shishiiwa Station (¥2,000 return), then 30-min hike. Views of the Seto Inland Sea. Sacred flame burning for 1,200 years at the top.'},
+    {badge:'Low Tide',title:'Walk to the Torii Gate',desc:'At low tide, you can walk across the sand to the base of the giant torii. Check the tide table and time your afternoon visit.'},
+    {badge:'Food',title:'Fresh Oysters at Kakiya',desc:'Miyajima oysters are famous — six large grilled oysters overlooking the sea for ¥1,200. The freshest shellfish in Japan.'},
+  ],tip:'The torii only "floats" at high tide. Plan your morning visit for high tide and afternoon for low tide (walking to the base).'},
+  kanazawa:{name:'Kanazawa',emoji:'🥢',color:'linear-gradient(135deg,#1a2d3a,#243d4e)',days:'Days 19–20',tagline:'Japan\'s Hidden Gem — Little Kyoto, Never Bombed',highlights:[
+    {badge:'Garden',title:'Kenroku-en at 7:30am',desc:'One of Japan\'s three great gardens. 11 hectares, built over 180 years. The kotoji-toro lantern in morning mist is one of Japan\'s best images. ¥320.'},
+    {badge:'District',title:'Higashi Chaya Geisha Quarter',desc:'Better preserved than Gion. Amber-lacquered chaya teahouses unchanged since the 1820s. Shima teahouse museum gives interior access. ¥750.'},
+    {badge:'Market',title:'Omicho Market',desc:'Freshest seafood outside Tokyo. Crab, sweet shrimp (ama-ebi), Noto Peninsula specialties. Try the crab chirashi don (¥2,000).'},
+    {badge:'Unique',title:'Gold Leaf Ice Cream',desc:'Kanazawa produces 99% of Japan\'s gold leaf. 24-karat gold leaf on soft serve ice cream at Hakuichi. ¥700. Yes, it\'s real edible gold.'},
+    {badge:'Museum',title:'21st Century Museum of Contemporary Art',desc:'Leandro Erlich\'s Swimming Pool — people inside appear to be underwater to those above. ¥1,000 paid zone.'},
+  ],tip:'Kanazawa has a flat-rate 100-yen tourist bus (Hyaku-Maru). Day pass ¥500. Runs every 12–15 minutes to all major sights.'},
+  kenrokuen:{name:'Kenroku-en Garden',emoji:'🌿',color:'linear-gradient(135deg,#1a3a1a,#2a4a2a)',days:'Day 20',tagline:'One of Japan\'s Three Great Gardens',highlights:[
+    {badge:'Garden',title:'Kotoji-toro Lantern',desc:'The two-legged stone lantern in the lower pond is Japan\'s most photographed garden element. Best in morning mist or autumn leaves.'},
+    {badge:'Season',title:'Yukitsuri (Winter)',desc:'From November, trees are wrapped in rope cones to protect from snow — creating one of Japan\'s most iconic winter images.'},
+    {badge:'History',title:'Built Over 180 Years',desc:'Construction began in 1676 under the Maeda clan. Extended over six generations, each adding new elements. 11 hectares total.'},
+    {badge:'Adjacent',title:'Kanazawa Castle Park',desc:'Free entry to the castle park grounds. The Hishi Yagura tower is restored to its original 17th-century appearance.'},
+  ],tip:'Arrive right at opening time (7am in summer, 8am in winter) for the garden completely to yourself in the mist.'},
+  takayama:{name:'Takayama',emoji:'🏔',color:'linear-gradient(135deg,#2a2a1a,#3d3d20)',days:'Days 21–22',tagline:'Japan\'s Most Intact Edo-Period Town',highlights:[
+    {badge:'Street',title:'Sanmachi Suji — Three Streets',desc:'Japan\'s most perfectly preserved Edo-period merchant district. 18th-century wooden buildings housing sake breweries, miso shops, and crafts.'},
+    {badge:'Sake',title:'Six Sake Breweries on One Street',desc:'Look for the sugidama (cedar ball) hanging outside — it means fresh sake is ready. Free tasting at Funasaka, Hirase, and Ota breweries.'},
+    {badge:'Food',title:'Hida Beef',desc:'Same black cattle as Kobe and Matsusaka beef, from this mountain region. Hida beef skewer: ¥800–1,200. Extraordinary quality.'},
+    {badge:'Hike',title:'Higashiyama Walking Course',desc:'Temple and shrine circuit through the hillside. 11 temples and shrines connected by a forested path. Evening golden light.'},
+  ],tip:'Book the Nouhi Bus from Kanazawa to Takayama weeks in advance in peak season (spring/autumn). The mountain scenery through the Hida pass is spectacular.'},
+  shirakawago:{name:'Shirakawa-go',emoji:'🏠',color:'linear-gradient(135deg,#2a3a2a,#3a4a3a)',days:'Day 22',tagline:'UNESCO World Heritage Thatched-Roof Village',highlights:[
+    {badge:'Architecture',title:'Gassho-zukuri Farmhouses',desc:'114 farmhouses with 60° steep-thatched roofs designed to shed heavy mountain snow. The largest is 5 stories tall. Wada House museum. ¥300.'},
+    {badge:'Viewpoint',title:'Shiroyama Overlook',desc:'10-minute walk up the hill. The entire village basin surrounded by forested mountains — the most iconic view of Shirakawa-go.'},
+    {badge:'Season',title:'Winter Snow — January/February',desc:'The village under deep snow looks like a fairy tale. Worth rescheduling your entire itinerary around if you\'re traveling in winter.'},
+    {badge:'Food',title:'Irori-nabe',desc:'Hearty mountain stew cooked around an open sunken hearth (irori) inside a farmhouse restaurant. ¥1,500–2,000.'},
+  ],tip:'Book the Nohi Bus from Takayama to Shirakawa-go online. ¥2,600 return. Fill up at the viewpoint first before crowds arrive.'},
+  matsumoto:{name:'Matsumoto',emoji:'🏯',color:'linear-gradient(135deg,#1a1a3a,#202055)',days:'Day 23',tagline:'Japan\'s Oldest Surviving Original Castle',highlights:[
+    {badge:'Castle',title:'Matsumoto Castle — The Crow Castle',desc:'Japan\'s oldest surviving original castle (never destroyed or rebuilt). Black exterior earns the \'Crow Castle\' nickname. Views of the Alps from the top floor. ¥700.'},
+    {badge:'Art',title:'Yayoi Kusama Museum',desc:'Matsumoto is the birthplace of Yayoi Kusama. The city museum has a massive permanent collection of her work including infinity mirror rooms.'},
+    {badge:'Shopping',title:'Nawate Street',desc:'Frog-themed covered market along the river. Old-fashioned candy shops, craft stalls, and retro kitsch. The neighborhood mascot is a frog.'},
+    {badge:'Onsen',title:'Asama Onsen',desc:'30-minute bus from central Matsumoto. Classic mountain resort town. Public bath entry ¥550. Milky sulfurous water.'},
+  ],tip:'Matsumoto Castle has maximum occupancy — early arrivals avoid the slow zigzag queue. The wooden stairs are steep and narrow (original 16th-century dimensions). No heels.'},
+  kamakura:{name:'Kamakura',emoji:'🗿',color:'linear-gradient(135deg,#1a2a1a,#2a3a2a)',days:'Day 27',tagline:'Great Buddha, Zen Temples & Coastal Town',highlights:[
+    {badge:'Landmark',title:'Great Buddha (Kamakura Daibutsu)',desc:'13-meter bronze Buddha built 1252. Originally inside a temple swept away by tsunami in 1498. You can enter the hollow statue for ¥20. ¥300.'},
+    {badge:'Temple',title:'Hase-dera Temple',desc:'Hillside temple with a 9-meter gilded wooden Kannon statue. Cave passage with hundreds of small carvings. Sea views from upper garden. ¥400.'},
+    {badge:'Island',title:'Enoshima via Enoden Tram',desc:'Vintage 2-car tram from Kamakura (25 min, ¥260). The tram runs practically on the sand along the beach road. Sit on the sea side.'},
+    {badge:'Unique',title:'Zeniarai Benten Cave Shrine',desc:'A cave shrine where you wash money in the spring water to make it multiply. A very Japanese folk belief. 20-min walk from central Kamakura.'},
+  ],tip:'The Enoden tram between Kamakura and Enoshima runs so close to the beach that it practically touches the sand. The best train ride in Kanto.'},
+  shibuya:{name:'Shibuya',emoji:'🚦',color:'linear-gradient(135deg,#1a0a2e,#2d1060)',days:'Days 2, 6, 28',tagline:'The World\'s Most Famous Crossing',highlights:[
+    {badge:'Iconic',title:'Shibuya Scramble Crossing',desc:'Up to 3,000 people cross simultaneously from all directions. Best viewed from Starbucks 2nd floor window or Mag\'s Park roof of Shibuya 109.'},
+    {badge:'Views',title:'Shibuya Sky Observatory',desc:'Book online at least 1 week ahead (¥2,000). Top-floor outdoor 360° observation deck. Sunset slot at 5:30pm is the best.'},
+    {badge:'Shopping',title:'Shimokitazawa Vintage',desc:'50+ vintage clothing stores in a 15-minute radius. Rare Japanese denim, 90s streetwear, vintage Levi\'s. Prices 30% lower than London or NYC.'},
+    {badge:'Bars',title:'Nonbei Yokocho',desc:'Nonbei = drinker\'s alley. Small bars near Shibuya station. Some with English menus. All intimate. Trunk Hotel rooftop bar nearby.'},
+  ],tip:'Book Shibuya Sky online — it sells out on weekends and during golden hour slots weeks in advance.'},
+  yanaka:{name:'Yanaka',emoji:'🏘',color:'linear-gradient(135deg,#2a1a0a,#3a2a0a)',days:'Day 24',tagline:'Old Tokyo — The Neighborhood That Survived',highlights:[
+    {badge:'History',title:'Tokyo\'s Most Intact Pre-War Neighborhood',desc:'Narrow lanes, traditional craftsmen (umbrella maker, tofu shop, tatami store), old temples, and a wonderful cemetery with enormous old trees.'},
+    {badge:'Shopping',title:'Yanaka Ginza Shopping Street',desc:'Short retro covered shotengai with melon pan bakeries, yakitori stalls, cat figurine shops (cats are the neighborhood symbol).'},
+    {badge:'Cemetery',title:'Yanaka Cemetery',desc:'One of Tokyo\'s oldest cemeteries, famous for enormous old cherry trees. Many famous Japanese historical figures are buried here.'},
+    {badge:'Craft',title:'Traditional Craftsmen',desc:'Active traditional craftspeople still working on the lanes — tatami weavers, umbrella makers, tofu shops, traditional sweets. The real Tokyo.'},
+  ],tip:'Yanaka is completely non-touristy and locals live normally here. The best neighborhood in Tokyo for experiencing everyday Japanese life.'},
+};
+
+function openCityDetail(cityKey){
+  const city=cityData[cityKey];
+  if(!city){
+    openModal('xplore');
+    return;
+  }
+  document.getElementById('citydetail-title').textContent=city.emoji+' '+city.name;
+  const body=document.getElementById('citydetail-body');
+  let html=`
+    <div class="city-hero" style="background:${city.color}">
+      <div style="font-family:'Noto Serif JP',serif;font-size:1.5rem;opacity:0.2;margin-bottom:0.4rem">日本</div>
+      <h2>${city.emoji} ${city.name}</h2>
+      <p>${city.tagline}</p>
+      <span style="background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;font-size:0.72rem;font-family:'Syne',sans-serif;font-weight:600">${city.days}</span>
+    </div>
+    <div class="city-highlights">
+  `;
+  city.highlights.forEach(h=>{
+    html+=`<div class="ch-card">
+      <div class="ch-badge">${h.badge}</div>
+      <h4>${h.title}</h4>
+      <p>${h.desc}</p>
+    </div>`;
+  });
+  html+=`</div>`;
+  html+=`<div class="hack-box"><span class="hack-icon">💡</span><span class="hack-text"><strong>Pro tip:</strong> ${city.tip}</span></div>`;
+  html+=`<div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+    <a href="#" class="btn-primary" onclick="closeModal('citydetail');openModal('xplore');return false;">View Full Itinerary ↗</a>
+    <a href="#" class="btn-secondary" onclick="closeModal('citydetail');return false;">Close</a>
+  </div>`;
+  body.innerHTML=html;
+  openModal('citydetail');
+}
+
+// ============================================================
+// THREE.JS 3D BOOK
+// ============================================================
+let threeScene=null,threeRenderer=null,threeAnimFrame=null;
+
+function init3D(){
+  const canvas=document.getElementById('threeCanvas');
+  if(!canvas||threeScene)return;
+  const W=canvas.parentElement.offsetWidth,H=320;
+  const scene=new THREE.Scene();
+  threeScene=scene;
+  scene.background=new THREE.Color(0x0a0a1a);
+
+  const camera=new THREE.PerspectiveCamera(45,W/H,0.1,100);
+  camera.position.set(0,0,4.5);
+
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  renderer.setSize(W,H);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  threeRenderer=renderer;
+
+  // Lighting
+  const amb=new THREE.AmbientLight(0xffffff,0.5);
+  scene.add(amb);
+  const dir=new THREE.DirectionalLight(0xfff4e0,1.5);
+  dir.position.set(3,4,5);
+  scene.add(dir);
+  const dir2=new THREE.DirectionalLight(0xe8a0b0,0.4);
+  dir2.position.set(-3,-2,-4);
+  scene.add(dir2);
+  const pt=new THREE.PointLight(0xd4472a,1,10);
+  pt.position.set(-2,2,2);
+  scene.add(pt);
+
+  // Book group
+  const book=new THREE.Group();
+  scene.add(book);
+
+  // Cover material (dark rich cover)
+  const coverMat=new THREE.MeshStandardMaterial({color:0x1a1a2e,roughness:0.3,metalness:0.2});
+  const spineMat=new THREE.MeshStandardMaterial({color:0xd4472a,roughness:0.4,metalness:0.1});
+  const pageMat=new THREE.MeshStandardMaterial({color:0xfaf7f0,roughness:0.8,metalness:0.0});
+  const goldMat=new THREE.MeshStandardMaterial({color:0xc9962a,roughness:0.2,metalness:0.8,emissive:0x3a2a00,emissiveIntensity:0.3});
+
+  // Front cover
+  const frontCover=new THREE.Mesh(new THREE.BoxGeometry(2.2,3,0.06),coverMat);
+  frontCover.position.set(0,0,0.2);
+  book.add(frontCover);
+
+  // Back cover
+  const backCover=new THREE.Mesh(new THREE.BoxGeometry(2.2,3,0.06),coverMat);
+  backCover.position.set(0,0,-0.2);
+  book.add(backCover);
+
+  // Spine
+  const spine=new THREE.Mesh(new THREE.BoxGeometry(0.4,3,0.4),spineMat);
+  spine.position.set(-1.1,0,0);
+  book.add(spine);
+
+  // Pages
+  const pages=new THREE.Mesh(new THREE.BoxGeometry(1.8,2.85,0.35),pageMat);
+  pages.position.set(0.1,0,0);
+  book.add(pages);
+
+  // Gold strip decoration on cover
+  const strip=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.06,0.07),goldMat);
+  strip.position.set(0,0.9,0.24);
+  book.add(strip);
+  const strip2=new THREE.Mesh(new THREE.BoxGeometry(2.0,0.06,0.07),goldMat);
+  strip2.position.set(0,-0.9,0.24);
+  book.add(strip2);
+
+  // Gold corner decorations
+  const corners=[[0.9,1.35],[0.9,-1.35],[-0.9,1.35],[-0.9,-1.35]];
+  corners.forEach(([x,y])=>{
+    const corner=new THREE.Mesh(new THREE.BoxGeometry(0.2,0.2,0.07),goldMat);
+    corner.position.set(x,y,0.24);
+    book.add(corner);
+  });
+
+  // Small floating particles (sakura petals)
+  const petalGeo=new THREE.PlaneGeometry(0.05,0.05);
+  const petalMat=new THREE.MeshBasicMaterial({color:0xe8a0b0,transparent:true,opacity:0.7,side:THREE.DoubleSide});
+  const petals=[];
+  for(let i=0;i<40;i++){
+    const p=new THREE.Mesh(petalGeo,petalMat.clone());
+    p.position.set((Math.random()-0.5)*6,(Math.random()-0.5)*4,(Math.random()-0.5)*3);
+    p.userData.speed={x:(Math.random()-0.5)*0.003,y:-Math.random()*0.004-0.001,r:Math.random()*0.02};
+    p.userData.opacity=0.3+Math.random()*0.6;
+    scene.add(p);
+    petals.push(p);
+  }
+
+  // Mouse/touch drag
+  let isDragging=false,prevMouse={x:0,y:0};
+  let rotX=0.3,rotY=0.4;
+  let autoRotate=true;
+
+  canvas.addEventListener('mousedown',e=>{isDragging=true;prevMouse={x:e.clientX,y:e.clientY};autoRotate=false});
+  canvas.addEventListener('mousemove',e=>{
+    if(!isDragging)return;
+    const dx=(e.clientX-prevMouse.x)*0.01;
+    const dy=(e.clientY-prevMouse.y)*0.01;
+    rotY+=dx;rotX+=dy;
+    prevMouse={x:e.clientX,y:e.clientY};
+  });
+  canvas.addEventListener('mouseup',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
+  canvas.addEventListener('mouseleave',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
+
+  // Touch
+  canvas.addEventListener('touchstart',e=>{isDragging=true;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};autoRotate=false});
+  canvas.addEventListener('touchmove',e=>{
+    if(!isDragging)return;
+    e.preventDefault();
+    const dx=(e.touches[0].clientX-prevMouse.x)*0.01;
+    const dy=(e.touches[0].clientY-prevMouse.y)*0.01;
+    rotY+=dx;rotX+=dy;
+    prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};
+  },{passive:false});
+  canvas.addEventListener('touchend',()=>{isDragging=false;setTimeout(()=>autoRotate=true,2000)});
+
+  // Zoom
+  canvas.addEventListener('wheel',e=>{
+    camera.position.z=Math.max(2.5,Math.min(8,camera.position.z+e.deltaY*0.005));
+  },{passive:true});
+
+  let t=0;
+  function animate(){
+    threeAnimFrame=requestAnimationFrame(animate);
+    t+=0.01;
+    if(autoRotate)rotY+=0.005;
+    book.rotation.x=rotX;
+    book.rotation.y=rotY;
+    // Floating bob
+    book.position.y=Math.sin(t*0.5)*0.1;
+    // Petals animation
+    petals.forEach(p=>{
+      p.position.x+=p.userData.speed.x;
+      p.position.y+=p.userData.speed.y;
+      p.rotation.z+=p.userData.speed.r;
+      if(p.position.y<-2.5)p.position.y=2.5;
+    });
+    // Dynamic lighting
+    pt.intensity=0.8+Math.sin(t*0.7)*0.3;
+    renderer.render(scene,camera);
+  }
+  animate();
+}
+
+function stop3D(){
+  if(threeAnimFrame){cancelAnimationFrame(threeAnimFrame);threeAnimFrame=null;}
+  if(threeRenderer){threeRenderer.dispose();threeRenderer=null;}
+  threeScene=null;
+}
+
+// Override openModal to init 3D when guide3d opens
+const _origOpenModal=openModal;
+window.openModal=function(name){
+  _origOpenModal(name);
+  if(name==='guide3d'){
+    setTimeout(()=>{
+      if(!window.THREE){
+        const s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        s.onload=()=>init3D();
+        document.head.appendChild(s);
+      } else {
+        init3D();
+      }
+    },100);
+  }
+};
 
 // Init
 buildTenDay();
